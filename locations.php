@@ -19,39 +19,39 @@ if (isset($_GET['help'])) {
     header("Content-Type: application/json");
     //locations
     if (isset($_GET['q'])) {
-        $pQ = $_GET['q'];
+        $pQuery = $_GET['q'];
     } else {
         exit("Error! Set q or set help for help");
     }
     if (isset($_GET['poi'])) {
-        $gPOI = filter_var($_GET['poi'], FILTER_VALIDATE_BOOLEAN);
+        $pPOI = filter_var($_GET['poi'], FILTER_VALIDATE_BOOLEAN);
     } else {
-        $gPOI = True;
+        $pPOI = True;
     }
     if (isset($_GET['stops'])) {
-        $gStops = filter_var($_GET['stops'], FILTER_VALIDATE_BOOLEAN);
+        $pStops = filter_var($_GET['stops'], FILTER_VALIDATE_BOOLEAN);
     } else {
-        $gStops = True;
+        $pStops = True;
     }
     if (isset($_GET['addresses'])) {
-        $gStreets = filter_var($_GET['addresses'], FILTER_VALIDATE_BOOLEAN);
+        $pStreets = filter_var($_GET['addresses'], FILTER_VALIDATE_BOOLEAN);
     } else {
-        $gStreets = True;
+        $pStreets = True;
     }
     if (isset($_GET['results'])) {
-        $paramResults = $_GET['results'];
+        $pResults = $_GET['results'];
     } else {
-        $paramResults = 10;
+        $pResults = 10;
     }
     if (isset($_GET['language'])) {
-        $paramLang = $_GET['language'];
+        $pLang = $_GET['language'];
     } else {
-        $paramLang = "en";
+        $pLang = "en";
     }
     if (isset($_GET['pretty'])) {
         $pPretty = $_GET['pretty'];
     } else {
         $pPretty = False;
     }
-    echo utf8_decode(getLocation($argQuery=$pQ, $argNumResults=$paramResults, $argLanguage=$paramLang, $argGetPOI=$gPOI, $argGetStreets = $gStreets, $argGetStops = $gStops, $argPretty=$pPretty));
+    echo utf8_decode(getLocation($argQuery=$pQuery, $argNumResults=$pResults, $argLanguage=$pLang, $argGetPOI=$pPOI, $argGetStreets = $pStreets, $argGetStops = $pStops, $argPretty=$pPretty));
 }
