@@ -20,18 +20,24 @@ pretty          False       Pretty-print JSON?
 header("Content-Type: application/json");
 
 //stops/nearby
-if (!isset($_GET['latitude']) and !isset($_GET['longitude'])) {
-    exit("Error! Set latitude and longitude or set help for help");;
-}
-if (isset($_GET['latitude'])) {
-    $pLatitude = floatval($_GET['latitude']);
+if (isset($_GET['latlong'])) {
+    $pLatitude = trim(explode(",", $_GET["latlong"])[0]);
+    $pLongitude = trim(explode(",", $_GET["latlong"])[1]);
+    
 } else {
-    exit("Error! Set latitude");
-}
-if (isset($_GET['longitude'])) {
-    $pLongitude = floatval($_GET['longitude']);
-} else {
-    exit("Error! Set longitude");
+    if (!isset($_GET['latitude']) and !isset($_GET['longitude'])) {
+        exit("Error! Set latitude and longitude or set help for help");;
+    }
+    if (isset($_GET['latitude'])) {
+        $pLatitude = floatval($_GET['latitude']);
+    } else {
+        exit("Error! Set latitude");
+    }
+    if (isset($_GET['longitude'])) {
+        $pLongitude = floatval($_GET['longitude']);
+    } else {
+        exit("Error! Set longitude");
+    }
 }
 /*
  latitude	Required.	number	–
