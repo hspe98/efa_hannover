@@ -341,17 +341,17 @@ function stops_nearby_translateMOTNumStrtoProdList($numberStr)
     return $MOT_list;
 }
 
-/*
- * latitude Required. number –
- * longitude Required. number –
- * results maximum number of results integer 8
- * distance maximum walking distance in meters integer –
- * stops Return stops/stations? boolean true
- * poi Return points of interest? boolean false
- * linesOfStops Parse & expose lines at each stop/station? boolean false
- * language Language of the results. string en
- * pretty Pretty-print JSON responses? boolean true
- *
+/**
+ * @param float $argLat Latitude
+ * @param float $argLong Longitude
+ * @param int $argResults number of results
+ * @param int $argDistance maximal distance
+ * @param boolean $argStops get stops
+ * @param boolean $argPoi get POIs
+ * @param boolean $argLinesOfStops get lines of stops
+ * @param string $argLanguage set output language
+ * @param boolean $argPretty pretty-print json?
+ * @return string
  */
 function getStopsNearby($argLat, $argLong, $argResults, $argDistance, $argStops = True, $argPoi = False, $argLinesOfStops = False, $argLanguage = "en", $argPretty = False)
 {
@@ -485,9 +485,19 @@ function getStopsById($argId, $argLinesOfStops = False, $argLanguage = "en", $ar
     }
 }
 
-// STOPS_DEPARTURE
+// used in stops_departures.php
+/**
+ * 
+ * EFA uses as date format YYYYMMDD and as time format HHMM
+ * 
+ * This function converts these formats to an normal ISO timestamp
+ * 
+ * @param string[] $efa_dt
+ * @return string
+ */
 function translateEFADateTimeToISO($efa_dt)
 {
+    // builds a time-/datestamp from the given array
     $datetime = strtotime($efa_dt['day'] . "." . $efa_dt['month'] . "." . $efa_dt['year'] . " " . $efa_dt['hour'] . ":" . $efa_dt['minute']);
     $datetime = date("c", $datetime);
     return $datetime;
@@ -495,35 +505,6 @@ function translateEFADateTimeToISO($efa_dt)
 
 function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argDuration = 99999999, $argDirection = "", $argRemarks = True, $argLinesOfStops = True, $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argPretty = True)
 {
-    /*
-     * XML_DM_REQUEST?
-     * name_dm=25000033
-     * &type_dm=any
-     * &trITMOTvalue100=10
-     * &changeSpeed=normal
-     * &exclMOT_0=1
-     * &exclMOT_1=1
-     * &exclMOT_2=1
-     * &mergeDep=1
-     * &coordOutputFormat=WGS84
-     * &coordListOutputFormat=STRING
-     * &outputFormat=JSON
-     * &useAllStops=1
-     * &excludedMeans=checkbox
-     * &useRealtime=1
-     * &deleteAssignedStops=1
-     * &itOptionsActive=1
-     * &canChangeMOT=0
-     * &mode=direct
-     * &ptOptionsActive=1
-     * &limit=10
-     * &imparedOptionsActive=1
-     * &locationServerActive=1
-     * &depType=stopEvents
-     * &useProxFootSearch=0
-     * &maxTimeLoop=2
-     * &includeCompleteStopSeq=1
-     */
     $query = "locationServerActive=1&mergeDep=1&coordOutputFormat=WGS84[DD.dddddddd]";
     $query .= "&type_dm=any&itOptionsActive=1&ptOptionsActive=1&mode=direct&useRealtime=1&depType=stopEvents&includeCompleteStopSeq=1";
     $query .= "&name_dm=" . $argId;
