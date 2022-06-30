@@ -1,1 +1,1 @@
-<?php
+Yet not helpful
