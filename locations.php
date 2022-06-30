@@ -53,5 +53,5 @@ if (isset($_GET['help'])) {
     } else {
         $pPretty = False;
     }
-    echo utf8_decode(getLocation($pQ, $numResults=$paramResults, $language=$paramLang, $getPOI=$gPOI, $getStreets = $gStreets, $getStops = $gStops, $pretty=$pPretty));
+    echo utf8_decode(getLocation($argQuery=$pQ, $argNumResults=$paramResults, $argLanguage=$paramLang, $argGetPOI=$gPOI, $argGetStreets = $gStreets, $argGetStops = $gStops, $argPretty=$pPretty));
 }

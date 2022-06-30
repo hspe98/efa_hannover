@@ -86,14 +86,16 @@ function xmlToArray($xml, $options = array())
     );
 }
 
-
 /**
- * 
+ *
  * Builds the URL and gets the data as an utf-8 decoded string
- * 
- * @param string $method The XML method to be called
- * @param string $outputFormat The desired output format (json or xml)
- * @param string $query The query provided by the functions
+ *
+ * @param string $method
+ *            The XML method to be called
+ * @param string $outputFormat
+ *            The desired output format (json or xml)
+ * @param string $query
+ *            The query provided by the functions
  * @return string
  */
 function getData($method, $outputFormat = "json", $query)
@@ -121,31 +123,31 @@ function getData($method, $outputFormat = "json", $query)
     return utf8_decode($output);
 }
 
-// LOCATIONS
+// used in locations.php
 /**
- * 
+ *
  * Takes a string of comma seperated numbers and converts them to MOT text
- * 
+ *
  * Each numbers witch is in the list, is a avaiable MOT at this location
- * 
+ *
  * [MOT = mode of transport]
- * 
+ *
  * e.g. $numberStr = "5,6,10"
- * 
+ *
  * result as json = {
- *      "train": false,
- *      "suburban": false,
- *      "subway": false,
- *      "tram": false,
- *      "subwaytram": false,
- *      "citybus": true,
- *      "regiobus": false,
- *      "expressbus": false,
- *      "dialabus": false,
- *      "others": false
+ * "train": false,
+ * "suburban": false,
+ * "subway": false,
+ * "tram": false,
+ * "subwaytram": false,
+ * "citybus": true,
+ * "regiobus": false,
+ * "expressbus": false,
+ * "dialabus": false,
+ * "others": false
  * }
- * 
- * 
+ *
+ *
  * @param string $numberStr
  * @return array $MOT_list
  */
@@ -190,23 +192,33 @@ function locations_translateMOTNumStrtoProdList($numberStr)
     return $MOT_list;
 }
 
-
 /**
- * @param string $argQuery set the query string _(can also be id of stops etc.)_
- * @param number $argNumResults set the number of results witch should be returned
- * @param string $argLanguage set the language, default is "en" (alt.: "de")
- * @param boolean $argGetPOI get POI locations?
- * @param boolean $argGetStreets get streets as locations?
- * @param boolean $argGetStops get stops as locations?
- * @param boolean $argPretty return pretty-print json?
+ *
+ * get locations by query
+ *
+ * @param string $argQuery
+ *            set the query string _(can also be id of stops etc.)_
+ * @param number $argNumResults
+ *            set the number of results witch should be returned
+ * @param string $argLanguage
+ *            set the language, default is "en" (alt.: "de")
+ * @param boolean $argGetPOI
+ *            get POI locations?
+ * @param boolean $argGetStreets
+ *            get streets as locations?
+ * @param boolean $argGetStops
+ *            get stops as locations?
+ * @param boolean $argPretty
+ *            return pretty-print json?
  * @return string
- * @usage 
+ * @usage
  */
 function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGetPOI = True, $argGetStreets = True, $argGetStops = True, $argPretty = False)
 {
     // Calculate filter value
     /*
-     * anyObjFilter_<usage>
+     * From the documentation:
+     * "anyObjFilter_<usage>
      * Die Suche kann auf bestimmte Objekttypen eingegrenzt werden. Der Wert des Parameters ist eine Bitmaske. Die einzelnen Objekttypen lassen sich beliebig kombinieren=>
      *  0 (Kein Filter aktiv)
      *  1 (Orte)
@@ -215,27 +227,34 @@ function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGe
      *  8 (Adressen)
      *  16 (Kreuzungen)
      *  32 (POI-IDs und -Aliasnamen)
-     *  64 (Postleitzahlen)
+     *  64 (Postleitzahlen)"
      */
+    // apply no filter, when everything should be gotten
     if (($argGetPOI) and ($argGetStreets) and ($argGetStops)) {
         $anyObjFilter_sf = 0;
     } else {
         if ($argGetPOI) {
+            // get pois
             $anyObjFilter_sf += 32;
         }
         if ($argGetStreets) {
+            // get street crossings, addresses and street names (16+8+4)
             $anyObjFilter_sf += 28;
         }
         if ($argGetStops) {
+            // get stops
             $anyObjFilter_sf += 2;
         }
     }
     $argQuery = "locationServerActive=1&type_sf=any&coordOutputFormat=WGS84[DD.dddddddd]&name_sf=" . $argQuery . "&anyMaxSizeHitList=" . $argNumResults . "&anyObjFilter_sf=" . $anyObjFilter_sf . "&language=" . $argLanguage;
+    // get data
     $data = getData("XML_STOPFINDER_REQUEST", "json", $argQuery);
-
+    // transform data to utf-8 encoded php array
+    // select stopFinder->points
     $data = json_decode(utf8_encode($data), 1)["stopFinder"]["points"];
+    // loop through each location result
     foreach ($data as $point) {
-        // format output for poi
+        // if point=poi: format output for poi
         if ($point['anyType'] == "poi") {
             $result[] = array(
                 "type" => "location",
@@ -246,17 +265,18 @@ function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGe
                 "poi" => True
             );
         }
-        // format output for address
+        // if point=address: format output for address
         if ($point['anyType'] == "street") {
+
             $result[] = array(
                 "type" => "location",
-                "id" => null,
+                "id" => $point["stateless"],
                 "latitude" => floatval(explode(",", $point["ref"]["coords"])[1]),
                 "longitude" => floatval(explode(",", $point["ref"]["coords"])[0]),
                 "name" => $point["name"]
             );
         }
-        // format output for stop
+        // if point=stop: format output for stop
         if ($point['anyType'] == "stop") {
             $result[] = array(
                 "type" => $point["anyType"],
@@ -272,7 +292,7 @@ function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGe
             );
         }
     }
-
+    // return pretty-print json
     if ($argPretty == True) {
         return json_encode($result, JSON_PRETTY_PRINT);
     } else {
@@ -515,7 +535,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
     if (! $argRegional) {
         $query .= "&excludedMeans=0";
     }
-    //echo "https://app.efa.de/mdv_server/app_gvh/XML_DM_REQUEST?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8&outputFormat=json&".$query;
+    // echo "https://app.efa.de/mdv_server/app_gvh/XML_DM_REQUEST?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8&outputFormat=json&".$query;
     $data = getData("XML_DM_REQUEST", "json", $query);
     $data = json_decode(utf8_encode($data), 1);
     // var_dump($data);
@@ -588,7 +608,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                 "latitude" => floatval(explode(",", end($dep["onwardStopSeq"])["ref"]["coords"])[1]),
                 "longitude" => floatval(explode(",", end($dep["onwardStopSeq"])["ref"]["coords"])[0])
             )
-        );//onwardStopSeq
+        ); // onwardStopSeq
         if (($argDirection == "") or ($dep["prevStopSeq"][0]["ref"]["id"] == $argDirection)) {
             if (strtotime($when) <= (($argDuration * 6000) + time())) {
                 $array = array(
