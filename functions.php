@@ -302,7 +302,11 @@ function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGe
 
 // used in stops_nearby.php
 /**
- * @param unknown $numberStr
+ * 
+ * similiar to locations_translateMOTNumStrtoProdList
+ * BUT with less MOT_numbers and different numbers!
+ * 
+ * @param string $numberStr
  * @return boolean[]
  */
 function stops_nearby_translateMOTNumStrtoProdList($numberStr)
@@ -313,6 +317,7 @@ function stops_nearby_translateMOTNumStrtoProdList($numberStr)
         3 => "bus", # Stadtbus
         6 => "train" # Zug
     );
+    // split string to array
     $items = explode(",", $numberStr);
     $MOT_list = array();
     $MOT_list["tram"] = false;
@@ -323,10 +328,11 @@ function stops_nearby_translateMOTNumStrtoProdList($numberStr)
     $MOT_list["subwaytram"] = false;
     $MOT_list["expressbus"] = false;
     $MOT_list["dialabus"] = false;
-
+    // loop through MOT_numbers
     foreach ($MOT_numbers as $MOT) {
         foreach ($items as $item) {
             if ($MOT == $MOT_numbers[$item]) {
+                // if in array from numberStr: set to true (service avaiable)
                 $MOT_list[$MOT] = true;
             }
         }
