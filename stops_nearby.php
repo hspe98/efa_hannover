@@ -71,9 +71,9 @@ if (isset($_GET['poi'])) {
     $pPoi = False;
 }
 if (isset($_GET['linesOfStops'])) {
-    $plinesOfStops = $_GET['linesOfStops'];
+    $pLinesOfStops = $_GET['linesOfStops'];
 } else {
-    $plinesOfStops = True;
+    $pLinesOfStops = True;
 }
 if (isset($_GET['pretty'])) {
     $pPretty = $_GET['pretty'];
@@ -81,5 +81,5 @@ if (isset($_GET['pretty'])) {
     $pPretty = False;
 }
 
-echo getStopsNearby($pLatitude, $pLongitude, $results=$pResults, $distance=$pDistance, $stops=$pStops, $poi=$pPoi, $linesOfStops=$plinesOfStops, $language=$pLang, $pretty=$pPretty);
+echo getStopsNearby($pLatitude, $pLongitude, $argResults=$pResults, $argDistance=$pDistance, $argStops=$pStops, $argPoi=$pPoi, $argLinesOfStops=$pLinesOfStops, $argLanguage=$pLang, $argPretty=$pPretty);
 }

@@ -38,5 +38,5 @@ pretty          False       Pretty-print JSON?
     }
     
     
-    echo getStopsById($pId, $argLinesOfStops=$pLinesOfStops, $argLanguage=$pLanguage, $pretty=$pPretty);
+    echo getStopsById($pId, $argLinesOfStops=$pLinesOfStops, $argLanguage=$pLanguage, $argPretty=$pPretty);
 }

@@ -300,7 +300,11 @@ function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGe
     }
 }
 
-// stops_nearby
+// used in stops_nearby.php
+/**
+ * @param unknown $numberStr
+ * @return boolean[]
+ */
 function stops_nearby_translateMOTNumStrtoProdList($numberStr)
 {
     $MOT_numbers = array(
@@ -343,22 +347,28 @@ function stops_nearby_translateMOTNumStrtoProdList($numberStr)
  * pretty Pretty-print JSON responses? boolean true
  *
  */
-function getStopsNearby($paramLat, $paramLong, $results, $distance, $stops = True, $poi = False, $linesOfStops = False, $language = "en", $pretty = False)
+function getStopsNearby($argLat, $argLong, $argResults, $argDistance, $argStops = True, $argPoi = False, $argLinesOfStops = False, $argLanguage = "en", $argPretty = False)
 {
-    // $query = "locationServerActive=1&type_sf=any&coordOutputFormat=WGS84[DD.dddddddd]&name_sf=".$query."&anyMaxSizeHitList=".$numResults."&anyObjFilter_sf=".$anyObjFilter_sf."&language=".$language;
-    $query = "coord=" . $paramLong . ":" . $paramLat . ":WGS84:&coordOutputFormat=WGS84[DD.dddddddd]";
+    // build query
+    $query = "coord=" . $argLong . ":" . $argLat . ":WGS84:&coordOutputFormat=WGS84[DD.dddddddd]";
     $query .= "&inclFilter=1";
+    // helper variable for counting the number of filters for correct query parameter
     $numOfFilter = 1;
-    if ($stops) {
+    if ($argStops) {
         $query .= "&type_" . $numOfFilter . "=STOP";
+        $numOfFilter++;
     }
-    if ($poi) {
+    if ($argPoi) {
         $query .= "&type_" . $numOfFilter . "=POI_POINT";
     }
-    $query .= "&max=" . $results . "&radius_1=" . $distance;
-
+    // limit the number of results by max and radius
+    $query .= "&max=" . $argResults . "&radius_1=" . $argDistance;
+    // get data
     $data = getData("XML_COORD_REQUEST", "json", $query);
+    // get php array from utf-8 decoded json data
+    // select pins
     $data = json_decode(utf8_encode($data), 1)["pins"];
+    // pins: contains every stops -> loop through
     foreach ($data as $pin) {
         $result[] = array(
             "type" => "stop",
@@ -374,8 +384,8 @@ function getStopsNearby($paramLat, $paramLong, $results, $distance, $stops = Tru
             "distance" => intval($pin["distance"])
         );
     }
-
-    if ($pretty == True) {
+    // pretty-print json
+    if ($argPretty == True) {
         return json_encode($result, JSON_PRETTY_PRINT);
     } else {
         return json_encode($result);
@@ -390,7 +400,7 @@ function getStopsNearby($paramLat, $paramLong, $results, $distance, $stops = Tru
  * pretty Pretty-print JSON responses? boolean true
  *
  */
-function getStopsById($argId, $argLinesOfStops = False, $argLanguage = "en", $pretty = False)
+function getStopsById($argId, $argLinesOfStops = False, $argLanguage = "en", $argPretty = False)
 {
     $query = "&language=" . $argLanguage . "coordOutputFormat=WGS84&type_si=stop&stopService=timeTable&name_si=" . $argId;
     // echo "https://app.efa.de/mdv_server/app_gvh/XML_STOP_INFO_REQUEST?session=0&outputFormat=xml&".$query;
@@ -459,7 +469,7 @@ function getStopsById($argId, $argLinesOfStops = False, $argLanguage = "en", $pr
     }
     // $location_info = json_decode(getLocation($argId, $numResults=1),1);
     // var_dump($location_info);
-    if ($pretty == True) {
+    if ($argPretty == True) {
         return json_encode($result, JSON_PRETTY_PRINT);
     } else {
         return json_encode($result);
