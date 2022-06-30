@@ -190,7 +190,19 @@ function locations_translateMOTNumStrtoProdList($numberStr)
     return $MOT_list;
 }
 
-function getLocation($query, $numResults = 10, $language = "en", $getPOI = True, $getStreets = True, $getStops = True, $pretty = False)
+
+/**
+ * @param string $argQuery set the query string _(can also be id of stops etc.)_
+ * @param number $argNumResults set the number of results witch should be returned
+ * @param string $argLanguage set the language, default is "en" (alt.: "de")
+ * @param boolean $argGetPOI get POI locations?
+ * @param boolean $argGetStreets get streets as locations?
+ * @param boolean $argGetStops get stops as locations?
+ * @param boolean $argPretty return pretty-print json?
+ * @return string
+ * @usage 
+ */
+function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGetPOI = True, $argGetStreets = True, $argGetStops = True, $argPretty = False)
 {
     // Calculate filter value
     /*
@@ -205,21 +217,21 @@ function getLocation($query, $numResults = 10, $language = "en", $getPOI = True,
      *  32 (POI-IDs und -Aliasnamen)
      *  64 (Postleitzahlen)
      */
-    if (($getPOI) and ($getStreets) and ($getStops)) {
+    if (($argGetPOI) and ($argGetStreets) and ($argGetStops)) {
         $anyObjFilter_sf = 0;
     } else {
-        if ($getPOI) {
+        if ($argGetPOI) {
             $anyObjFilter_sf += 32;
         }
-        if ($getStreets) {
+        if ($argGetStreets) {
             $anyObjFilter_sf += 28;
         }
-        if ($getStops) {
+        if ($argGetStops) {
             $anyObjFilter_sf += 2;
         }
     }
-    $query = "locationServerActive=1&type_sf=any&coordOutputFormat=WGS84[DD.dddddddd]&name_sf=" . $query . "&anyMaxSizeHitList=" . $numResults . "&anyObjFilter_sf=" . $anyObjFilter_sf . "&language=" . $language;
-    $data = getData("XML_STOPFINDER_REQUEST", "json", $query);
+    $argQuery = "locationServerActive=1&type_sf=any&coordOutputFormat=WGS84[DD.dddddddd]&name_sf=" . $argQuery . "&anyMaxSizeHitList=" . $argNumResults . "&anyObjFilter_sf=" . $anyObjFilter_sf . "&language=" . $argLanguage;
+    $data = getData("XML_STOPFINDER_REQUEST", "json", $argQuery);
 
     $data = json_decode(utf8_encode($data), 1)["stopFinder"]["points"];
     foreach ($data as $point) {
@@ -261,7 +273,7 @@ function getLocation($query, $numResults = 10, $language = "en", $getPOI = True,
         }
     }
 
-    if ($pretty == True) {
+    if ($argPretty == True) {
         return json_encode($result, JSON_PRETTY_PRINT);
     } else {
         return json_encode($result);
