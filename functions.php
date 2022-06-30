@@ -526,7 +526,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
     // build query
     $query = "locationServerActive=1&mergeDep=1&coordOutputFormat=WGS84[DD.dddddddd]";
     $query .= "&type_dm=any&itOptionsActive=1&ptOptionsActive=1&mode=direct&useRealtime=1&depType=stopEvents&includeCompleteStopSeq=1";
-    $query .= "&name_dm=" . $argId;
+    $query .= "&name_dm=" . urlencode($argId);
     // limit number of results
     $query .= "&limit=" . $argResults;
     // convert when argument to an unix timestamp
