@@ -126,18 +126,32 @@ function getData($method, $outputFormat = "json", $query)
  * 
  * Takes a string of comma seperated numbers and converts them to MOT text
  * 
- * MOT = mode of transport
+ * Each numbers witch is in the list, is a avaiable MOT at this location
+ * 
+ * [MOT = mode of transport]
  * 
  * e.g. $numberStr = "5,6,10"
  * 
- * result = 
+ * result as json = {
+ *      "train": false,
+ *      "suburban": false,
+ *      "subway": false,
+ *      "tram": false,
+ *      "subwaytram": false,
+ *      "citybus": true,
+ *      "regiobus": false,
+ *      "expressbus": false,
+ *      "dialabus": false,
+ *      "others": false
+ * }
  * 
  * 
  * @param string $numberStr
- * @return boolean
+ * @return array $MOT_list
  */
 function locations_translateMOTNumStrtoProdList($numberStr)
 {
+    // set up dictonary number => string
     $MOT_numbers = array(
         0 => "train", # Zug
         1 => "suburban", # S-Bahn
@@ -150,6 +164,7 @@ function locations_translateMOTNumStrtoProdList($numberStr)
         10 => "dialabus", # Rufbus
         11 => "others"
     );
+    // set up return array (everything = false)
     $MOT_list["train"] = False;
     $MOT_list["suburban"] = False;
     $MOT_list["subway"] = False;
@@ -160,9 +175,13 @@ function locations_translateMOTNumStrtoProdList($numberStr)
     $MOT_list["expressbus"] = False;
     $MOT_list["dialabus"] = False;
     $MOT_list["others"] = False;
+    // split given string with comma-seperated numbers into array with numbers
     $items = explode(",", $numberStr);
+    // loop through dict (number->string)
     foreach ($MOT_numbers as $MOT) {
+        // loop through number array
         foreach ($items as $item) {
+            // if string of foreach loop1 = string of number of dict -> set to true
             if ($MOT == $MOT_numbers[$item]) {
                 $MOT_list[$MOT] = True;
             }
