@@ -503,17 +503,41 @@ function translateEFADateTimeToISO($efa_dt)
     return $datetime;
 }
 
+/**
+ * @param string $argId id of stop
+ * @param boolean $argWhen start time
+ * @param number $argResults number of results
+ * @param number $argDuration duration for which departures should be searched
+ * @param string $argDirection filter by direction (needs the destination Id)
+ * @param boolean $argRemarks get remarks?
+ * @param boolean $argLinesOfStops get lines of each stop?
+ * @param boolean $argSuburban get MOT(suburban)?
+ * @param boolean $argSubway get MOT(subway)?
+ * @param boolean $argTram get MOT(tram)?
+ * @param boolean $argBus get MOT(bus)?
+ * @param boolean $argFerry get MOT(ferry)?
+ * @param boolean $argExpress get MOT(express)?
+ * @param boolean $argRegional get MOT(regional)?
+ * @param boolean $argPretty pretty-print json?
+ * @return string
+ */
 function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argDuration = 99999999, $argDirection = "", $argRemarks = True, $argLinesOfStops = True, $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argPretty = True)
 {
+    // build query
     $query = "locationServerActive=1&mergeDep=1&coordOutputFormat=WGS84[DD.dddddddd]";
     $query .= "&type_dm=any&itOptionsActive=1&ptOptionsActive=1&mode=direct&useRealtime=1&depType=stopEvents&includeCompleteStopSeq=1";
     $query .= "&name_dm=" . $argId;
+    // limit number of results
     $query .= "&limit=" . $argResults;
+    // convert when argument to an unix timestamp
     $timestamp = strtotime($argWhen);
-    $filter_time = date('Hi', $timestamp); // HHMM
-    $filter_date = date('Ymd', $timestamp); // JJJJMMTT
+    // format as EFA time (HHMM)
+    $filter_time = date('Hi', $timestamp); 
+    // format as EFA date (JJJJMMTT)
+    $filter_date = date('Ymd', $timestamp); 
     $query .= "&itdTime=" . $filter_time;
     $query .= "&itdDate=" . $filter_date;
+    // determines if a filter was set
     if (! $argSuburban) {
         $query .= "&excludedMeans=1";
     }
@@ -535,14 +559,14 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
     if (! $argRegional) {
         $query .= "&excludedMeans=0";
     }
-    // echo "https://app.efa.de/mdv_server/app_gvh/XML_DM_REQUEST?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8&outputFormat=json&".$query;
+    // get data
     $data = getData("XML_DM_REQUEST", "json", $query);
     $data = json_decode(utf8_encode($data), 1);
-    // var_dump($data);
+    // save data for later use
     $original_data = $data;
     $data = $data["departureList"];
-    // var_dump($data);
 
+    // loop through every departure
     foreach ($data as $dep) {
         $stop_array = array(
             "type" => "stop",
@@ -555,6 +579,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                 "longitude" => floatval(explode(",", $original_data["dm"]["points"]["point"]["ref"]["coords"])[0])
             )
         );
+        // append lines at this stop to the departure
         if ($argLinesOfStops == True) {
             $lines = array();
             foreach ($original_data["servingLines"]["lines"] as $line) {
@@ -581,12 +606,17 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
             unset($list_for_json);
             unset($lines);
         }
+        // retrieve the real departure time
         $when = translateEFADateTimeToISO($dep["realDateTime"]);
+        // retrieve the planned departure time
         $whenPlanned = translateEFADateTimeToISO($dep["dateTime"]);
+        // when the departure lays in the future and no changes are known to the system, it sets the when variable to NULL
         if ($dep["realDateTime"] == NULL) {
             $when = $whenPlanned;
         }
+        // retrieve delay
         $delay = (strtotime($when) - strtotime($whenPlanned)) / 60;
+        // retrieve origin of departure
         $origin = array(
             "type" => "stop",
             "id" => $dep["prevStopSeq"][0]["ref"]["id"],
@@ -598,6 +628,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                 "longitude" => floatval(explode(",", $dep["prevStopSeq"][0]["ref"]["coords"])[0])
             )
         );
+        // retrieve destination of departure
         $destination = array(
             "type" => "stop",
             "id" => end($dep["onwardStopSeq"])["ref"]["id"],
@@ -608,8 +639,10 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                 "latitude" => floatval(explode(",", end($dep["onwardStopSeq"])["ref"]["coords"])[1]),
                 "longitude" => floatval(explode(",", end($dep["onwardStopSeq"])["ref"]["coords"])[0])
             )
-        ); // onwardStopSeq
+        );
+        // filter by direction
         if (($argDirection == "") or ($dep["prevStopSeq"][0]["ref"]["id"] == $argDirection)) {
+            // filter by time
             if (strtotime($when) <= (($argDuration * 6000) + time())) {
                 $array = array(
                     "stop" => $stop_array,
@@ -640,6 +673,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                     "origin" => $origin,
                     "destination" => $destination
                 );
+                // add remarks of the departure if wanted
                 if ($argRemarks) {
                     foreach ($dep['servingLine']["hints"] as $remark) {
                         $remarks[] = array(
@@ -655,7 +689,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
             }
         }
     }
-
+    // pretty-print json
     if ($argPretty == True) {
         return json_encode($result, JSON_PRETTY_PRINT);
     } else {
