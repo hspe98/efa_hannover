@@ -392,21 +392,22 @@ function getStopsNearby($argLat, $argLong, $argResults, $argDistance, $argStops 
     }
 }
 
-// stops
-/*
- * parameter description type default value
- * linesOfStops Parse & expose lines at each stop/station? boolean false
- * language Language of the results. string en
- * pretty Pretty-print JSON responses? boolean true
- *
+// used in stops
+/**
+ * @param string $argId Id of stop
+ * @param boolean $argLinesOfStops Parse & expose lines at each stop/station?
+ * @param string $argLanguage Language of the results
+ * @param boolean $argPretty Pretty-print JSON responses?
+ * @return string
  */
 function getStopsById($argId, $argLinesOfStops = False, $argLanguage = "en", $argPretty = False)
 {
+    // build query
     $query = "&language=" . $argLanguage . "coordOutputFormat=WGS84&type_si=stop&stopService=timeTable&name_si=" . $argId;
-    // echo "https://app.efa.de/mdv_server/app_gvh/XML_STOP_INFO_REQUEST?session=0&outputFormat=xml&".$query;
+    // get data
     $data = getData("XML_STOP_INFO_REQUEST", "xml", $query);
+    // convert xml to php array (XML_STOP_INFO_REQUEST can only deliver xml!)
     $data = xmlToArray(simplexml_load_string($data))["itdRequest"];
-    // var_dump($data["itdStopInfoRequest"]["itdServingLines"]);
     $result = array(
         "type" => "station",
         "id" => $data["itdStopInfoRequest"]["itdOdv"]["itdOdvName"]["odvNameElem"]["@id"],
@@ -437,15 +438,15 @@ function getStopsById($argId, $argLinesOfStops = False, $argLanguage = "en", $ar
             $MOT_str .= $line["@motType"] . ",";
         }
     }
+    // translate MOT numbers to product list
     $products = locations_translateMOTNumStrtoProdList(trim($MOT_str, ","));
     $result["products"] = $products;
     $result["stops"]["products"] = $products;
-    // linesOfStops
-
+    
+    // append linesOfStops
     if ($argLinesOfStops == True) {
-        // $line = $data["itdStopInfoRequest"]["itdServingLines"]["itdServingLine"][0];
-
         $lines = array();
+        // loop through avaiable lines
         foreach ($data["itdStopInfoRequest"]["itdServingLines"]["itdServingLine"] as $line) {
             $new_item = array(
                 "type" => "line",
@@ -461,14 +462,16 @@ function getStopsById($argId, $argLinesOfStops = False, $argLanguage = "en", $ar
             );
             $lines[] = $new_item;
         }
+        // filter for unique lines (eliminate duplicates due to directions)
         $lines = array_unique($lines, SORT_REGULAR);
+        // reformat the array to have a continuous numbering in array
         foreach ($lines as $item) {
             $list_for_json[] = $item;
         }
+        // append to result
         $result['lines'] = $list_for_json;
     }
-    // $location_info = json_decode(getLocation($argId, $numResults=1),1);
-    // var_dump($location_info);
+    // pretty-print json
     if ($argPretty == True) {
         return json_encode($result, JSON_PRETTY_PRINT);
     } else {
