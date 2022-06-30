@@ -64,7 +64,7 @@ if (isset($_GET['remarks'])) {
 if (isset($_GET['duration'])) {
     $pDuration = $_GET['duration'];
 } else {
-    $pDuration = 99999999;
+    $pDuration = 30;
 }
 if (isset($_GET['direction'])) {
     $pDirection = $_GET['direction'];
@@ -78,5 +78,5 @@ if (isset($_GET['pretty'])) {
     $pPretty = False;
 }
 
-echo getStopsDeparturesById($argId=$pId, $argWhen = $pWhen, $argResults = $pResults, $argRemarks=$pRemarks, $argDirection=$pDirection, $argDuration=$pDuration, $argLinesOfStops=True, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argPretty=$pPretty);
+echo getStopsDeparturesById($argId=$pId, $argWhen = $pWhen, $argResults = $pResults, $argDirection=$pDirection, $argDuration=$pDuration, $argRemarks=$pRemarks, $argLinesOfStops=True, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argPretty=$pPretty);
 

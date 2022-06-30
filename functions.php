@@ -507,8 +507,8 @@ function translateEFADateTimeToISO($efa_dt)
  * @param string $argId id of stop
  * @param boolean $argWhen start time
  * @param number $argResults number of results
- * @param number $argDuration duration for which departures should be searched
  * @param string $argDirection filter by direction (needs the destination Id)
+ * @param number $argDuration duration for which departures should be searched
  * @param boolean $argRemarks get remarks?
  * @param boolean $argLinesOfStops get lines of each stop?
  * @param boolean $argSuburban get MOT(suburban)?
@@ -521,7 +521,7 @@ function translateEFADateTimeToISO($efa_dt)
  * @param boolean $argPretty pretty-print json?
  * @return string
  */
-function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argDuration = 99999999, $argDirection = "", $argRemarks = True, $argLinesOfStops = True, $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argPretty = True)
+function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argDirection = "",$argDuration = 30,  $argRemarks = True, $argLinesOfStops = True, $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argPretty = True)
 {
     // build query
     $query = "locationServerActive=1&mergeDep=1&coordOutputFormat=WGS84[DD.dddddddd]";
@@ -643,7 +643,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
         // filter by direction
         if (($argDirection == "") or ($dep["prevStopSeq"][0]["ref"]["id"] == $argDirection)) {
             // filter by time
-            if (strtotime($when) <= (($argDuration * 6000) + time())) {
+            if (strtotime($when) <= (($argDuration * 60) + time())) {
                 $array = array(
                     "stop" => $stop_array,
                     "direction" => $dep["servingLine"]["direction"],
