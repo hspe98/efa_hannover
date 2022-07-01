@@ -239,14 +239,14 @@ function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGe
         }
         if ($argGetStreets) {
             // get street crossings, addresses and street names (16+8+4)
-            $anyObjFilter_sf += 28;
+            $anyObjFilter_sf += 4+8+16+64+1;
         }
         if ($argGetStops) {
             // get stops
             $anyObjFilter_sf += 2;
         }
     }
-    $argQuery = "locationServerActive=1&type_sf=any&coordOutputFormat=WGS84[DD.dddddddd]&name_sf=" . $argQuery . "&anyMaxSizeHitList=" . $argNumResults . "&anyObjFilter_sf=" . $anyObjFilter_sf . "&language=" . $argLanguage;
+    $argQuery = "locationServerActive=1&type_sf=any&coordOutputFormat=WGS84[DD.dddddddd]&name_sf=" . urlencode($argQuery) . "&anyMaxSizeHitList=" . $argNumResults . "&anyObjFilter_sf=" . $anyObjFilter_sf . "&language=" . $argLanguage;
     // get data
     $data = getData("XML_STOPFINDER_REQUEST", "json", $argQuery);
     // transform data to utf-8 encoded php array
@@ -264,20 +264,8 @@ function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGe
                 "name" => $point["name"],
                 "poi" => True
             );
-        }
-        // if point=address: format output for address
-        if ($point['anyType'] == "street") {
-
-            $result[] = array(
-                "type" => "location",
-                "id" => $point["stateless"],
-                "latitude" => floatval(explode(",", $point["ref"]["coords"])[1]),
-                "longitude" => floatval(explode(",", $point["ref"]["coords"])[0]),
-                "name" => $point["name"]
-            );
-        }
-        // if point=stop: format output for stop
-        if ($point['anyType'] == "stop") {
+        } elseif ($point['anyType'] == "stop") {
+            // if point=stop: format output for stop
             $result[] = array(
                 "type" => $point["anyType"],
                 "id" => $point["stateless"],
@@ -289,6 +277,15 @@ function getLocation($argQuery, $argNumResults = 10, $argLanguage = "en", $argGe
                     "longitude" => floatval(explode(",", $point["ref"]["coords"])[0])
                 ),
                 "products" => locations_translateMOTNumStrtoProdList($point["modes"])
+            );
+        } else {
+            
+            $result[] = array(
+                "type" => $point["anyType"],
+                "id" => $point["stateless"],
+                "latitude" => floatval(explode(",", $point["ref"]["coords"])[1]),
+                "longitude" => floatval(explode(",", $point["ref"]["coords"])[0]),
+                "name" => $point["name"]
             );
         }
     }
