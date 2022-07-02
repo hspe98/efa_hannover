@@ -105,7 +105,7 @@ function getData($method, $outputFormat = "json", $query)
 
     $url = "https://app.efa.de/mdv_server/app_gvh/" . $method;
     // set encoding and session = 0
-    $url .= "?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8";
+    $url .= "?sessionID=0&outputEncoding=UTF-8&inputEncoding=UTF-8";
     // set outputFormat and append query
     $url .= "&outputFormat=" . $outputFormat . "&" . $query;
     // set url
@@ -117,8 +117,15 @@ function getData($method, $outputFormat = "json", $query)
     curl_setopt($ch, CURLOPT_ACCEPT_ENCODING, "utf-8");
     // $output contains the output string
     $output = curl_exec($ch);
+    // check for error codes
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     // close curl resource to free up system resources
     curl_close($ch);
+
+    // check if error isn't 200 -> exit
+    if ($httpcode != 200) {
+        exit("Server doesnt answer properly");
+    }
     // return the utf-8 decoded string
     return utf8_decode($output);
 }
@@ -658,7 +665,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                         "adminCode" => $dep["liErgRiProj"]["network"],
                         "operator" => array(
                             "type" => "operator",
-                            "id" => str_replace("?", "Ü", $dep["operator"]["publicCode"]),
+                            "id" => str_replace("?STRA", "ÜSTRA", $dep["operator"]["publicCode"]),
                             "name" => $dep["operator"]["name"]
                         )
                     ),
