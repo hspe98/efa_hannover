@@ -124,7 +124,7 @@ function getData($method, $outputFormat = "json", $query)
 
     // check if error isn't 200 -> exit
     if ($httpcode != 200) {
-        exit("Server doesnt answer properly");
+        exit("Server doesnt answer properly [".$httpcode."]");
     }
     // return the utf-8 decoded string
     return utf8_decode($output);
