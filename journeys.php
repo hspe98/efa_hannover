@@ -198,7 +198,12 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
         "journeys" => $trips
     );
 
-    return json_encode($result);
+    // pretty-print json
+    if ($argPretty == True) {
+        return json_encode($result, JSON_PRETTY_PRINT);
+    } else {
+        return json_encode($result);
+    }
 }
 
 if (isset($_GET['from'])) {
