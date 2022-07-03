@@ -1,5 +1,8 @@
 <?php
 
+define(BASE_URL,"https://app.efa.de/mdv_server/app_gvh/");
+
+
 /**
  * 
  * Converts xml element to php array
@@ -103,7 +106,7 @@ function getData($method, $outputFormat = "json", $query)
     // create curl resource
     $ch = curl_init();
 
-    $url = "https://app.efa.de/mdv_server/app_gvh/" . $method;
+    $url = BASE_URL . $method;
     // set encoding and session = 0
     $url .= "?sessionID=0&outputEncoding=UTF-8&inputEncoding=UTF-8";
     // set outputFormat and append query
