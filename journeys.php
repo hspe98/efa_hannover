@@ -11,7 +11,7 @@ function DateTimeArrayToISO($array, $addMinutes = 0)
     return date("c", mktime($array["hour"], intval($array["minute"]) - $addMinutes, $array["second"], $array["month"], $array["day"], $array["year"]));
 }
 
-function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $argWhen = "now", $argDepOrArrTime = "dep", $argMaxTransfers = 9, $argWalkingSpeed = "normal", $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argLanguage = "en", $argPretty = True)
+function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $argRemarks=False, $argWhen = "now", $argDepOrArrTime = "dep", $argMaxTransfers = 9, $argWalkingSpeed = "normal", $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argLanguage = "en", $argPretty = True)
 {
     $query = "locationServerActive=1&odvMacro=true&stateless=1&coordOutputFormat=WGS84[DD.ddddd]&useHouseNumberList=true&useSuburb=1&execIns=normal&useRealtime=1";
     if (is_array($argOrigin)) {
@@ -180,14 +180,34 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
                     $leg_helper["plannedDeparture"] = $leg_helper["departure"];
                     $leg_helper["direction"] = $leg_helper["destination"]["name"];
                 }
+                // show remarks
+                if($argRemarks) {
+                    foreach ($leg["attrs"] as $item) {
+                        if ($item["name"] == "PlanLowFloorVehicle") {
+                            $leg_helper["remarks"][] = array(
+                                "type" => "hint",
+                                "code" => "bf",
+                                "text" => "Niederflurfahrzeug"
+                            );
+                        } elseif ($item["name"] == "PlanWheelChairAccess") {
+                            $leg_helper["remarks"][] = array(
+                                "type" => "hint",
+                                "code" => "bf",
+                                "text" => "Rollstuhlzugang"
+                            );
+                        }
+                    }
+
+                }
                 $legs[] = $leg_helper;
             }
 
             $trips[] = array(
                 "type" => "journey",
-                "legs" => $legs
+                "legs" => $legs,
+                "tickets" => $tickets
             );
-            // "tickets" => $tickets
+            
 
             unset($legs);
             unset($tickets);
@@ -246,6 +266,13 @@ if (isset($_GET['calcNumberOfTrips'])) {
 } else {
     $pCalcNumberOfTrips = 5;
 }
+
+if (isset($_GET['remarks'])) {
+    $pRemarks = filter_var($_GET['remarks'], FILTER_VALIDATE_BOOLEAN);
+} else {
+    $pRemarks = False;
+}
+
 if (isset($_GET['maxTransfers'])) {
     $pMaxTransfers = $_GET['maxTransfers'];
 } else {
@@ -306,7 +333,7 @@ if (isset($_GET['pretty'])) {
     $pPretty = False;
 }
 
-echo getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty);
+echo getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks=$argRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty);
 
 
 
