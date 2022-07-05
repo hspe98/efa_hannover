@@ -740,6 +740,15 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                     $array["remarks"] = $remarks;
                     unset($remarks);
                 }
+                //trains have another naming in the api
+                if ($dep["servingLine"]["motType"] == "0") {
+                    $array["line"]["id"] = $dep["servingLine"]["key"];
+                    $array["line"]["name"] = $dep["servingLine"]["number"];
+                    $array["line"]["fahrNr"] = $dep["servingLine"]["code"];
+                    $array["line"]["symbol"] = $dep["servingLine"]["trainType"]." ".$dep["servingLine"]["trainNum"];
+                    $array["line"]["product"] = $dep["servingLine"]["trainType"];
+                    $array["line"]["nr"] = $dep["servingLine"]["trainNum"];  
+                }
                 $result[] = $array;
             }
         }
