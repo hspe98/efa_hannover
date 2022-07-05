@@ -405,7 +405,7 @@ function getStopsNearby($argLat, $argLong, $argResults, $argDistance, $argStops 
     }
 }
 
-// used in stops
+// used in stops.php
 /**
  * @param string $argId Id of stop
  * @param boolean $argLinesOfStops Parse & expose lines at each stop/station?
