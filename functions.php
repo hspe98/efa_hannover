@@ -2,6 +2,24 @@
 
 define(BASE_URL,"https://app.efa.de/mdv_server/app_gvh/");
 
+/**
+ * Check if function str_contains exists
+ */
+if (!function_exists('str_contains')) {
+    /**
+     * 
+     * Checks if needle is substring of haystack
+     * 
+     * @param string $haystack
+     * @param string $needle
+     * @return boolean
+     * @author https://www.php.net/manual/de/function.str-contains.php#125977
+     */
+    function str_contains($haystack, $needle) {
+        return $needle !== '' && mb_strpos($haystack, $needle) !== false;
+    }
+}
+
 
 /**
  * 
@@ -624,29 +642,59 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
         // retrieve delay
         $delay = (strtotime($when) - strtotime($whenPlanned)) / 60;
         // retrieve origin of departure
-        $origin = array(
-            "type" => "stop",
-            "id" => $dep["prevStopSeq"][0]["ref"]["id"],
-            "name" => $dep["prevStopSeq"][0]["name"],
-            "location" => array(
-                "type" => "location",
-                "id" => $dep["prevStopSeq"][0]["omc"],
-                "latitude" => floatval(explode(",", $dep["prevStopSeq"][0]["ref"]["coords"])[1]),
-                "longitude" => floatval(explode(",", $dep["prevStopSeq"][0]["ref"]["coords"])[0])
-            )
-        );
+        if (array_key_exists("0", $dep["prevStopSeq"])) {
+            // this stop isnt the second stop --> multiple entries available
+            $origin = array(
+                "type" => "stop",
+                "id" => $dep["prevStopSeq"][0]["ref"]["id"],
+                "name" => $dep["prevStopSeq"][0]["name"],
+                "location" => array(
+                    "type" => "location",
+                    "id" => $dep["prevStopSeq"][0]["omc"],
+                    "latitude" => floatval(explode(",", $dep["prevStopSeq"][0]["ref"]["coords"])[1]),
+                    "longitude" => floatval(explode(",", $dep["prevStopSeq"][0]["ref"]["coords"])[0])
+                )
+            );
+        } else {
+            $origin = array(
+                "type" => "stop",
+                "id" => $dep["prevStopSeq"]["ref"]["id"],
+                "name" => $dep["prevStopSeq"]["name"],
+                "location" => array(
+                    "type" => "location",
+                    "id" => $dep["prevStopSeq"]["omc"],
+                    "latitude" => floatval(explode(",", $dep["prevStopSeq"]["ref"]["coords"])[1]),
+                    "longitude" => floatval(explode(",", $dep["prevStopSeq"]["ref"]["coords"])[0])
+                )
+            );
+        }
+
         // retrieve destination of departure
-        $destination = array(
-            "type" => "stop",
-            "id" => end($dep["onwardStopSeq"])["ref"]["id"],
-            "name" => end($dep["onwardStopSeq"])["name"],
-            "location" => array(
-                "type" => "location",
-                "id" => $dep["onwardStopSeq"][0]["omc"],
-                "latitude" => floatval(explode(",", end($dep["onwardStopSeq"])["ref"]["coords"])[1]),
-                "longitude" => floatval(explode(",", end($dep["onwardStopSeq"])["ref"]["coords"])[0])
-            )
-        );
+        if (array_key_exists("0", $dep["onwardStopSeq"])) {
+            $destination = array(
+                "type" => "stop",
+                "id" => end($dep["onwardStopSeq"])["ref"]["id"],
+                "name" => end($dep["onwardStopSeq"])["name"],
+                "location" => array(
+                    "type" => "location",
+                    "id" => $dep["onwardStopSeq"][0]["omc"],
+                    "latitude" => floatval(explode(",", end($dep["onwardStopSeq"])["ref"]["coords"])[1]),
+                    "longitude" => floatval(explode(",", end($dep["onwardStopSeq"])["ref"]["coords"])[0])
+                )
+            );
+        } else {
+            $destination = array(
+                "type" => "stop",
+                "id" => $dep["onwardStopSeq"]["ref"]["id"],
+                "name" => $dep["onwardStopSeq"]["name"],
+                "location" => array(
+                    "type" => "location",
+                    "id" => $dep["onwardStopSeq"][0]["omc"],
+                    "latitude" => floatval(explode(",", $dep["onwardStopSeq"]["ref"]["coords"])[1]),
+                    "longitude" => floatval(explode(",", $dep["onwardStopSeq"]["ref"]["coords"])[0])
+                )
+            );
+        }
         // filter by direction
         if (($argDirection == "") or ($dep["prevStopSeq"][0]["ref"]["id"] == $argDirection)) {
             // filter by time
