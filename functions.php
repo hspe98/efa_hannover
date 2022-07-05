@@ -546,7 +546,7 @@ function translateEFADateTimeToISO($efa_dt)
  * @param boolean $argPretty pretty-print json?
  * @return string
  */
-function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argDirection = "",$argDuration = 30,  $argRemarks = True, $argLinesOfStops = True, $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argPretty = True)
+function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argDirection = "",$argDuration = False,  $argRemarks = True, $argLinesOfStops = True, $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argPretty = True)
 {
     // build query
     $query = "locationServerActive=1&mergeDep=1&coordOutputFormat=WGS84[DD.dddddddd]";
@@ -698,7 +698,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
         // filter by direction
         if (($argDirection == "") or ($dep["prevStopSeq"][0]["ref"]["id"] == $argDirection)) {
             // filter by time
-            if (strtotime($when) <= (($argDuration * 60) + time())) {
+            if (( (strtotime($when) <= $argDuration * 60 + strtotime($argWhen)) and (strtotime($when) >= strtotime($argWhen)) ) or ($argWhen == "now" and $argDuration == False) or ($argDuration == False and strtotime($when) >= strtotime($argWhen))) {
                 $array = array(
                     "stop" => $stop_array,
                     "direction" => $dep["servingLine"]["direction"],

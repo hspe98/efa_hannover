@@ -64,7 +64,7 @@ if (isset($_GET['remarks'])) {
 if (isset($_GET['duration'])) {
     $pDuration = $_GET['duration'];
 } else {
-    $pDuration = 30;
+    $pDuration = False;
 }
 if (isset($_GET['direction'])) {
     $pDirection = $_GET['direction'];
