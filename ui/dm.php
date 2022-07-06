@@ -582,10 +582,6 @@ $(document).ready(function() {
 			li.highlight-line {
 			    margin: 10px;
 			}
-			.highlight-btn {
-			    background-color: lightyellow;
-			    border-color: #ccc;
-			}
 		</style>
 	</head>
 	<body>
