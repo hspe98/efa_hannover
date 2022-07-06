@@ -751,6 +751,15 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                             "text" => $remark["content"]
                         );
                     }
+                    foreach ($dep['attrs'] as $key => $val) {
+                        if ($val['name'] == "platformChange") {
+                            $remarks[] = array(
+                                "type" => "hint",
+                                "code" => "pc",
+                                "text" => "Gleiswechsel"
+                            );
+                        }
+                    }
                     $array["remarks"] = $remarks;
                     unset($remarks);
                 }
