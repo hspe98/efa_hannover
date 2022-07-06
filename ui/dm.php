@@ -194,14 +194,25 @@ if (count($_GET) <= 1 or isset($_GET['start'])) {
     <body>
     	<div class="container">
     		<form class="form-signin" method="GET" action="">
-    			<h2 class="form-signin-heading"><?php echo STR_START_1; ?></h2>
+    			<h2 class="form-signin-heading text-center"><?php echo STR_START_1; ?></h2><br>
     			<input
     				type="text" id="inputEmail" class="form-control"
-    				placeholder="<?php echo STR_START_2; ?>" name="q" required autofocus>
+    				placeholder="<?php echo STR_START_2; ?>" name="q" required autofocus><br>
     			<input
     				type="hidden" name="search">
     			<input type="hidden" name="language" value="<?php echo $_GET["language"]; ?>">
     			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_START_3; ?></button>
+    			<br>
+    			<br>
+    			<h4>language/Sprache</h4>
+    			<div class="row">
+        			<p class="col-sm-12 col-md-6 col-lg-4">
+        				<a class="btn btn-default col-md-12" href="<?php echo $_SERVER['SCRIPT_NAME']."?language=en"; ?>">English</a>
+        			</p>
+        			<p class="col-sm-12 col-md-6 col-lg-4">
+        				<a class="btn btn-default col-md-12" href="<?php echo $_SERVER['SCRIPT_NAME']."?language=de"; ?>">Deutsch</a>
+        			</p>
+    			</div>
     		</form>
     
     	</div>
@@ -567,6 +578,10 @@ $(document).ready(function() {
 
 			.highlight-row-hover {
 				background-color: lightcoral;
+			}
+			li.highlight-line {
+			    margin-left: 10px;
+			    margin-right:10px;
 			}
 		</style>
 	</head>
