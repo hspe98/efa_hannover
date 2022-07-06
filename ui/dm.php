@@ -2,16 +2,43 @@
 
 ### Language dictionary ###
 if ($_GET['language'] == "de") {
+    // START
     define(STR_START_1, "Bitte Name des gewünschten Haltes eingeben");
     define(STR_START_2, "Halt eingeben");
     define(STR_START_3, "Absenden");
-    
+    // SEARCH
+    define(STR_SEARCH_1, "Wähle deinen Halt aus");
+    define(STR_SEARCH_2, "Anzahl der Resultate");
+    define(STR_SEARCH_3, "Datum");
+    define(STR_SEARCH_4, "Uhrzeit");
+    define(STR_SEARCH_5, "Auswahl Verkehrsmittel");
+    define(STR_SEARCH_6, "S-Bahn");
+    define(STR_SEARCH_7, "U-Bahn");
+    define(STR_SEARCH_8, "Straßen-/Stadtbahn");
+    define(STR_SEARCH_9, "Bus");
+    define(STR_SEARCH_10, "Fähre");
+    define(STR_SEARCH_11, "Schnellzug");
+    define(STR_SEARCH_12, "Regionalzug");
+    define(STR_SEARCH_13, STR_START_3);
 } else {
+    // START
     define(STR_START_1, "Please enter the name of the desired stop");
     define(STR_START_2, "Enter stopname");
     define(STR_START_3, "Send");
-    
-    
+    // SEARCH
+    define(STR_SEARCH_1, "Choose your station");
+    define(STR_SEARCH_2, "Number of results");
+    define(STR_SEARCH_3, "Date");
+    define(STR_SEARCH_4, "Time");
+    define(STR_SEARCH_5, "Select MOT");
+    define(STR_SEARCH_6, "suburban");
+    define(STR_SEARCH_7, "subway");
+    define(STR_SEARCH_8, "tram");
+    define(STR_SEARCH_9, "bus");
+    define(STR_SEARCH_10, "ferry");
+    define(STR_SEARCH_11, "express");
+    define(STR_SEARCH_12, "regional");
+    define(STR_SEARCH_13, STR_START_3);
 }
 
 
@@ -253,7 +280,7 @@ body {
 <body>
 	<div class="container">
 		<form class="form-signin" method="GET" action="">
-			<h2 class="form-signin-heading">Choose your station</h2>
+			<h2 class="form-signin-heading"><?php echo STR_SEARCH_1; ?></h2>
 <?php
 
 	require '../functions.php';
@@ -317,17 +344,16 @@ body {
 	}
 	?>
 			<label> <input type="number" id="inputEmail" class="form-control"
-				value="10" name="results" required="" autofocus="0"> Number of
-				results
+				value="10" name="results" required="" autofocus="0"> <?php echo STR_SEARCH_2; ?>
 			</label> <label> <input type="date" id="when-d" class="form-control"
-				name="whend" required="" autofocus="1"> Date
+				name="whend" required="" autofocus="1"> <?php echo STR_SEARCH_3; ?>
 			</label> <label> <input type="time"
 				pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" id="when-t"
-				class="form-control" name="whent" required="" autofocus="2"> Time
+				class="form-control" name="whent" required="" autofocus="2"> <?php echo STR_SEARCH_4; ?>
 			</label>
 			<!-- MOT selection -->
 			<hr>
-			<h3>Select MOT</h3>
+			<h3><?php echo STR_SEARCH_5; ?></h3>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="input-group">
@@ -335,7 +361,7 @@ body {
 							name="suburban" value="0"> <input type="checkbox"
 							class="form-check-input" name="suburban" checked value="1">
 						</span>
-						<p class="form-control">suburban</p>
+						<p class="form-control"><?php echo STR_SEARCH_6; ?></p>
 					</div>
 					<!-- /input-group -->
 				</div>
@@ -347,7 +373,7 @@ body {
 							name="subway" value="0"> <input type="checkbox"
 							class="form-check-input" name="subway" checked value="1">
 						</span>
-						<p class="form-control">subway</p>
+						<p class="form-control"><?php echo STR_SEARCH_7; ?></p>
 					</div>
 					<!-- /input-group -->
 				</div>
@@ -359,7 +385,7 @@ body {
 							value="0"> <input type="checkbox" class="form-check-input"
 							name="tram" checked value="1">
 						</span>
-						<p class="form-control">tram</p>
+						<p class="form-control"><?php echo STR_SEARCH_8; ?></p>
 					</div>
 					<!-- /input-group -->
 				</div>
@@ -371,7 +397,7 @@ body {
 							value="0"> <input type="checkbox" class="form-check-input"
 							name="bus" checked value="1">
 						</span>
-						<p class="form-control">bus</p>
+						<p class="form-control"><?php echo STR_SEARCH_9; ?></p>
 					</div>
 					<!-- /input-group -->
 				</div>
@@ -383,7 +409,7 @@ body {
 							value="0"> <input type="checkbox" class="form-check-input"
 							name="ferry" checked value="1">
 						</span>
-						<p class="form-control">ferry</p>
+						<p class="form-control"><?php echo STR_SEARCH_10; ?></p>
 					</div>
 					<!-- /input-group -->
 				</div>
@@ -395,7 +421,7 @@ body {
 							name="express" value="0"> <input type="checkbox"
 							class="form-check-input" name="express" checked value="1">
 						</span>
-						<p class="form-control">express</p>
+						<p class="form-control"><?php echo STR_SEARCH_11; ?></p>
 					</div>
 					<!-- /input-group -->
 				</div>
@@ -407,7 +433,7 @@ body {
 							name="regional" value="0"> <input type="checkbox"
 							class="form-check-input" name="regional" checked value="1">
 						</span>
-						<p class="form-control">regional</p>
+						<p class="form-control"><?php echo STR_SEARCH_12; ?></p>
 					</div>
 					<!-- /input-group -->
 				</div>
@@ -418,7 +444,7 @@ body {
 			<!-- /.row -->
 			<input type="hidden" name="show">
 
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_SEARCH_13; ?></button>
 		</form>
 	</div>
 	<script type="text/javascript">
