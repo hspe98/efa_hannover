@@ -20,6 +20,25 @@ if ($_GET['language'] == "de") {
     define(STR_SEARCH_11, "Schnellzug");
     define(STR_SEARCH_12, "Regionalzug");
     define(STR_SEARCH_13, STR_START_3);
+    // SHOW
+    define(STR_SHOW_1, "Haltestelle");
+    define(STR_SHOW_2, "am");
+    define(STR_SHOW_3, "Linien");
+    define(STR_SHOW_4, "Aktuelle Abfahrten anzeigen");
+    define(STR_SHOW_5, "Mehr Abfahrten anzeigen");
+    define(STR_SHOW_6, "Navigiere zu ");
+    define(STR_SHOW_7, "Gesuchte Haltestelle ist eine Straße/Sehenswürdigkeit; mehrere Haltestelle sind für diese Straße/Sehenswürdigkeit gefunden worden");
+    define(STR_SHOW_8, "Sehenswürdigkeit");
+    define(STR_SHOW_9, "Straße");
+    define(STR_SHOW_10, "Einstieg");
+    define(STR_SHOW_11, "Linie");
+    define(STR_SHOW_12, "von");
+    define(STR_SHOW_13, "nach");
+    define(STR_SHOW_14, "Gl.");
+    define(STR_SHOW_15, "Hinweise");
+    define(STR_SHOW_21, "Niederflurbus mit Rampe");
+    define(STR_SHOW_22, "Gleiswechsel");
+    define(STR_SHOW_23, "GVH-Garantiefall");
 } else {
     // START
     define(STR_START_1, "Please enter the name of the desired stop");
@@ -39,6 +58,29 @@ if ($_GET['language'] == "de") {
     define(STR_SEARCH_11, "express");
     define(STR_SEARCH_12, "regional");
     define(STR_SEARCH_13, STR_START_3);
+    // SHOW
+    define(STR_SHOW_1, "Station");
+    define(STR_SHOW_2, "at");
+    define(STR_SHOW_3, "Lines");
+    define(STR_SHOW_4, "Show current departures");
+    define(STR_SHOW_5, "Show more departures");
+    define(STR_SHOW_6, "Navigate to ");
+    define(STR_SHOW_7, "Searched stop is POI/street; multiple stations are found for this POI/street");
+    define(STR_SHOW_8, "POI");
+    define(STR_SHOW_9, "street");
+    define(STR_SHOW_10, "Boarding at");
+    define(STR_SHOW_11, "Line");
+    define(STR_SHOW_12, "From");
+    define(STR_SHOW_13, "To");
+    define(STR_SHOW_14, "Pl.");
+    define(STR_SHOW_15, "Remarks");
+    define(STR_SHOW_21, "low floor bus with ramp");
+    define(STR_SHOW_22, "platform change");
+    define(STR_SHOW_23, "GVH warranty case");
+    
+    
+    
+    
 }
 
 
@@ -327,9 +369,9 @@ body {
 	for ($i = 0; $i < count($loc); $i ++) {
 		$l = $loc[$i];
 		if ($l['poi'] == "1") {
-			$poi_text = " (POI)";
+			$poi_text = " (".STR_SHOW_8.")";
 		} elseif ($l['type'] == "street") {
-			$poi_text = " (street)";
+			$poi_text = " (".STR_SHOW_9.")";
 		} else {
 			$poi_text = "";
 		}
@@ -634,7 +676,7 @@ $(document).ready(function() {
 			$d = $deps[$i];
 			// get all lines which are departing from stop
 			foreach ($d['stop']['lines'] as $tmp) {
-				$line_div = "\t\t\t\t\t".'<li id="checkbox1" class="col-md-2 highlight-line">';
+				$line_div = "\t\t\t\t\t".'<li id="checkbox1" class="btn btn-default col-md-2 highlight-line">';
 				if (str_contains($d['line']['name'], "Flixbus")) {
 					$line_div .= $d['line']['name'] . " " . $d['line']['symbol'];
 				} elseif (str_contains($d['line']['name'], "RE") or str_contains($d['line']['name'], "RB")) {
@@ -681,16 +723,15 @@ $(document).ready(function() {
 			$dep_divs .= "\t\t\t\t".'<td><a href="dm.php?show&id=' . $d['destination']['id'] . $args_for_links_in_table . '" target="_blank">' . $d['direction'] . "</a></td>\n";
 			$dep_divs .= "\t\t\t\t<td>" . $d['platform'] . "</td>\n";
 			if (($d['delay'] >= 20) and ($d['line']['operator']['id'] == "ÜSTRA" or $d['line']['operator']['id'] == "TDHS")) {
-				$remarks[] = '<i class="material-icons">monetization_on</i> GVH-Garantiefall';
+				$remarks[] = '<i class="material-icons">monetization_on</i> '.STR_SHOW_23;
 			}
-			print_r(array_search("hint", $d['remarks']));
 			foreach ($d['remarks'] as $rm) {
 				if ($rm['text'] == "behindertengerechtes Fahrzeug") {
 					$remarks[] = '<i class="material-icons">accessible</i>';
 				} elseif ($rm['text'] == "Gleiswechsel") {
-					$remarks[] = '<i class="material-icons">call_split</i> platform change';
+					$remarks[] = '<i class="material-icons">call_split</i> '.STR_SHOW_22;
 				} elseif ($rm['text'] == "Niederflurbus mit Rampe") {
-				    $remarks[] = '<i class="material-icons">accessible</i> low floor bus with ramp';
+				    $remarks[] = '<i class="material-icons">accessible</i> '.STR_SHOW_21;
 				} else {
 					$remarks[] = $rm['text'];
 				}
@@ -703,15 +744,15 @@ $(document).ready(function() {
 		}
 
 		?>
-	<h1>Station "<?php echo $deps[0]['stop']['input']['name'].'" at '.date("d.m.Y H:i", strtotime($pWhen)); ?></h1>
+	<h1><?php echo STR_SHOW_1." \"".$deps[0]['stop']['input']['name'].'" '.STR_SHOW_2.' '.date("d.m.Y H:i", strtotime($pWhen)); ?></h1>
 		<?php
 		if ($warning_multiple_stations) {
-			echo '<div class="alert alert-warning" role="alert">Searched stop is POI/street; multiple stations are found for this POI/street</div>'."\n";
+		    echo '<div class="alert alert-warning" role="alert">'.STR_SHOW_7.'</div>'."\n";
 		}
 		?>
 		<?php if (!isset($_GET['min'])) { ?>
 		<div class="row">
-			<h2 class="col-md-12">Lines</h2>
+			<h2 class="col-md-12"><?php echo STR_SHOW_3; ?></h2>
 			<ul class="list-inline col-md-12">
 <?php
 	echo $line_divs;
@@ -730,7 +771,7 @@ $(document).ready(function() {
 
 			echo $_SERVER['SCRIPT_NAME'] . "?" . http_build_query($arg_GET);
 			?>"
-					target="_blank">Show current departures</a>
+					target="_blank"><?php echo STR_SHOW_4; ?></a>
 			</p>
 			<p class="col-md-12 col-lg-12">
 				<a class="btn btn-primary col-md-12"
@@ -739,13 +780,13 @@ $(document).ready(function() {
 			$arg_GET['results'] = $arg_GET['results'] + 20;
 
 			echo $_SERVER['SCRIPT_NAME'] . "?" . http_build_query($arg_GET);
-			?>">Show more departures</a>
+			?>"><?php echo STR_SHOW_5; ?></a>
 			</p>
 				<?php
 			foreach ($coords as $c) {
 				echo '			<p  class="col-md-12 col-lg-6"><a class="btn btn-info col-md-12"
 					href="https://www.google.com/maps/search/?api=1&query=' . $c["latlong"] . '"
-					target="_blank">Navigate to ' . $c["name"] . '</a></p>';
+					target="_blank">'.STR_SHOW_6.' ' . $c["name"] . '</a></p>';
 			}
 
 			?>
@@ -755,16 +796,16 @@ $(document).ready(function() {
 		<table class="table table-condensed table-hover">
 			<tr>
 				<th></th>
-				<th>Line</th>
+				<th><?php echo STR_SHOW_11; ?></th>
 				<?php
 					if ($warning_multiple_stations) {
-						echo "<th>Boarding at</th>\n";
+						echo "<th>".STR_SHOW_10."</th>\n";
 					}
 				?>
-				<th>From</th>
-				<th>To</th>
-				<th>Pl.</th>
-				<th>Remarks</th>
+				<th><?php echo STR_SHOW_12; ?></th>
+				<th><?php echo STR_SHOW_13; ?></th>
+				<th><?php echo STR_SHOW_14; ?></th>
+				<th><?php echo STR_SHOW_15; ?></th>
 			</tr>
 <?php echo $dep_divs; ?>
 		</table>
