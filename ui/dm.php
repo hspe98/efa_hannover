@@ -12,7 +12,7 @@ if (count($_GET) == 0 or isset($_GET['start'])) {
 <title>DM > Start</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" type="text/javascript"></script>
 
 <!-- 
 License of Content used from Bootstrap
@@ -56,9 +56,9 @@ THE SOFTWARE.
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
 	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" type="text/javascript"></script>
 
-<style>
+<style type="text/css">
 /* stylelint-disable selector-no-qualifying-type, property-no-vendor-prefix */
 body {
 	padding-top: 40px;
@@ -109,7 +109,7 @@ body {
 </head>
 <body>
 	<div class="container">
-		<form class="form-signin" method="GET">
+		<form class="form-signin" method="GET" action="">
 			<h2 class="form-signin-heading">Please enter the name of the desired
 				stop</h2>
 			<label for="inputEmail" class="sr-only">Email address</label> <input
@@ -136,7 +136,7 @@ body {
 <title>DM > Search</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" type="text/javascript"></script>
 
 <!-- 
 License of Content used from Bootstrap
@@ -180,9 +180,9 @@ THE SOFTWARE.
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
 	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" type="text/javascript"></script>
 
-<style>
+<style type="text/css">
 /* stylelint-disable selector-no-qualifying-type, property-no-vendor-prefix */
 body {
 	padding-top: 40px;
@@ -229,11 +229,16 @@ body {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
+
+.input-group {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 </style>
 </head>
 <body>
 	<div class="container">
-		<form class="form-signin" method="GET">
+		<form class="form-signin" method="GET" action="">
 			<h2 class="form-signin-heading">Choose your station</h2>
 <?php
 
@@ -298,18 +303,111 @@ body {
     }
     ?>
     		<label> <input type="number" id="inputEmail" class="form-control"
-				value="10" name="results" required="" autofocus=""> Number of
+				value="10" name="results" required="" autofocus="0"> Number of
 				results
 			</label> <label> <input type="date" id="when-d" class="form-control"
-				name="whend" required="" autofocus="">
+				name="whend" required="" autofocus="1"> Date
 			</label> <label> <input type="time"
 				pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" id="when-t"
-				class="form-control" name="whent" required="" autofocus="">
-			</label> <input type="hidden" name="show">
+				class="form-control" name="whent" required="" autofocus="2"> Time
+			</label>
+			<!-- MOT selection -->
+			<hr>
+			<h3>Select MOT</h3>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="input-group">
+						<span class="input-group-addon"> <input type="hidden"
+							name="suburban" value="0"> <input type="checkbox"
+							class="form-check-input" name="suburban" checked value="1">
+						</span>
+						<p class="form-control">suburban</p>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-12 -->
+				<br>
+				<div class="col-lg-12">
+					<div class="input-group">
+						<span class="input-group-addon"> <input type="hidden"
+							name="subway" value="0"> <input type="checkbox"
+							class="form-check-input" name="subway" checked value="1">
+						</span>
+						<p class="form-control">subway</p>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-12 -->
+				<br>
+				<div class="col-lg-12">
+					<div class="input-group">
+						<span class="input-group-addon"> <input type="hidden" name="tram"
+							value="0"> <input type="checkbox" class="form-check-input"
+							name="tram" checked value="1">
+						</span>
+						<p class="form-control">tram</p>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-12 -->
+				<br>
+				<div class="col-lg-12">
+					<div class="input-group">
+						<span class="input-group-addon"> <input type="hidden" name="bus"
+							value="0"> <input type="checkbox" class="form-check-input"
+							name="bus" checked value="1">
+						</span>
+						<p class="form-control">bus</p>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-12 -->
+				<br>
+				<div class="col-lg-12">
+					<div class="input-group">
+						<span class="input-group-addon"> <input type="hidden" name="ferry"
+							value="0"> <input type="checkbox" class="form-check-input"
+							name="ferry" checked value="1">
+						</span>
+						<p class="form-control">ferry</p>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-12 -->
+				<br>
+				<div class="col-lg-12">
+					<div class="input-group">
+						<span class="input-group-addon"> <input type="hidden"
+							name="express" value="0"> <input type="checkbox"
+							class="form-check-input" name="express" checked value="1">
+						</span>
+						<p class="form-control">express</p>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-12 -->
+				<br>
+				<div class="col-lg-12">
+					<div class="input-group">
+						<span class="input-group-addon"> <input type="hidden"
+							name="regional" value="0"> <input type="checkbox"
+							class="form-check-input" name="regional" checked value="1">
+						</span>
+						<p class="form-control">regional</p>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-12 -->
+				<br>
+
+			</div>
+			<!-- /.row -->
+			<input type="hidden" name="show">
+
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
 		</form>
 	</div>
-	<script>
+	<script type="text/javascript">
 $(document).ready(function() {
     let now = new Date();
     $('#when-d').val(now.getFullYear()+"-"+("0" + (now.getMonth()+1)).slice(-2)+"-"+("0" + now.getDate()).slice(-2));
@@ -332,7 +430,7 @@ $(document).ready(function() {
 <title>DM > Show</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" type="text/javascript"></script>
 
 <!-- 
 License of Content used from Bootstrap
@@ -376,10 +474,18 @@ THE SOFTWARE.
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
 	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" type="text/javascript"></script>
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<style type="text/css">
+.highlight-row {
+	background-color: lightyellow;
+}
 
-<style>
+.highlight-row-hover {
+	background-color: lightcoral;
+}
 </style>
 </head>
 <body>
@@ -490,12 +596,29 @@ THE SOFTWARE.
         $d = $deps[$i];
         // get all lines which are departing from stop
         foreach ($d['stop']['lines'] as $tmp) {
-            $line_div = '<li class="col-md-2">' . $tmp['name'] . '</li>';
+            $line_div = '<li id="checkbox1" class="col-md-2 highlight-line">';
+            if (str_contains($d['line']['name'], "Flixbus")) {
+                $line_div .= $d['line']['name'] . " " . $d['line']['symbol'];
+            } elseif (str_contains($d['line']['name'], "RE") or str_contains($d['line']['name'], "RB")) {
+                $line_div .= $d['line']['name'];
+            } elseif (! is_numeric($d['line']['symbol'])) {
+                $line_div .= $d['line']['symbol'];
+            } else {
+                $line_div .= $d['line']['name'] . " " . $d['line']['symbol'];
+            }
+            $line_div .= '</li>';
             if (str_contains($line_divs, $line_div) == false) {
                 $line_divs .= $line_div;
             }
         }
-        $coords = $d['stop']['location']['latitude'] . "," . $d['stop']['location']['longitude'];
+        $coord_check = $d['stop']['stop']['name'];
+        if (! str_contains($coord_check_in_list, $coord_check)) {
+            $coords[] = array(
+                "latlong" => $d['stop']['stop']['location']['latitude'] . "," . $d['stop']['stop']['location']['longitude'],
+                "name" => $d['stop']['stop']['name']
+            );
+            $coord_check_in_list .= $coord_check;
+        }
         $dep_divs .= '<tr>';
         $dep_divs .= '<td>' . date("H:i", strtotime($d['when'])) . '&nbsp;Uhr';
         if ($d['delay'] > 0) {
@@ -515,8 +638,26 @@ THE SOFTWARE.
         if ($warning_multiple_stations) {
             $dep_divs .= '<td>' . $d['stop']['stop']['name'] . "</td>";
         }
+
         $dep_divs .= '<td><a href="dm.php?show&id=' . $d['origin']['id'] . $args_for_links_in_table . '" target="_blank">' . $d['origin']['name'] . '</a></td>';
         $dep_divs .= '<td><a href="dm.php?show&id=' . $d['destination']['id'] . $args_for_links_in_table . '" target="_blank">' . $d['direction'] . "</a></td>";
+        $dep_divs .= '<td>' . $d['platform'] . "</td>";
+        if (($d['delay'] >= 20) and ($d['line']['operator']['id'] == "ÜSTRA" or $d['line']['operator']['id'] == "TDHS")) {
+            $remarks[] = '<i class="material-icons">monetization_on</i> GVH-Garantiefall';
+        }
+        print_r(array_search("hint", $d['remarks']));
+        foreach ($d['remarks'] as $rm) {
+            if ($rm['text'] == "behindertengerechtes Fahrzeug") {
+                $remarks[] = '<i class="material-icons">accessible</i>';
+            } elseif ($rm['text'] == "Gleiswechsel") {
+                $remarks[] = '<i class="material-icons">call_split</i> platform change';
+            } else {
+                $remarks[] = $rm['text'];
+            }
+        }
+
+        $dep_divs .= "<td>" . implode(", <br>", $remarks) . "</td>";
+        unset($remarks);
 
         $dep_divs .= '</tr>';
     }
@@ -525,7 +666,7 @@ THE SOFTWARE.
 <h1>Station "<?php echo $deps[0]['stop']['input']['name'].'" at '.date("d.m.Y H:i", strtotime($pWhen)); ?></h1>
 	<?php
 
-if ($warning_multiple_stations) {
+    if ($warning_multiple_stations) {
         echo '<div class="alert alert-warning" role="alert">Searched stop is POI/street; multiple stations are found for this POI/street</div>';
     }
     ?>
@@ -540,11 +681,40 @@ if ($warning_multiple_stations) {
 	</div>
 	<br>
 	<div class="row">
-		<div class="col-md-12">
-			<a class="btn btn-primary"
-				href="https://www.google.com/maps/search/?api=1&query=<?php echo $coords; ?>"
-				target="_blank">Navigate to station</a>
-		</div>
+		<p class="col-md-12 col-lg-12">
+			<a class="btn btn-primary col-md-12"
+				href="&lt;?php
+        $arg_GET = $_GET;
+        unset($arg_GET['when']);
+        unset($arg_GET['whend']);
+        unset($arg_GET['whent']);
+
+        echo $_SERVER['SCRIPT_NAME'] . &quot;?&quot; . http_build_query($arg_GET);
+        ?&gt;"
+				target="_blank">Show current departures</a>
+		</p>
+		<p class="col-md-12 col-lg-12">
+			<a class="btn btn-primary col-md-12"
+				href="&lt;?php
+        $arg_GET = $_GET;
+        $arg_GET['results'] = $arg_GET['results'] + 20;
+
+        echo $_SERVER['SCRIPT_NAME'] . &quot;?&quot; . http_build_query($arg_GET);
+        ?&gt;">Show more departures</a>
+		</p>
+			<?php
+        foreach ($coords as $c) {
+            echo '			<p  class="col-md-12 col-lg-6"><a class="btn btn-info col-md-12"
+				href="https://www.google.com/maps/search/?api=1&query=' . $c["latlong"] . '"
+				target="_blank">Navigate to ' . $c["name"] . '</a></p>';
+        }
+
+        ?>
+
+
+
+		
+		
 	</div>
 		<?php } ?>
 	    <br>
@@ -559,11 +729,47 @@ if ($warning_multiple_stations) {
     ?>
 	<th>From</th>
 			<th>To</th>
+			<th>Pl.</th>
+			<th>Remarks</th>
 
 		</tr>
     	<?php echo $dep_divs; ?>
     </table>
-	</div>
+	<div></div>
+	<script type="text/javascript">
+    $('li').click(function() {
+      	var x = $(this).text();
+        var elem = $("td").filter(
+         function (index) { 
+         	return $(this).text() == x; 
+         }
+    	);
+    	if (elem.hasClass("highlight-row")) {
+    		elem.removeClass("highlight-row");
+    	} else {
+    		elem.addClass("highlight-row");
+    	}
+    });
+	
+	
+	$( "li" ).hover(
+  function() {
+  	var x = $(this).text();
+    $("td").filter(
+     function (index) { 
+     	return $(this).text() == x; 
+     }
+	).addClass("highlight-row-hover");
+  }, function() {
+    	var x = $(this).text();
+    $("td").filter(
+     function (index) { 
+     	return $(this).text() == x; 
+     }
+	).removeClass("highlight-row-hover");
+  }
+);
+	</script>
 </body>
 </html>
 
