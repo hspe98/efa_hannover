@@ -155,8 +155,10 @@ if (count($_GET) <= 1 or isset($_GET['start'])) {
     			<h2 class="form-signin-heading"><?php echo STR_START_1; ?></h2>
     			<input
     				type="text" id="inputEmail" class="form-control"
-    				placeholder="<?php echo STR_START_2; ?>" name="q" required autofocus> <input
+    				placeholder="<?php echo STR_START_2; ?>" name="q" required autofocus>
+    			<input
     				type="hidden" name="search">
+    			<input type="hidden" name="language" value="<?php echo $_GET["language"]; ?>">
     			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_START_3; ?></button>
     		</form>
     
@@ -443,6 +445,8 @@ body {
 			</div>
 			<!-- /.row -->
 			<input type="hidden" name="show">
+			<input type="hidden" name="language" value="<?php echo $pLang; ?>">
+			
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_SEARCH_13; ?></button>
 		</form>
