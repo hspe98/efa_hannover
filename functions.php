@@ -612,9 +612,11 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                     "location" => array(
                         "type" => "location",
                         "id" => null,
-                        "latitude" => floatval($dep["y"])),
-                        "longitude" => floatval($dep["x"]))
+                        "latitude" => floatval($dep["y"]),
+                        "longitude" => floatval($dep["x"])
                     )
+                )
+            )
         );
         // append lines at this stop to the departure
         if ($argLinesOfStops == True) {
