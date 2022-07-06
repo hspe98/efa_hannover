@@ -10,6 +10,10 @@ if (count($_GET) == 0 or isset($_GET['start'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>DM > Start</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
 <!-- 
 License of Content used from Bootstrap
 
@@ -52,9 +56,6 @@ THE SOFTWARE.
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
 	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
 
 <style>
@@ -133,6 +134,10 @@ body {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>DM > Search</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
 <!-- 
 License of Content used from Bootstrap
 
@@ -175,9 +180,6 @@ THE SOFTWARE.
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
 	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
 
 <style>
@@ -310,8 +312,8 @@ body {
 	<script>
 $(document).ready(function() {
     let now = new Date();
-    $('#when-d').val(now.toISOString().substring(0,10));
-    $('#when-t').val(now.toISOString().substring(11,16));
+    $('#when-d').val(now.getFullYear()+"-"+("0" + (now.getMonth()+1)).slice(-2)+"-"+("0" + now.getDate()).slice(-2));
+    $('#when-t').val(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }));
     
 });
 </script>
@@ -328,6 +330,10 @@ $(document).ready(function() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>DM > Show</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
 <!-- 
 License of Content used from Bootstrap
 
@@ -371,9 +377,7 @@ THE SOFTWARE.
 	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
 	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
 	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
+
 
 <style>
 </style>
