@@ -6,6 +6,9 @@ if (count($_GET) == 0 or isset($_GET['start'])) {
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>DM > Start</title>
 <!-- 
 License of Content used from Bootstrap
@@ -121,6 +124,9 @@ body {
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>DM > Search</title>
 <!-- 
 License of Content used from Bootstrap
@@ -313,6 +319,9 @@ $(document).ready(function() {
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>DM > Show</title>
 <!-- 
 License of Content used from Bootstrap
