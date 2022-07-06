@@ -603,9 +603,9 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                 "id" => $original_data["dm"]["points"]["point"]["ref"]["omc"],
                 "latitude" => floatval(explode(",", $original_data["dm"]["points"]["point"]["ref"]["coords"])[1]),
                 "longitude" => floatval(explode(",", $original_data["dm"]["points"]["point"]["ref"]["coords"])[0])
-            )),
+            )
+            ),
             "stop" => array(
-                "input" => array(
                     "type" => "stop",
                     "id" => $dep["stopID"],
                     "name" => $dep["stopName"],
@@ -615,7 +615,7 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                         "latitude" => floatval($dep["y"]),
                         "longitude" => floatval($dep["x"])
                     )
-                )
+                
             )
         );
         // append lines at this stop to the departure
