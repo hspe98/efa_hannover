@@ -689,6 +689,8 @@ $(document).ready(function() {
 					$remarks[] = '<i class="material-icons">accessible</i>';
 				} elseif ($rm['text'] == "Gleiswechsel") {
 					$remarks[] = '<i class="material-icons">call_split</i> platform change';
+				} elseif ($rm['text'] == "Niederflurbus mit Rampe") {
+				    $remarks[] = '<i class="material-icons">accessible</i> low floor bus with ramp';
 				} else {
 					$remarks[] = $rm['text'];
 				}
