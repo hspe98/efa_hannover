@@ -770,8 +770,14 @@ $(document).ready(function() {
 		?>
 		<?php if (!isset($_GET['min'])) { ?>
 		<div class="row">
-			<h2 class="col-md-12" role="button" id="line_list_heading"><?php echo STR_SHOW_3; ?> <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></h2>
-			<div class="collapse" id="line_list"><ul class="list-inline col-md-12">
+			<h2 class="col-md-12" role="button" id="line_list_heading"><?php echo STR_SHOW_3; ?>
+			<?php if(count($line_divs_arr) > 10) {
+			    echo ' <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></h2><div class="collapse" id="line_list">';
+			} else {
+			    echo ' <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></h2><div class="collapse in" id="line_list">';
+			} ?>
+			
+			<ul class="list-inline col-md-12">
 <?php
 	echo $line_divs;
 ?>
