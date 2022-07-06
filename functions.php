@@ -590,11 +590,12 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
     // save data for later use
     $original_data = $data;
     $data = $data["departureList"];
-
+    
     // loop through every departure
     foreach ($data as $dep) {
         $stop_array = array(
-            "type" => "stop",
+            "input" => array(
+            "type" => $original_data["dm"]["points"]["point"]["anyType"],
             "id" => $original_data["dm"]["points"]["point"]["stateless"],
             "name" => $original_data["dm"]["points"]["point"]["name"],
             "location" => array(
@@ -602,7 +603,18 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                 "id" => $original_data["dm"]["points"]["point"]["ref"]["omc"],
                 "latitude" => floatval(explode(",", $original_data["dm"]["points"]["point"]["ref"]["coords"])[1]),
                 "longitude" => floatval(explode(",", $original_data["dm"]["points"]["point"]["ref"]["coords"])[0])
-            )
+            )),
+            "stop" => array(
+                "input" => array(
+                    "type" => "stop",
+                    "id" => $dep["stopID"],
+                    "name" => $dep["stopName"],
+                    "location" => array(
+                        "type" => "location",
+                        "id" => null,
+                        "latitude" => floatval($dep["y"])),
+                        "longitude" => floatval($dep["x"]))
+                    )
         );
         // append lines at this stop to the departure
         if ($argLinesOfStops == True) {
