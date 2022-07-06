@@ -580,8 +580,11 @@ $(document).ready(function() {
 				background-color: lightcoral;
 			}
 			li.highlight-line {
-			    margin-left: 10px;
-			    margin-right:10px;
+			    margin: 10px;
+			}
+			.highlight-btn {
+			    background-color: lightyellow;
+			    border-color: #ccc;
 			}
 		</style>
 	</head>
@@ -704,8 +707,12 @@ $(document).ready(function() {
 				$line_div .= "</li>\n";
 				if (str_contains($line_divs, $line_div) == false) {
 					$line_divs .= $line_div;
+					$line_divs_arr[] = $line_div;
 				}
 			}
+			// sort line_divs
+			sort($line_divs_arr);
+			$line_divs = implode("",$line_divs_arr);
 			$coord_check = $d['stop']['stop']['name'];
 			if (! str_contains($coord_check_in_list, $coord_check)) {
 				$coords[] = array(
@@ -767,12 +774,12 @@ $(document).ready(function() {
 		?>
 		<?php if (!isset($_GET['min'])) { ?>
 		<div class="row">
-			<h2 class="col-md-12"><?php echo STR_SHOW_3; ?></h2>
-			<ul class="list-inline col-md-12">
+			<h2 class="col-md-12" role="button" id="line_list_heading"><?php echo STR_SHOW_3; ?> <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></h2>
+			<div class="collapse" id="line_list"><ul class="list-inline col-md-12">
 <?php
 	echo $line_divs;
 ?>
-			</ul>
+			</ul></div>
 		</div>
 		<br>
 		<div class="row">
@@ -827,20 +834,29 @@ $(document).ready(function() {
 		<script type="text/javascript">
 			$('li').click(function()
 			{
-				var x = $(this).text();
+				var x = $(this);
+				var x_text = $(this).text();
 				var elem = $("td").filter(function(index)
 				{
-					return $(this).text() == x;
+					return $(this).text() == x_text;
 				});
-				if (elem.hasClass("highlight-row"))
+				if (elem.closest('tr').hasClass("highlight-row"))
 				{
-					elem.removeClass("highlight-row");
+					elem.closest('tr').removeClass("highlight-row");
+					x.removeClass("active");
 				}
 				else
 				{
-					elem.addClass("highlight-row");
+					elem.closest('tr').addClass("highlight-row");
+					x.addClass("active");
 				}
 			});
+			$('#line_list_heading').click(function()
+			{
+				$('#line_list').collapse("toggle");
+				$(this).find('span').toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+			});
+			
 			$("li").hover(function()
 			{
 				var x = $(this).text();
