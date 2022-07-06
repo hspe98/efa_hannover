@@ -409,11 +409,12 @@ $(document).ready(function() {
         } else {
             $dep_divs .= '</td>';
         }
-
-        if (!is_numeric($d['line']['symbol'])) {
-            $dep_divs .= '<td>' . $d['line']['symbol'] . "</td>";
+        if (str_contains($d['line']['name'], "Flixbus")) {
+            $dep_divs .= '<td>' . $d['line']['name'] ." ". $d['line']['symbol'] . "</td>";
         } elseif (str_contains($d['line']['name'], "RE") or str_contains($d['line']['name'], "RB")) {
             $dep_divs .= '<td>' . $d['line']['name'] . "</td>";
+        } elseif (!is_numeric($d['line']['symbol'])) {
+            $dep_divs .= '<td>' . $d['line']['symbol'] . "</td>";
         } else {
             $dep_divs .= '<td>' . $d['line']['name'] ." ".$d['line']['symbol']. "</td>";
         }
