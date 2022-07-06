@@ -1,5 +1,22 @@
 <?php
-if (count($_GET) == 0 or isset($_GET['start'])) {
+
+### Language dictionary ###
+if ($_GET['language'] == "de") {
+    define(STR_START_1, "Bitte Name des gewünschten Haltes eingeben");
+    define(STR_START_2, "Halt eingeben");
+    define(STR_START_3, "Absenden");
+    
+} else {
+    define(STR_START_1, "Please enter the name of the desired stop");
+    define(STR_START_2, "Enter stopname");
+    define(STR_START_3, "Send");
+    
+    
+}
+
+
+
+if (count($_GET) <= 1 or isset($_GET['start'])) {
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
@@ -108,12 +125,12 @@ if (count($_GET) == 0 or isset($_GET['start'])) {
     <body>
     	<div class="container">
     		<form class="form-signin" method="GET" action="">
-    			<h2 class="form-signin-heading">Please enter the name of the desired stop</h2>
-    			<label for="inputEmail" class="sr-only">Email address</label> <input
+    			<h2 class="form-signin-heading"><?php echo STR_START_1; ?></h2>
+    			<input
     				type="text" id="inputEmail" class="form-control"
-    				placeholder="Enter stopname" name="q" required autofocus> <input
+    				placeholder="<?php echo STR_START_2; ?>" name="q" required autofocus> <input
     				type="hidden" name="search">
-    			<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+    			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_START_3; ?></button>
     		</form>
     
     	</div>
