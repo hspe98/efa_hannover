@@ -568,7 +568,7 @@ $(document).ready(function() {
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
 			integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-			crossorigin="anonymous" type="text/javascript"></script>
+			crossorigin="anonymous" type="text/javascript"></script>			
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 			rel="stylesheet">
 		<style type="text/css">
@@ -582,6 +582,14 @@ $(document).ready(function() {
 			li.highlight-line {
 			    margin: 10px;
 			}
+			.timeline-past p {
+			    font-style: italic;
+			    color: grey;
+			}
+			.timeline-current p {
+			    font-weight: bolder;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -817,6 +825,26 @@ $(document).ready(function() {
 		</div>
 		<?php } ?>
 		<br>
+			<?php 
+			// durch Fahrten iterieren
+			for ($i = 0; $i < count($deps); $i++) {
+			    $d = $deps[$i];
+			    //var_dump($d['history']);
+			    // get all history stops
+			    echo '<div class="collapse journeys" id="journey'.$i.'"><h4>Fahrtverlauf</h4><table class="table table-bordered">';
+			    foreach ($d['history'] as $tmp) {
+			            echo '<tr class="timeline-'.$tmp['pos'].'"><td><p class="timeline-time">'.$tmp['arr'].'</p></td>';
+			            echo '<td rowspan="2"><p class="timeline-stop">'.$tmp['stop'].'</p></td></tr>';
+			            echo '<tr class="timeline-'.$tmp['pos'].'"><td><p class="timeline-time">'.$tmp['dep'].'</p></td></tr>';
+			            
+		        }
+		        echo '</table></div>';
+			    
+			}
+			
+			?>
+		
+		<br>
 		<table class="table table-condensed table-hover">
 			<tr>
 				<th></th>
@@ -834,6 +862,9 @@ $(document).ready(function() {
 <?php echo $dep_divs; ?>
 		</table>
 		<script type="text/javascript">
+
+		
+		
 			$('li').click(function()
 			{
 				var x = $(this);
@@ -873,6 +904,19 @@ $(document).ready(function() {
 				{
 					return $(this).text() == x;
 				}).removeClass("highlight-row-hover");
+			});
+			
+			$('tr').click(function()
+			{
+				var x = $(this);
+				var n = x.index()-1;
+				console.log(n);
+				$('.journeys').collapse("hide");
+				$('#journey'+n).collapse("show");
+				$('tr.timeline-past').addClass("active");
+				$('tr.timeline-current').addClass("info");
+				
+
 			});
 		</script>
 	</body>
