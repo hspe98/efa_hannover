@@ -528,6 +528,11 @@ function translateEFADateTimeToISO($efa_dt)
     return $datetime;
 }
 
+function translateEFAarr_depDateTimeSecToLocalTime($efa_dt) {
+    // given format = "YYYYMMDD HH:II:SS"
+    return substr($efa_dt,9,5);
+}
+
 /**
  * @param string $argId id of stop
  * @param boolean $argWhen start time
@@ -772,6 +777,60 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
                     $array["line"]["product"] = $dep["servingLine"]["trainType"];
                     $array["line"]["nr"] = $dep["servingLine"]["trainNum"];  
                 }
+                
+                //add train "history"
+                if (array_key_exists("0", $dep["prevStopSeq"])) {
+                    // this stop isnt the second stop --> multiple entries available
+                    foreach ($dep["prevStopSeq"] as $single_stop) {
+                        $h_arr = key_exists("arrDateTimeSec", $single_stop["ref"]) ? translateEFAarr_depDateTimeSecToLocalTime($single_stop["ref"]["arrDateTimeSec"]) : "-";
+                        $h_dep = key_exists("depDateTimeSec", $single_stop["ref"]) ? translateEFAarr_depDateTimeSecToLocalTime($single_stop["ref"]["depDateTimeSec"]) : "-";
+                        
+                        if ($h_arr == "-") {
+                            $h_arr = date("H:i", strtotime($h_dep)+86400-60);
+                        }
+                        
+                        $history[] = array("arr" => $h_arr, "dep" => $h_dep, "stop" => $single_stop['name'], "pos" => "past");
+                    }
+                } else {
+                    $h_arr = key_exists("arrDateTimeSec", $dep["prevStopSeq"]["ref"]) ? translateEFAarr_depDateTimeSecToLocalTime($dep["prevStopSeq"]["ref"]["arrDateTimeSec"]) : "-";
+                    $h_dep = key_exists("depDateTimeSec", $dep["prevStopSeq"]["ref"]) ? translateEFAarr_depDateTimeSecToLocalTime($dep["prevStopSeq"]["ref"]["depDateTimeSec"]) : "-";
+                    
+                    if ($h_arr == "-") {
+                        $h_arr = date("H:i", strtotime($h_dep)+86400-60);
+                    }
+                    
+                    $history[] = array("arr" => $h_arr, "dep" => $h_dep, "stop" => $dep["prevStopSeq"]['name'], "pos" => "past");
+                }
+                // current stop
+                $h_arr = date("H:i", (strtotime(date("H:i",strtotime($when))) - strtotime($h_dep))/2 + strtotime($h_dep));
+                $history[] = array("arr" => $h_arr, "dep" => date("H:i",strtotime($when)), "stop" => $stop_array['stop']['name'], "pos" => "current");
+                //add train "future"
+                if (array_key_exists("0", $dep["onwardStopSeq"])) {
+                    // this stop isnt the second stop --> multiple entries available
+                    foreach ($dep["onwardStopSeq"] as $single_stop) {
+                        $h_arr = key_exists("arrDateTimeSec", $single_stop["ref"]) ? translateEFAarr_depDateTimeSecToLocalTime($single_stop["ref"]["arrDateTimeSec"]) : "-";
+                        $h_dep = key_exists("depDateTimeSec", $single_stop["ref"]) ? translateEFAarr_depDateTimeSecToLocalTime($single_stop["ref"]["depDateTimeSec"]) : "-";
+                                                
+                        if ($h_dep == "-") {
+                            $h_dep = date("H:i", strtotime($h_arr)+86400+60);
+                        }
+                                                
+                        $history[] = array("arr" => $h_arr, "dep" => $h_dep, "stop" => $single_stop['name'], "pos" => "future");
+                    }
+                } else {
+                    $h_arr = key_exists("arrDateTimeSec", $dep["onwardStopSeq"]["ref"]) ? translateEFAarr_depDateTimeSecToLocalTime($dep["onwardStopSeq"]["ref"]["arrDateTimeSec"]) : "-";
+                    $h_dep = key_exists("depDateTimeSec", $dep["onwardStopSeq"]["ref"]) ? translateEFAarr_depDateTimeSecToLocalTime($dep["onwardStopSeq"]["ref"]["depDateTimeSec"]) : "-";
+                    
+                    if ($h_dep == "-") {
+                        $h_dep = date("H:i", strtotime($h_arr)+86400+60);
+                    }
+                    
+                    $history[] = array("arr" => $h_arr, "dep" => $h_dep, "stop" => $dep["onwardStopSeq"]['name'], "pos" => "future");
+                }
+                
+
+                $array["history"] = $history;
+                unset($history);
                 $result[] = $array;
             }
         }
