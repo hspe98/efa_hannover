@@ -734,7 +734,7 @@ $(document).ready(function() {
 			if (str_contains($d['line']['name'], "Flixbus")) {
 				$dep_divs .= "\t\t\t\t<td>" . $d['line']['name'] . " " . $d['line']['symbol'] . "</td>\n";
 			} elseif (str_contains($d['line']['name'], "RE") or str_contains($d['line']['name'], "RB")) {
-				$dep_divs .= "\t\t\t\t<td>" . $d['line']['name'] . "</td>\n";
+			    $dep_divs .= "\t\t\t\t<td title='".$d['line']['nr']."'>" . $d['line']['name'] . "</td>\n";
 			} elseif (! is_numeric($d['line']['symbol'])) {
 				$dep_divs .= "\t\t\t\t<td>" . $d['line']['symbol'] . "</td>\n";
 			} else {
