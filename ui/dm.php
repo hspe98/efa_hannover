@@ -588,8 +588,7 @@ $(document).ready(function() {
 			}
 			.timeline-current p {
 			    font-weight: bolder;
-			}
-			
+			}	
 		</style>
 	</head>
 	<body>
@@ -915,7 +914,7 @@ $(document).ready(function() {
 				$('#journey'+n).collapse("show");
 				$('tr.timeline-past').addClass("active");
 				$('tr.timeline-current').addClass("info");
-				
+				$('.journeys *').css('vertical-align', "middle");
 
 			});
 		</script>
