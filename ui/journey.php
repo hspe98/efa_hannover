@@ -219,7 +219,6 @@ body {
 
 <?php
 } elseif (isset($_GET['search'])) {
-    header("Location: text/html");
     ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
@@ -351,7 +350,7 @@ body {
 Error! Set origin (from or from.latitude & from.longitude) or set help for help<br>
         
 ";
-        //exit($error_text);
+        exit($error_text);
     }
     if (isset($_GET['to'])) {
         $pDestination = urldecode($_GET['to']);
@@ -361,7 +360,7 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
             $_GET['to.longitude']
         );
     } else {
-        //exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
+        exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
     }
 
     if (isset($_GET['departure'])) {
@@ -451,7 +450,7 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
         $pPretty = False;
     }
 
-    $loc = json_decode(utf8_encode(getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks = $pRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty)), 1);
+    //$loc = json_decode(utf8_encode(getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks = $pRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty)), 1);
     $already_got_from = '<h4>' . STR_SEARCH_1_1 . '</h4><div class="checkbox">
 		  <label>
 			<input checked type="radio" required name="from" value="' . $_GET['from'] . '"> ' . $_GET['from'] . '
