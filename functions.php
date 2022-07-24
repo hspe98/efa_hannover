@@ -873,6 +873,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
     $query .= "&itOptionsActive=1&ptOptionsActive=1";
     // limit number of results
     $query .= "&calcNumberOfTrips=" . $argCalcNumberOfTrips;
+    exit();
     // convert when argument to an unix timestamp
     $timestamp = strtotime($argWhen);
     // format as EFA time (HHMM)
@@ -916,7 +917,6 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
     $query .= "&language=" . $argLanguage;
     // test url
     // echo "https://app.efa.de/mdv_server/app_gvh/XML_TRIP_REQUEST2?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8&outputFormat=json&" . $query;
-    exit();
     $data = getData("XML_TRIP_REQUEST2", $outputFormat = "json", $query);
     $data = json_decode(utf8_encode($data), 1, JSON_UNESCAPED_UNICODE);
 
