@@ -453,6 +453,7 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
     
     $loc = json_decode(utf8_encode($data), 1, JSON_UNESCAPED_UNICODE);
     print_r($loc);
+    exit();
     $already_got_from = '<h4>' . STR_SEARCH_1_1 . '</h4><div class="checkbox">
 		  <label>
 			<input checked type="radio" required name="from" value="' . $_GET['from'] . '"> ' . $_GET['from'] . '
