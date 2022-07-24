@@ -1,6 +1,6 @@
 <?php
 
-### Language dictionary ###
+# ## Language dictionary ###
 if ($_GET['language'] == "de") {
     // START
     define(STR_START_1, "Bitte Name des gewünschten Haltes eingeben");
@@ -10,7 +10,7 @@ if ($_GET['language'] == "de") {
     // SEARCH
     define(STR_SEARCH_1, "Wähle deine Haltestellen aus");
     define(STR_SEARCH_1_1, "Start-Haltestelle");
-    define(STR_SEARCH_1_2, "Ziel-Haltestelle");    
+    define(STR_SEARCH_1_2, "Ziel-Haltestelle");
     define(STR_SEARCH_2, "Anzahl der Resultate");
     define(STR_SEARCH_3, "Datum");
     define(STR_SEARCH_4, "Uhrzeit");
@@ -40,7 +40,6 @@ if ($_GET['language'] == "de") {
     define(STR_SHOW_24, "behindertengerechtes Fahrzeug");
     define(STR_SHOW_25, "Niederflurfahrzeug");
     define(STR_SHOW_26, "Rollstuhlzugang");
-    
 } else {
     // START
     define(STR_START_1, "Please enter the name of the desired stop");
@@ -50,7 +49,7 @@ if ($_GET['language'] == "de") {
     // SEARCH
     define(STR_SEARCH_1, "Choose your stations");
     define(STR_SEARCH_1_1, "origin station");
-    define(STR_SEARCH_1_2, "destination station");    
+    define(STR_SEARCH_1_2, "destination station");
     define(STR_SEARCH_2, "Number of results");
     define(STR_SEARCH_3, "Date");
     define(STR_SEARCH_4, "Time");
@@ -80,28 +79,22 @@ if ($_GET['language'] == "de") {
     define(STR_SHOW_24, "accessible vehicle");
     define(STR_SHOW_25, "low floor vehicle");
     define(STR_SHOW_26, "wheel chair access");
-    
-    
-    
-    
 }
 
-
-
 if (count($_GET) <= 1 or isset($_GET['start'])) {
-?>
+    ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
-    <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DM > Start</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    	crossorigin="anonymous" type="text/javascript"></script>
-    
-    <!-- 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DM > Start</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous" type="text/javascript"></script>
+
+<!-- 
     License of Content used from Bootstrap
     
     The MIT License (MIT)
@@ -127,107 +120,106 @@ if (count($_GET) <= 1 or isset($_GET['start'])) {
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
      -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet"
-    	href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
-    	integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
-    	crossorigin="anonymous">
-    
-    <!-- Optional theme -->
-    <link rel="stylesheet"
-    	href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
-    	integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ"
-    	crossorigin="anonymous">
-    
-    <!-- Latest compiled and minified JavaScript -->
-    <script
-    	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
-    	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-    	crossorigin="anonymous" type="text/javascript"></script>
-    
-    <style type="text/css">
-    /* stylelint-disable selector-no-qualifying-type, property-no-vendor-prefix */
-    body {
-    	padding-top: 40px;
-    	padding-bottom: 40px;
-    	background-color: #eee;
-    }
-    
-    .form-signin {
-    	max-width: 330px;
-    	padding: 15px;
-    	margin: 0 auto;
-    }
-    
-    .form-signin .form-signin-heading, .form-signin .checkbox {
-    	margin-bottom: 10px;
-    }
-    
-    .form-signin .checkbox {
-    	font-weight: 400;
-    }
-    
-    .form-signin .form-control {
-    	position: relative;
-    	-webkit-box-sizing: border-box;
-    	-moz-box-sizing: border-box;
-    	box-sizing: border-box;
-    	height: auto;
-    	padding: 10px;
-    	font-size: 16px;
-    }
-    
-    .form-signin .form-control:focus {
-    	z-index: 2;
-    }
-    
-    .form-signin input[type="email"] {
-    	margin-bottom: -1px;
-    	border-bottom-right-radius: 0;
-    	border-bottom-left-radius: 0;
-    }
-    
-    .form-signin input[type="password"] {
-    	margin-bottom: 10px;
-    	border-top-left-radius: 0;
-    	border-top-right-radius: 0;
-    }
-    </style>
-    </head>
-    <body>
-    	<div class="container">
-    		<form class="form-signin" method="GET" action="">
-    			<h2 class="form-signin-heading text-center"><?php echo STR_START_1; ?></h2><br>
-    			<input
-    				type="text" id="inputEmail" class="form-control"
-    				placeholder="<?php echo STR_START_21; ?>" name="from" required autofocus><br>
-    			<input
-    				type="text" id="inputEmail" class="form-control"
-    				placeholder="<?php echo STR_START_22; ?>" name="to" required autofocus><br>
-    			<input
-    				type="hidden" name="search">
-    			<input type="hidden" name="language" value="<?php echo $_GET["language"]; ?>">
-    			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_START_3; ?></button>
-    			<br>
-    			<br>
-    			<h4>language/Sprache</h4>
-    			<div class="row">
-        			<p class="col-sm-12 col-md-6 col-lg-4">
-        				<a class="btn btn-default col-md-12" href="<?php echo $_SERVER['SCRIPT_NAME']."?language=en"; ?>">English</a>
-        			</p>
-        			<p class="col-sm-12 col-md-6 col-lg-4">
-        				<a class="btn btn-default col-md-12" href="<?php echo $_SERVER['SCRIPT_NAME']."?language=de"; ?>">Deutsch</a>
-        			</p>
-    			</div>
-    		</form>
-    
-    	</div>
-    </body>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+	integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+	integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+	crossorigin="anonymous" type="text/javascript"></script>
+
+<style type="text/css">
+/* stylelint-disable selector-no-qualifying-type, property-no-vendor-prefix */
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #eee;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: 400;
+}
+
+.form-signin .form-control {
+	position: relative;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<form class="form-signin" method="GET" action="">
+			<h2 class="form-signin-heading text-center"><?php echo STR_START_1; ?></h2>
+			<br> <input type="text" id="inputEmail" class="form-control"
+				placeholder="<?php echo STR_START_21; ?>" name="from" required
+				autofocus><br> <input type="text" id="inputEmail"
+				class="form-control" placeholder="<?php echo STR_START_22; ?>"
+				name="to" required autofocus><br> <input type="hidden" name="search">
+			<input type="hidden" name="language"
+				value="<?php echo $_GET["language"]; ?>">
+			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_START_3; ?></button>
+			<br> <br>
+			<h4>language/Sprache</h4>
+			<div class="row">
+				<p class="col-sm-12 col-md-6 col-lg-4">
+					<a class="btn btn-default col-md-12"
+						href="<?php echo $_SERVER['SCRIPT_NAME']."?language=en"; ?>">English</a>
+				</p>
+				<p class="col-sm-12 col-md-6 col-lg-4">
+					<a class="btn btn-default col-md-12"
+						href="<?php echo $_SERVER['SCRIPT_NAME']."?language=de"; ?>">Deutsch</a>
+				</p>
+			</div>
+		</form>
+
+	</div>
+</body>
 </html>
 
 <?php
 } elseif (isset($_GET['search'])) {
-	?>
+    ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
@@ -346,181 +338,177 @@ body {
 
     require '../functions.php';
 
-
-
-	if (isset($_GET['from'])) {
-	    $pOrigin = urldecode($_GET['from']);
-	} elseif (isset($_GET['from.latitude']) and isset($_GET['from.longitude'])) {
-	    $pOrigin = array(
-	        $_GET['from.latitude'],
-	        $_GET['from.longitude']
-	    );
-	} else {
-	    $error_text = "
+    if (isset($_GET['from'])) {
+        $pOrigin = urldecode($_GET['from']);
+    } elseif (isset($_GET['from.latitude']) and isset($_GET['from.longitude'])) {
+        $pOrigin = array(
+            $_GET['from.latitude'],
+            $_GET['from.longitude']
+        );
+    } else {
+        $error_text = "
 Error! Set origin (from or from.latitude & from.longitude) or set help for help<br>
         
 ";
-	    exit($error_text);
-	}
-	if (isset($_GET['to'])) {
-	    $pDestination = urldecode($_GET['to']);
-	} elseif (isset($_GET['to.latitude']) and isset($_GET['to.longitude'])) {
-	    $pDestination = array(
-	        $_GET['to.latitude'],
-	        $_GET['to.longitude']
-	    );
-	} else {
-	    exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
-	}
-	
-	if (isset($_GET['departure'])) {
-	    $pDepOrArrTime = "dep";
-	} elseif (isset($_GET['arrival'])) {
-	    $pDepOrArrTime = "arr";
-	} else {
-	    $pDepOrArrTime = "dep";
-	    $pWhen = "now";
-	}
-	if (isset($_GET['whend']) and isset($_GET['whent'])) {
-	    $pWhen = urldecode($_GET['whend']) . " " . urldecode($_GET['whent']);
-	} elseif (isset($_GET['when'])) {
-	    $pWhen = urldecode($_GET['when']);
-	} else {
-	    $pWhen = "now";
-	}
-	if (isset($_GET['calcNumberOfTrips'])) {
-	    $pCalcNumberOfTrips = $_GET['calcNumberOfTrips'];
-	} else {
-	    $pCalcNumberOfTrips = 5;
-	}
-	
-	if (isset($_GET['remarks'])) {
-	    $pRemarks = filter_var($_GET['remarks'], FILTER_VALIDATE_BOOLEAN);
-	} else {
-	    $pRemarks = False;
-	}
-	
-	if (isset($_GET['maxTransfers'])) {
-	    $pMaxTransfers = $_GET['maxTransfers'];
-	} else {
-	    // 9 means no limit
-	    $pMaxTransfers = 9;
-	}
-	
-	if (isset($_GET['walkingSpeed']) and (($_GET['walkingSpeed'] == "slow") or ($_GET['walkingSpeed'] == "normal") or ($_GET['walkingSpeed'] == "fast"))) {
-	    $pWalkingSpeed = $_GET['walkingSpeed'];
-	} else {
-	    // 9 means no limit
-	    $pWalkingSpeed = "normal";
-	}
-	
-	if (isset($_GET['suburban'])) {
-	    $pSuburban = filter_var($_GET['suburban'], FILTER_VALIDATE_BOOLEAN);
-	} else {
-	    $pSuburban = True;
-	}
-	if (isset($_GET['subway'])) {
-	    $pSubway = filter_var($_GET['subway'], FILTER_VALIDATE_BOOLEAN);
-	} else {
-	    $pSubway = True;
-	}
-	if (isset($_GET['tram'])) {
-	    $pTram = filter_var($_GET['tram'], FILTER_VALIDATE_BOOLEAN);
-	} else {
-	    $pTram = True;
-	}
-	if (isset($_GET['bus'])) {
-	    $pBus = filter_var($_GET['bus'], FILTER_VALIDATE_BOOLEAN);
-	} else {
-	    $pBus = True;
-	}
-	if (isset($_GET['ferry'])) {
-	    $pFerry = filter_var($_GET['ferry'], FILTER_VALIDATE_BOOLEAN);
-	} else {
-	    $pFerry = True;
-	}
-	if (isset($_GET['express'])) {
-	    $pExpress = filter_var($_GET['express'], FILTER_VALIDATE_BOOLEAN);
-	} else {
-	    $pExpress = True;
-	}
-	if (isset($_GET['regional'])) {
-	    $pRegional = filter_var($_GET['regional'], FILTER_VALIDATE_BOOLEAN);
-	} else {
-	    $pRegional = True;
-	}
-	if (isset($_GET['language'])) {
-	    $pLanguage = $_GET['language'];
-	} else {
-	    $pLanguage = "en";
-	}
-	if (isset($_GET['pretty'])) {
-	    $pPretty = $_GET['pretty'];
-	} else {
-	    $pPretty = False;
-	}
-	
-	$loc = json_decode(utf8_encode(getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks=$pRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty)), 1);
-	$already_got_from = '<h4>'.STR_SEARCH_1_1.'</h4><div class="checkbox">
+        exit($error_text);
+    }
+    if (isset($_GET['to'])) {
+        $pDestination = urldecode($_GET['to']);
+    } elseif (isset($_GET['to.latitude']) and isset($_GET['to.longitude'])) {
+        $pDestination = array(
+            $_GET['to.latitude'],
+            $_GET['to.longitude']
+        );
+    } else {
+        exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
+    }
+
+    if (isset($_GET['departure'])) {
+        $pDepOrArrTime = "dep";
+    } elseif (isset($_GET['arrival'])) {
+        $pDepOrArrTime = "arr";
+    } else {
+        $pDepOrArrTime = "dep";
+        $pWhen = "now";
+    }
+    if (isset($_GET['whend']) and isset($_GET['whent'])) {
+        $pWhen = urldecode($_GET['whend']) . " " . urldecode($_GET['whent']);
+    } elseif (isset($_GET['when'])) {
+        $pWhen = urldecode($_GET['when']);
+    } else {
+        $pWhen = "now";
+    }
+    if (isset($_GET['calcNumberOfTrips'])) {
+        $pCalcNumberOfTrips = $_GET['calcNumberOfTrips'];
+    } else {
+        $pCalcNumberOfTrips = 5;
+    }
+
+    if (isset($_GET['remarks'])) {
+        $pRemarks = filter_var($_GET['remarks'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pRemarks = False;
+    }
+
+    if (isset($_GET['maxTransfers'])) {
+        $pMaxTransfers = $_GET['maxTransfers'];
+    } else {
+        // 9 means no limit
+        $pMaxTransfers = 9;
+    }
+
+    if (isset($_GET['walkingSpeed']) and (($_GET['walkingSpeed'] == "slow") or ($_GET['walkingSpeed'] == "normal") or ($_GET['walkingSpeed'] == "fast"))) {
+        $pWalkingSpeed = $_GET['walkingSpeed'];
+    } else {
+        // 9 means no limit
+        $pWalkingSpeed = "normal";
+    }
+
+    if (isset($_GET['suburban'])) {
+        $pSuburban = filter_var($_GET['suburban'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pSuburban = True;
+    }
+    if (isset($_GET['subway'])) {
+        $pSubway = filter_var($_GET['subway'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pSubway = True;
+    }
+    if (isset($_GET['tram'])) {
+        $pTram = filter_var($_GET['tram'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pTram = True;
+    }
+    if (isset($_GET['bus'])) {
+        $pBus = filter_var($_GET['bus'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pBus = True;
+    }
+    if (isset($_GET['ferry'])) {
+        $pFerry = filter_var($_GET['ferry'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pFerry = True;
+    }
+    if (isset($_GET['express'])) {
+        $pExpress = filter_var($_GET['express'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pExpress = True;
+    }
+    if (isset($_GET['regional'])) {
+        $pRegional = filter_var($_GET['regional'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pRegional = True;
+    }
+    if (isset($_GET['language'])) {
+        $pLanguage = $_GET['language'];
+    } else {
+        $pLanguage = "en";
+    }
+    if (isset($_GET['pretty'])) {
+        $pPretty = $_GET['pretty'];
+    } else {
+        $pPretty = False;
+    }
+
+    $loc = json_decode(utf8_encode(getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks = $pRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty)), 1);
+    $already_got_from = '<h4>' . STR_SEARCH_1_1 . '</h4><div class="checkbox">
 		  <label>
 			<input checked type="radio" required name="from" value="' . $_GET['from'] . '"> ' . $_GET['from'] . '
 		  </label>
 		</div>';
-	$already_got_to = '<h4>'.STR_SEARCH_1_2.'</h4><div class="checkbox">
+    $already_got_to = '<h4>' . STR_SEARCH_1_2 . '</h4><div class="checkbox">
 		  <label>
 			<input checked type="radio" required name="to" value="' . $_GET['to'] . '"> ' . $_GET['to'] . '
 		  </label>
 		</div>';
-	if (array_key_exists("errors", $loc)) {
-	    if (array_key_exists("origin", $loc["options"])) {
-	        $origin_options = $loc["options"]["origin"];
-	        echo '<h4>'.STR_SEARCH_1_1.'</h4>';
-	        for ($i = 0; $i < count($origin_options); $i ++) {
-	            $l = $origin_options[$i];
-	            if ($l['poi'] == "1") {
-	                $poi_text = " (".STR_SHOW_8.")";
-	            } elseif ($l['type'] == "street") {
-	                $poi_text = " (".STR_SHOW_9.")";
-	            } else {
-	                $poi_text = "";
-	            }
-	            echo '		<div class="checkbox">
+    if (array_key_exists("errors", $loc)) {
+        if (array_key_exists("origin", $loc["options"])) {
+            $origin_options = $loc["options"]["origin"];
+            echo '<h4>' . STR_SEARCH_1_1 . '</h4>';
+            for ($i = 0; $i < count($origin_options); $i ++) {
+                $l = $origin_options[$i];
+                if ($l['poi'] == "1") {
+                    $poi_text = " (" . STR_SHOW_8 . ")";
+                } elseif ($l['type'] == "street") {
+                    $poi_text = " (" . STR_SHOW_9 . ")";
+                } else {
+                    $poi_text = "";
+                }
+                echo '		<div class="checkbox">
 		  <label>
 			<input type="radio" required name="from" value="' . $l['stateless'] . '"> ' . $l['name'] . $poi_text . '
 		  </label>
 		</div>';
-	        }
-	        
-	    } else {
-	        echo $already_got_from;
-	    }
-	    if (array_key_exists("destination", $loc["options"])) {
-	        $destination_options = $loc["options"]["destination"];
-	        echo '<h4>'.STR_SEARCH_1_2.'</h4>';
-	        for ($i = 0; $i < count($destination_options); $i ++) {
-	            $l = $destination_options[$i];
-	            if ($l['poi'] == "1") {
-	                $poi_text = " (".STR_SHOW_8.")";
-	            } elseif ($l['type'] == "street") {
-	                $poi_text = " (".STR_SHOW_9.")";
-	            } else {
-	                $poi_text = "";
-	            }
-	            echo '		<div class="checkbox">
+            }
+        } else {
+            echo $already_got_from;
+        }
+        if (array_key_exists("destination", $loc["options"])) {
+            $destination_options = $loc["options"]["destination"];
+            echo '<h4>' . STR_SEARCH_1_2 . '</h4>';
+            for ($i = 0; $i < count($destination_options); $i ++) {
+                $l = $destination_options[$i];
+                if ($l['poi'] == "1") {
+                    $poi_text = " (" . STR_SHOW_8 . ")";
+                } elseif ($l['type'] == "street") {
+                    $poi_text = " (" . STR_SHOW_9 . ")";
+                } else {
+                    $poi_text = "";
+                }
+                echo '		<div class="checkbox">
 		  <label>
 			<input type="radio" required name="to" value="' . $l['stateless'] . '"> ' . $l['name'] . $poi_text . '
 		  </label>
 		</div>';
-	        }
-	    } else {
-	        echo $already_got_to;
-	    }
-	    
-	} else {
-	   echo $already_got_from;
-	   echo $already_got_to;
-	}
-	?>
+            }
+        } else {
+            echo $already_got_to;
+        }
+    } else {
+        echo $already_got_from;
+        echo $already_got_to;
+    }
+    ?>
 			<label> <input type="number" id="inputEmail" class="form-control"
 				value="10" name="calcNumberOfTrips" required="" autofocus="0"> <?php echo STR_SEARCH_2; ?>
 			</label> <label> <input type="date" id="when-d" class="form-control"
@@ -529,16 +517,17 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
 				pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" id="when-t"
 				class="form-control" name="whent" required="" autofocus="2"> <?php echo STR_SEARCH_4; ?>
 			</label>
-			<div class="btn-group btn-group-justified" role="group" aria-label="...">
-  				<div class="btn-group" role="group">
-        			<button type="button" id="useDep" class="btn btn-default active"><?php echo STR_SEARCH_3_1; ?></button>
-    			</div>
-      			<div class="btn-group" role="group">
-        			<button type="button" id="useArr" class="btn btn-default"><?php echo STR_SEARCH_3_2; ?></button>
-      			</div>
+			<div class="btn-group btn-group-justified" role="group"
+				aria-label="...">
+				<div class="btn-group" role="group">
+					<button type="button" id="useDep" class="btn btn-default active"><?php echo STR_SEARCH_3_1; ?></button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" id="useArr" class="btn btn-default"><?php echo STR_SEARCH_3_2; ?></button>
+				</div>
 			</div>
 			<input type="hidden" id="ArrOrDep" name="departure">
-			
+
 			<!-- MOT selection -->
 			<hr>
 			<h3><?php echo STR_SEARCH_5; ?></h3>
@@ -630,9 +619,9 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
 
 			</div>
 			<!-- /.row -->
-			<input type="hidden" name="show">
-			<input type="hidden" name="language" value="<?php echo $pLanguage; ?>">
-			
+			<input type="hidden" name="show"> <input type="hidden"
+				name="language" value="<?php echo $pLanguage; ?>">
+
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_SEARCH_13; ?></button>
 		</form>
@@ -669,19 +658,19 @@ $('#useArr').click(function()
 </html>
 <?php
 } elseif (isset($_GET['show'])) {
-	?>
+    ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>DM > Show</title>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-			crossorigin="anonymous" type="text/javascript"></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DM > Show</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous" type="text/javascript"></script>
 
-		<!-- 
+<!-- 
 		License of Content used from Bootstrap
 
 		The MIT License (MIT)
@@ -707,345 +696,337 @@ $('#useArr').click(function()
 		OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 		THE SOFTWARE.
 		 -->
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
-			integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
-			crossorigin="anonymous">
-		<!-- Optional theme -->
-		<link rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
-			integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ"
-			crossorigin="anonymous">
-		<!-- Latest compiled and minified JavaScript -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
-			integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-			crossorigin="anonymous" type="text/javascript"></script>			
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-			rel="stylesheet">
-		<style type="text/css">
-			.highlight-row {
-				background-color: lightyellow;
-			}
-
-			.highlight-row-hover {
-				background-color: lightcoral;
-			}
-			li.highlight-line {
-			    margin: 10px;
-			}
-			.timeline-past p {
-			    font-style: italic;
-			    color: grey;
-			}
-			.timeline-current p {
-			    font-weight: bolder;
-			}	
-			.hiddenRow {
-    padding: 0 !important;
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+	integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+	crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+	integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ"
+	crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+	crossorigin="anonymous" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<style type="text/css">
+.highlight-row {
+	background-color: lightyellow;
 }
+
+.highlight-row-hover {
+	background-color: lightcoral;
+}
+
+li.highlight-line {
+	margin: 10px;
+}
+
+.timeline-past p {
+	font-style: italic;
+	color: grey;
+}
+
+.timeline-current p {
+	font-weight: bolder;
+}
+
+.hiddenRow {
+	padding: 0 !important;
+}
+
 .material-icons {
-    display: inline-flex;
-    vertical-align: middle;
+	display: inline-flex;
+	vertical-align: middle;
 }
-		</style>
-	</head>
-	<body>
+</style>
+</head>
+<body>
 	<?php
-		require '../functions.php';
+    require '../functions.php';
 
-		if (isset($_GET['from'])) {
-		    $pOrigin = urldecode($_GET['from']);
-		} elseif (isset($_GET['from.latitude']) and isset($_GET['from.longitude'])) {
-		    $pOrigin = array(
-		        $_GET['from.latitude'],
-		        $_GET['from.longitude']
-		    );
-		} else {
-		    $error_text = "
+    if (isset($_GET['from'])) {
+        $pOrigin = urldecode($_GET['from']);
+    } elseif (isset($_GET['from.latitude']) and isset($_GET['from.longitude'])) {
+        $pOrigin = array(
+            $_GET['from.latitude'],
+            $_GET['from.longitude']
+        );
+    } else {
+        $error_text = "
 Error! Set origin (from or from.latitude & from.longitude) or set help for help<br>
         
 ";
-		    exit($error_text);
-		}
-		if (isset($_GET['to'])) {
-		    $pDestination = urldecode($_GET['to']);
-		} elseif (isset($_GET['to.latitude']) and isset($_GET['to.longitude'])) {
-		    $pDestination = array(
-		        $_GET['to.latitude'],
-		        $_GET['to.longitude']
-		    );
-		} else {
-		    exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
-		}
-		
-		if (isset($_GET['departure'])) {
-		    $pDepOrArrTime = "dep";
-		} elseif (isset($_GET['arrival'])) {
-		    $pDepOrArrTime = "arr";
-		} else {
-		    $pDepOrArrTime = "dep";
-		    $pWhen = "now";
-		}
-		if (isset($_GET['whend']) and isset($_GET['whent'])) {
-		    $pWhen = urldecode($_GET['whend']) . " " . urldecode($_GET['whent']);
-		} elseif (isset($_GET['when'])) {
-		    $pWhen = urldecode($_GET['when']);
-		} else {
-		    $pWhen = "now";
-		}
-		
-		if (isset($_GET['calcNumberOfTrips'])) {
-		    $pCalcNumberOfTrips = $_GET['calcNumberOfTrips'];
-		} else {
-		    $pCalcNumberOfTrips = 5;
-		}
-		
-		if (isset($_GET['remarks'])) {
-		    $pRemarks = filter_var($_GET['remarks'], FILTER_VALIDATE_BOOLEAN);
-		} else {
-		    $pRemarks = True;
-		}
-		
-		if (isset($_GET['maxTransfers'])) {
-		    $pMaxTransfers = $_GET['maxTransfers'];
-		} else {
-		    // 9 means no limit
-		    $pMaxTransfers = 9;
-		}
-		
-		if (isset($_GET['walkingSpeed']) and (($_GET['walkingSpeed'] == "slow") or ($_GET['walkingSpeed'] == "normal") or ($_GET['walkingSpeed'] == "fast"))) {
-		    $pWalkingSpeed = $_GET['walkingSpeed'];
-		} else {
-		    // 9 means no limit
-		    $pWalkingSpeed = "normal";
-		}
-		
-		if (isset($_GET['suburban'])) {
-		    $pSuburban = filter_var($_GET['suburban'], FILTER_VALIDATE_BOOLEAN);
-		} else {
-		    $pSuburban = True;
-		}
-		if (isset($_GET['subway'])) {
-		    $pSubway = filter_var($_GET['subway'], FILTER_VALIDATE_BOOLEAN);
-		} else {
-		    $pSubway = True;
-		}
-		if (isset($_GET['tram'])) {
-		    $pTram = filter_var($_GET['tram'], FILTER_VALIDATE_BOOLEAN);
-		} else {
-		    $pTram = True;
-		}
-		if (isset($_GET['bus'])) {
-		    $pBus = filter_var($_GET['bus'], FILTER_VALIDATE_BOOLEAN);
-		} else {
-		    $pBus = True;
-		}
-		if (isset($_GET['ferry'])) {
-		    $pFerry = filter_var($_GET['ferry'], FILTER_VALIDATE_BOOLEAN);
-		} else {
-		    $pFerry = True;
-		}
-		if (isset($_GET['express'])) {
-		    $pExpress = filter_var($_GET['express'], FILTER_VALIDATE_BOOLEAN);
-		} else {
-		    $pExpress = True;
-		}
-		if (isset($_GET['regional'])) {
-		    $pRegional = filter_var($_GET['regional'], FILTER_VALIDATE_BOOLEAN);
-		} else {
-		    $pRegional = True;
-		}
-		if (isset($_GET['language'])) {
-		    $pLanguage = $_GET['language'];
-		} else {
-		    $pLanguage = "en";
-		}
-		if (isset($_GET['pretty'])) {
-		    $pPretty = $_GET['pretty'];
-		} else {
-		    $pPretty = False;
-		}
-		
-		$journeys = json_decode(utf8_encode(getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks=$pRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty)), 1, JSON_UNESCAPED_UNICODE);
-		
-        //echo "<code>".json_encode($journeys)."</code>";
-		
-		
-        echo '	<div class="container">';
-        //Heading
-        echo "<h1>".STR_SHOW_1." ".date("d.m.Y H:i", strtotime($pWhen))."</h1>";
-        
-        
-        $table_content .= '<table class="table table-condensed table-hover">';
-        
-        $table_content .= '<tr>
-        <th>'.STR_SHOW_2.'</th>
-        <th>'.STR_SHOW_3.'</th>
-        <th>'.STR_SHOW_4.'</th>
-        <th>'.STR_SHOW_5.'</th>
-        <th>'.STR_SHOW_6.'</th>
+        exit($error_text);
+    }
+    if (isset($_GET['to'])) {
+        $pDestination = urldecode($_GET['to']);
+    } elseif (isset($_GET['to.latitude']) and isset($_GET['to.longitude'])) {
+        $pDestination = array(
+            $_GET['to.latitude'],
+            $_GET['to.longitude']
+        );
+    } else {
+        exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
+    }
+
+    if (isset($_GET['departure'])) {
+        $pDepOrArrTime = "dep";
+    } elseif (isset($_GET['arrival'])) {
+        $pDepOrArrTime = "arr";
+    } else {
+        $pDepOrArrTime = "dep";
+        $pWhen = "now";
+    }
+    if (isset($_GET['whend']) and isset($_GET['whent'])) {
+        $pWhen = urldecode($_GET['whend']) . " " . urldecode($_GET['whent']);
+    } elseif (isset($_GET['when'])) {
+        $pWhen = urldecode($_GET['when']);
+    } else {
+        $pWhen = "now";
+    }
+
+    if (isset($_GET['calcNumberOfTrips'])) {
+        $pCalcNumberOfTrips = $_GET['calcNumberOfTrips'];
+    } else {
+        $pCalcNumberOfTrips = 5;
+    }
+
+    if (isset($_GET['remarks'])) {
+        $pRemarks = filter_var($_GET['remarks'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pRemarks = True;
+    }
+
+    if (isset($_GET['maxTransfers'])) {
+        $pMaxTransfers = $_GET['maxTransfers'];
+    } else {
+        // 9 means no limit
+        $pMaxTransfers = 9;
+    }
+
+    if (isset($_GET['walkingSpeed']) and (($_GET['walkingSpeed'] == "slow") or ($_GET['walkingSpeed'] == "normal") or ($_GET['walkingSpeed'] == "fast"))) {
+        $pWalkingSpeed = $_GET['walkingSpeed'];
+    } else {
+        // 9 means no limit
+        $pWalkingSpeed = "normal";
+    }
+
+    if (isset($_GET['suburban'])) {
+        $pSuburban = filter_var($_GET['suburban'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pSuburban = True;
+    }
+    if (isset($_GET['subway'])) {
+        $pSubway = filter_var($_GET['subway'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pSubway = True;
+    }
+    if (isset($_GET['tram'])) {
+        $pTram = filter_var($_GET['tram'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pTram = True;
+    }
+    if (isset($_GET['bus'])) {
+        $pBus = filter_var($_GET['bus'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pBus = True;
+    }
+    if (isset($_GET['ferry'])) {
+        $pFerry = filter_var($_GET['ferry'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pFerry = True;
+    }
+    if (isset($_GET['express'])) {
+        $pExpress = filter_var($_GET['express'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pExpress = True;
+    }
+    if (isset($_GET['regional'])) {
+        $pRegional = filter_var($_GET['regional'], FILTER_VALIDATE_BOOLEAN);
+    } else {
+        $pRegional = True;
+    }
+    if (isset($_GET['language'])) {
+        $pLanguage = $_GET['language'];
+    } else {
+        $pLanguage = "en";
+    }
+    if (isset($_GET['pretty'])) {
+        $pPretty = $_GET['pretty'];
+    } else {
+        $pPretty = False;
+    }
+
+    $journeys = json_decode(utf8_encode(getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks = $pRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty)), 1, JSON_UNESCAPED_UNICODE);
+
+    // echo "<code>".json_encode($journeys)."</code>";
+
+    echo '	<div class="container">';
+    // Heading
+    echo "<h1>" . STR_SHOW_1 . " " . date("d.m.Y H:i", strtotime($pWhen)) . "</h1>";
+
+    $table_content .= '<table class="table table-condensed table-hover">';
+
+    $table_content .= '<tr>
+        <th>' . STR_SHOW_2 . '</th>
+        <th>' . STR_SHOW_3 . '</th>
+        <th>' . STR_SHOW_4 . '</th>
+        <th>' . STR_SHOW_5 . '</th>
+        <th>' . STR_SHOW_6 . '</th>
         <th></th>
         </tr>';
-        $row_in_table = 0;
-        
-        foreach ($journeys[0]["journeys"] as $j) {
-            $table_content .= '<tr data-toggle="collapse" data-target="#row'.$row_in_table.'" class="accordion-toggle">';
-            $table_content .= "\t\t\t\t<td title='".date("c", strtotime($j["legs"][0]["departure"]))."'>" . date("H:i", strtotime($j["legs"][0]["departure"])) . '&nbsp;Uhr'; // Departure Time
-            if ($j["legs"][0]['departureDelay'] > 0) {
-                $table_content .= '&nbsp;<span class="badge">+' . $j["legs"][0]['departureDelay'] . "</span></td>\n";
+    $row_in_table = 0;
+
+    foreach ($journeys[0]["journeys"] as $j) {
+        $table_content .= '<tr data-toggle="collapse" data-target="#row' . $row_in_table . '" class="accordion-toggle">';
+        $table_content .= "\t\t\t\t<td title='" . date("c", strtotime($j["legs"][0]["departure"])) . "'>" . date("H:i", strtotime($j["legs"][0]["departure"])) . '&nbsp;Uhr'; // Departure Time
+        if ($j["legs"][0]['departureDelay'] > 0) {
+            $table_content .= '&nbsp;<span class="badge">+' . $j["legs"][0]['departureDelay'] . "</span></td>\n";
+        } else {
+            $table_content .= "</td>\n";
+        }
+        $table_content .= "\t\t\t\t<td title='" . date("c", strtotime(end($j["legs"])["arrival"])) . "'>" . date("H:i", strtotime(end($j["legs"])["arrival"])) . '&nbsp;Uhr'; // Departure Time
+        if (end($j["legs"])['departureDelay'] > 0) {
+            $table_content .= '&nbsp;<span class="badge">+' . end($j["legs"])['arrivalDelay'] . "</span></td>\n";
+        } else {
+            $table_content .= "</td>\n";
+        }
+
+        $table_content .= "\t\t\t\t<td>" . date("H:i", strtotime(end($j["legs"])["arrival"]) - strtotime($j["legs"][0]["departure"]) - 3600) . '</td>';
+
+        $table_content .= "\t\t\t\t<td>" . $j["legs"][0]['origin']['name'] . '</td>';
+        $table_content .= "\t\t\t\t<td>" . end($j["legs"])['destination']['name'] . '</td>';
+        unset($mot);
+        foreach ($j["legs"] as $leg) {
+            // filter MOTs
+            if ($leg["line"]["product"] == "Fussweg") {
+                $mot[] = '<i class="material-icons">directions_walk</i>';
             } else {
-                $table_content .= "</td>\n";
-            }
-            $table_content .= "\t\t\t\t<td title='".date("c", strtotime(end($j["legs"])["arrival"]))."'>" . date("H:i", strtotime(end($j["legs"])["arrival"])) . '&nbsp;Uhr'; // Departure Time
-            if (end($j["legs"])['departureDelay'] > 0) {
-                $table_content .= '&nbsp;<span class="badge">+' . end($j["legs"])['arrivalDelay'] . "</span></td>\n";
-            } else {
-                $table_content .= "</td>\n";
-            }
-            
-            $table_content .= "\t\t\t\t<td>" . date("H:i", strtotime(end($j["legs"])["arrival"])-strtotime($j["legs"][0]["departure"])-3600) . '</td>';
-            
-            $table_content .= "\t\t\t\t<td>" . $j["legs"][0]['origin']['name'] . '</td>';
-            $table_content .= "\t\t\t\t<td>" . end($j["legs"])['destination']['name'] . '</td>';
-            unset($mot);
-            foreach ($j["legs"] as $leg) {
-                // filter MOTs
-                if ($leg["line"]["product"] == "Fussweg") {
-                    $mot[] = '<i class="material-icons">directions_walk</i>';
+                if (str_contains($leg["line"]['name'], "Flixbus")) {
+                    $mot[] = $leg["line"]['name'] . " " . $leg["line"]['symbol'];
+                } elseif (str_contains($leg["line"]['name'], "RE") or str_contains($leg["line"]['name'], "RB")) {
+                    $mot[] = $leg["line"]['name'];
+                } elseif (str_contains($leg["line"]["name"], "IC")) {
+                    $mot[] = str_replace("InterCity", "", str_replace("InterCityExpress", "", $leg["line"]['name']));
+                } elseif (! is_numeric($leg["line"]['symbol'])) {
+                    $mot[] = $leg["line"]['symbol'];
                 } else {
-                    if (str_contains($leg["line"]['name'], "Flixbus")) {
-                        $mot[] = $leg["line"]['name'] . " " . $leg["line"]['symbol'];
-                    } elseif (str_contains($leg["line"]['name'], "RE") or str_contains($leg["line"]['name'], "RB")) {
-                        $mot[] = $leg["line"]['name'];
-                    } elseif (str_contains($leg["line"]["name"], "IC")) {
-                        $mot[] = str_replace("InterCity", "", str_replace("InterCityExpress", "", $leg["line"]['name']));
-                    } elseif (! is_numeric($leg["line"]['symbol'])) {
-                        $mot[] = $leg["line"]['symbol'];
-                    } else {
-                        $mot[] = $leg["line"]['name'];
-                    }
+                    $mot[] = $leg["line"]['name'];
                 }
             }
-            $mot_string = implode('<i class="material-icons">
+        }
+        $mot_string = implode('<i class="material-icons">
 arrow_right
 </i>', $mot);
-            $table_content .= "\t\t\t\t<td>" . $mot_string . '</td>';
-            
-            
-            
+        $table_content .= "\t\t\t\t<td>" . $mot_string . '</td>';
 
-            
-            
-            
+        $table_content .= '</tr>';
+        // add hidden row
 
-            
-            
-            $table_content .= '</tr>';
-            //add hidden row
-            
-            $table_content .= '<tr>
+        $table_content .= '<tr>
 				<td colspan="6" class="hiddenRow">
-					<div id="row'.$row_in_table.'" class="accordian-body collapse container">
+					<div id="row' . $row_in_table . '" class="accordian-body collapse container">
                         <br>
                         <div class="col-md-12"><table class="table table-condensed">';
-            $tmp_count = 0;
-            foreach ($j["legs"] as $leg) {
-                // filter MOTs
-                if ($leg["line"]["product"] == "Fussweg") {
-                    $mot = '<i class="material-icons">directions_walk</i>';
+        $tmp_count = 0;
+        foreach ($j["legs"] as $leg) {
+            // filter MOTs
+            if ($leg["line"]["product"] == "Fussweg") {
+                $mot = '<i class="material-icons">directions_walk</i>';
+            } else {
+                if (str_contains($leg["line"]['name'], "Flixbus")) {
+                    $mot = $leg["line"]['name'] . " " . $leg["line"]['symbol'];
+                } elseif (str_contains($leg["line"]['name'], "RE") or str_contains($leg["line"]['name'], "RB")) {
+                    $mot = $leg["line"]['name'];
+                } elseif (str_contains($leg["line"]["name"], "IC")) {
+                    $mot = str_replace("InterCity", "", str_replace("InterCityExpress", "", $leg["line"]['name']));
+                } elseif (! is_numeric($leg["line"]['symbol'])) {
+                    $mot = $leg["line"]['symbol'];
                 } else {
-                    if (str_contains($leg["line"]['name'], "Flixbus")) {
-                        $mot = $leg["line"]['name'] . " " . $leg["line"]['symbol'];
-                    } elseif (str_contains($leg["line"]['name'], "RE") or str_contains($leg["line"]['name'], "RB")) {
-                        $mot = $leg["line"]['name'];
-                    } elseif (str_contains($leg["line"]["name"], "IC")) {
-                        $mot = str_replace("InterCity", "", str_replace("InterCityExpress", "", $leg["line"]['name']));
-                    } elseif (! is_numeric($leg["line"]['symbol'])) {
-                        $mot = $leg["line"]['symbol'];
-                    } else {
-                        $mot = $leg["line"]['name'];
-                    }
+                    $mot = $leg["line"]['name'];
                 }
-                
-                
-                //$change_at[] = $leg["destination"]["name"];
-                
-                $table_content .= "<tr>";
-                $table_content .= '<td><a target="_blank" href="'.convertDownloadLink($leg['origin']['download']).'">'.$leg['origin']['name']."</a></td>";
-                $table_content .= "<td>".date("H:i", strtotime($leg['departure']))."</td>";
-                $table_content .= "<td>".$leg['departurePlatform']."</td>";
-                $table_content .= "<td>".$mot."</td>";
-                $table_content .= "<td>".$leg['arrivalPlatform']."</td>";
-                $table_content .= "<td>".date("H:i", strtotime($leg['arrival']))."</td>";
-                $table_content .= '<td><a target="_blank" href="'.convertDownloadLink($leg['destination']['download']).'">'.$leg['destination']['name']."</a></td>";
-                $table_content .= "</tr>";
-                
-                // get remarks list
-                foreach ($leg['remarks'] as $rm) {
-                    if ($rm['text'] == "behindertengerechtes Fahrzeug") {
-                        $helper_remarks[] = '<i class="material-icons">accessible</i> '.STR_SHOW_24;
-                    } elseif ($rm['text'] == "Gleiswechsel") {
-                        $helper_remarks[] = '<i class="material-icons">call_split</i> '.STR_SHOW_22;
-                    } elseif ($rm['text'] == "Niederflurbus mit Rampe") {
-                        $helper_remarks[] = '<i class="material-icons">accessible</i> '.STR_SHOW_21;
-                    } elseif ($rm['text'] == "Niederflurfahrzeug") {
-                        $helper_remarks[] = '<i class="material-icons">accessible</i> '.STR_SHOW_25;
-                    } elseif ($rm['text'] == "Rollstuhlzugang") {
-                        $helper_remarks[] = '<i class="material-icons">accessible</i> '.STR_SHOW_26;
-                    } else {
-                        $helper_remarks[] = $rm['text'];
-                    }
-                }
-                if (! empty($helper_remarks)) {
-                    $remarks[] = $mot.": ".implode(", ", $helper_remarks);
-                }
-                unset($helper_remarks);
-                
             }
-            $table_content .= '</table></div><div class="col-md-6">';
-            if (count($j["tickets"]) > 0) {
 
-            $table_content .= '<h4>'.STR_SHOW_7.'</h4>';
+            // $change_at[] = $leg["destination"]["name"];
+
+            $table_content .= "<tr>";
+            $table_content .= '<td><a target="_blank" href="' . convertDownloadLink($leg['origin']['download']) . '">' . $leg['origin']['name'] . "</a></td>";
+            $table_content .= "<td>" . date("H:i", strtotime($leg['departure'])) . "</td>";
+            $table_content .= "<td>" . $leg['departurePlatform'] . "</td>";
+            $table_content .= "<td>" . $mot . "</td>";
+            $table_content .= "<td>" . $leg['arrivalPlatform'] . "</td>";
+            $table_content .= "<td>" . date("H:i", strtotime($leg['arrival'])) . "</td>";
+            $table_content .= '<td><a target="_blank" href="' . convertDownloadLink($leg['destination']['download']) . '">' . $leg['destination']['name'] . "</a></td>";
+            $table_content .= "</tr>";
+
+            // get remarks list
+            foreach ($leg['remarks'] as $rm) {
+                if ($rm['text'] == "behindertengerechtes Fahrzeug") {
+                    $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_24;
+                } elseif ($rm['text'] == "Gleiswechsel") {
+                    $helper_remarks[] = '<i class="material-icons">call_split</i> ' . STR_SHOW_22;
+                } elseif ($rm['text'] == "Niederflurbus mit Rampe") {
+                    $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_21;
+                } elseif ($rm['text'] == "Niederflurfahrzeug") {
+                    $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_25;
+                } elseif ($rm['text'] == "Rollstuhlzugang") {
+                    $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_26;
+                } else {
+                    $helper_remarks[] = $rm['text'];
+                }
+            }
+            if (! empty($helper_remarks)) {
+                $remarks[] = $mot . ": " . implode(", ", $helper_remarks);
+            }
+            unset($helper_remarks);
+        }
+        $table_content .= '</table></div><div class="col-md-6">';
+        if (count($j["tickets"]) > 0) {
+
+            $table_content .= '<h4>' . STR_SHOW_7 . '</h4>';
             $table_content .= '<table class="table table-condensed">';
             foreach ($j["tickets"] as $ticket) {
                 $table_content .= "<tr>";
-                $table_content .= '<td>'.$ticket['name']."</td>";
-                if ($ticket['price']['child'] >0) {
-                    $table_content .= '<td class="text-right">'.number_format((float)$ticket['price']['child'], 2, ',', '')."&nbsp;€</td>";
+                $table_content .= '<td>' . $ticket['name'] . "</td>";
+                if ($ticket['price']['child'] > 0) {
+                    $table_content .= '<td class="text-right">' . number_format((float) $ticket['price']['child'], 2, ',', '') . "&nbsp;€</td>";
                 } else {
-                    $table_content .= '<td>'."</td>";
+                    $table_content .= '<td>' . "</td>";
                 }
-                if ($ticket['price']['adult'] >0) {
-                    $table_content .= '<td class="text-right">'.number_format((float)$ticket['price']['adult'], 2, ',', '')."&nbsp;€</td>";
+                if ($ticket['price']['adult'] > 0) {
+                    $table_content .= '<td class="text-right">' . number_format((float) $ticket['price']['adult'], 2, ',', '') . "&nbsp;€</td>";
                 } else {
-                    $table_content .= '<td>'."</td>";
+                    $table_content .= '<td>' . "</td>";
                 }
-                $table_content .= "</tr>"; 
+                $table_content .= "</tr>";
             }
             $table_content .= '</table>';
-            }
-            // Remarks
-            $table_content .= "<h4>".STR_SHOW_15."</h4>";
-            $table_content .= implode("<br>", $remarks) . "\n";
-            unset($remarks);
-            
-            $table_content .= '</div></div>
+        }
+        // Remarks
+        $table_content .= "<h4>" . STR_SHOW_15 . "</h4>";
+        $table_content .= implode("<br>", $remarks) . "\n";
+        unset($remarks);
+
+        $table_content .= '</div></div>
 							</td>
 						</tr>';
 
-            $row_in_table++;
-        }
-        
-        echo $table_content;
-            
-        ?>
+        $row_in_table ++;
+    }
+
+    echo $table_content;
+
+    ?>
         </table>
-        </div>
-		<script type="text/javascript">
+	</div>
+	<script type="text/javascript">
 		</script>
-	</body>
+</body>
 </html>
 
 
