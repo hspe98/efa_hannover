@@ -988,11 +988,11 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
                         ),
                         "download" => BASE_URL . $leg["points"][1]["links"][0]["href"]
                     ),
-                    "departure" => DateTimeArrayToISO(date_parse_from_format("Ymd H:i", $leg["stopSeq"][0]["ref"]["depDateTime"])),
-                    "plannedDeparture" => DateTimeArrayToISO(date_parse_from_format("Ymd H:i", $leg["stopSeq"][0]["ref"]["depDateTime"]), $leg["stopSeq"][0]["ref"]["depDelay"]),
+                    "departure" => date("c", strtotime($leg["points"][0]["dateTime"]["date"]." ".$leg["points"][0]["dateTime"]["time"])),
+                    "plannedDeparture" => date("c", strtotime($leg["points"][0]["dateTime"]["rtDate"]." ".$leg["points"][0]["dateTime"]["rtTime"])),
                     "departureDelay" => intval($leg["stopSeq"][0]["ref"]["depDelay"]),
-                    "arrival" => DateTimeArrayToISO(date_parse_from_format("Ymd H:i", end($leg["stopSeq"])["ref"]["arrDateTime"])),
-                    "plannedArrival" => DateTimeArrayToISO(date_parse_from_format("Ymd H:i", end($leg["stopSeq"])["ref"]["arrDateTime"]), end($leg["stopSeq"])["ref"]["arrDelay"]),
+                    "arrival" => date("c", strtotime($leg["points"][1]["dateTime"]["date"]." ".$leg["points"][1]["dateTime"]["time"])),
+                    "plannedArrival" => date("c", strtotime($leg["points"][1]["dateTime"]["rtDate"]." ".$leg["points"][1]["dateTime"]["rtTime"])),
                     "arrivalDelay" => intval(end($leg["stopSeq"])["ref"]["arrDelay"]),
                     "reachable" => null,
                     "tripId" => $leg["mode"]["diva"]["tripCode"],
@@ -1010,10 +1010,10 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
                     ),
                     "direction" => $leg["mode"]["destination"],
                     "currentLocation" => null,
-                    "arrivalPlatform" => $leg["points"][0]["ref"]["platform"],
-                    "plannedArrivalPlatform" => $leg["points"][0]["ref"]["platform"],
-                    "departurePlatform" => $leg["points"][1]["ref"]["platform"],
-                    "plannedDeparturePlatform" => $leg["points"][1]["ref"]["platform"]
+                    "arrivalPlatform" => $leg["points"][1]["ref"]["platform"],
+                    "plannedArrivalPlatform" => $leg["points"][1]["ref"]["platform"],
+                    "departurePlatform" => $leg["points"][0]["ref"]["platform"],
+                    "plannedDeparturePlatform" => $leg["points"][0]["ref"]["platform"]
                 );
                 // when MOT = Fussweg (walking), then we need to adjust some fields
                 if ($leg_helper["line"]["mode"] == "Fussweg") {
@@ -1066,4 +1066,14 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
         return json_encode($result);
     }
 }
+
+function convertDownloadLink($argLink) {
+    $helper = $_SERVER['SELF_SCRIPT']."download.php?file=";
+    return str_replace("https://app.efa.de/mdv_server/app_gvh/FILELOAD?Filename=", $helper, $argLink);
+}
+
+
+
+
+
 
