@@ -761,7 +761,7 @@ li.highlight-line {
 Error! Set origin (from or from.latitude & from.longitude) or set help for help<br>
         
 ";
-        exit($error_text);
+        //exit($error_text);
     }
     if (isset($_GET['to'])) {
         $pDestination = urldecode($_GET['to']);
@@ -771,7 +771,7 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
             $_GET['to.longitude']
         );
     } else {
-        exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
+        //exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
     }
 
     if (isset($_GET['departure'])) {
