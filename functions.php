@@ -918,9 +918,9 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
     // echo "https://app.efa.de/mdv_server/app_gvh/XML_TRIP_REQUEST2?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8&outputFormat=json&" . $query;
     $data = getData("XML_TRIP_REQUEST2", $outputFormat = "json", $query);
     $data = json_decode(utf8_encode($data), 1);
-    if (isset($_GET['test'])) {
+    /*if (isset($_GET['test'])) {
         print_r(json_encode($data));
-    }
+    }*/
     // Check if too many point options
     if ((count($data["origin"]["points"]) > 1) or (count($data["destination"]["points"]) > 1)) {
         if (count($data["origin"]["points"]) > 1) {
