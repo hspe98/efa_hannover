@@ -1,5 +1,6 @@
 <?php
 
+require '../functions.php';
 ### Language dictionary ###
 if ($_GET['language'] == "de") {
     // START
@@ -344,7 +345,6 @@ body {
 			<h2 class="form-signin-heading"><?php echo STR_SEARCH_1; ?></h2>
 <?php
 
-	require '../functions.php';
 	if (isset($_GET['from'])) {
 	    $pOrigin = urldecode($_GET['from']);
 	} elseif (isset($_GET['from.latitude']) and isset($_GET['from.longitude'])) {
