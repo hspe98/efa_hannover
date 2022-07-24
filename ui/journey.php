@@ -219,7 +219,7 @@ body {
 
 <?php
 } elseif (isset($_GET['search'])) {
-    echo "help";
+    header("Location: text/html");
     ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
