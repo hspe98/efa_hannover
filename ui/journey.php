@@ -966,25 +966,25 @@ arrow_right
             $table_content .= "</tr>";
 
             // get remarks list
-            foreach ($leg['remarks'] as $rm) {
-                if ($rm['text'] == "behindertengerechtes Fahrzeug") {
-                    $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_24;
-                } elseif ($rm['text'] == "Gleiswechsel") {
-                    $helper_remarks[] = '<i class="material-icons">call_split</i> ' . STR_SHOW_22;
-                } elseif ($rm['text'] == "Niederflurbus mit Rampe") {
-                    $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_21;
-                } elseif ($rm['text'] == "Niederflurfahrzeug") {
-                    $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_25;
-                } elseif ($rm['text'] == "Rollstuhlzugang") {
-                    $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_26;
-                } else {
-                    $helper_remarks[] = $rm['text'];
-                }
-            }
-            if (! empty($helper_remarks)) {
-                $remarks[] = $mot . ": " . implode(", ", $helper_remarks);
-            }
-            unset($helper_remarks);
+//             foreach ($leg['remarks'] as $rm) {
+//                 if ($rm['text'] == "behindertengerechtes Fahrzeug") {
+//                     $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_24;
+//                 } elseif ($rm['text'] == "Gleiswechsel") {
+//                     $helper_remarks[] = '<i class="material-icons">call_split</i> ' . STR_SHOW_22;
+//                 } elseif ($rm['text'] == "Niederflurbus mit Rampe") {
+//                     $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_21;
+//                 } elseif ($rm['text'] == "Niederflurfahrzeug") {
+//                     $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_25;
+//                 } elseif ($rm['text'] == "Rollstuhlzugang") {
+//                     $helper_remarks[] = '<i class="material-icons">accessible</i> ' . STR_SHOW_26;
+//                 } else {
+//                     $helper_remarks[] = $rm['text'];
+//                 }
+//             }
+//             if (! empty($helper_remarks)) {
+//                 $remarks[] = $mot . ": " . implode(", ", $helper_remarks);
+//             }
+//             unset($helper_remarks);
         }
         $table_content .= '</table></div><div class="col-md-6">';
         if (count($j["tickets"]) > 0) {
