@@ -1,6 +1,5 @@
 <?php
 
-require '../functions.php';
 ### Language dictionary ###
 if ($_GET['language'] == "de") {
     // START

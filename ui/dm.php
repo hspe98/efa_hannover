@@ -1,5 +1,6 @@
 <?php
 
+
 ### Language dictionary ###
 if ($_GET['language'] == "de") {
     // START
