@@ -854,6 +854,7 @@ function DateTimeArrayToISO($array, $addMinutes = 0)
 
 function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $argRemarks=False, $argWhen = "now", $argDepOrArrTime = "dep", $argMaxTransfers = 9, $argWalkingSpeed = "normal", $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argLanguage = "en", $argPretty = True)
 {
+    exit();
     $query = "locationServerActive=1&stateless=1&coordOutputFormat=WGS84[DD.ddddd]&useHouseNumberList=true&useSuburb=1&useRealtime=1";
     if (is_array($argOrigin)) {
         // origin is an array of coords
@@ -873,7 +874,6 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
     $query .= "&itOptionsActive=1&ptOptionsActive=1";
     // limit number of results
     $query .= "&calcNumberOfTrips=" . $argCalcNumberOfTrips;
-    exit();
     // convert when argument to an unix timestamp
     $timestamp = strtotime($argWhen);
     // format as EFA time (HHMM)
