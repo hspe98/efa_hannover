@@ -589,6 +589,10 @@ $(document).ready(function() {
 			.timeline-current p {
 			    font-weight: bolder;
 			}	
+			.material-icons {
+                display: inline-flex;
+                vertical-align: middle;
+            }
 		</style>
 	</head>
 	<body>
