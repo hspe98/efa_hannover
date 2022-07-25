@@ -3,82 +3,84 @@
 # ## Language dictionary ###
 if ($_GET['language'] == "de") {
     // START
-    define(STR_START_1, "Bitte Name des gewünschten Haltes eingeben");
-    define(STR_START_21, "Starthalt eingeben");
-    define(STR_START_22, "Zielhalt eingeben");
-    define(STR_START_3, "Absenden");
+    define("STR_START_1", "Bitte Name des gewünschten Haltes eingeben");
+    define("STR_START_21", "Starthalt eingeben");
+    define("STR_START_22", "Zielhalt eingeben");
+    define("STR_START_3", "Absenden");
     // SEARCH
-    define(STR_SEARCH_1, "Wähle deine Haltestellen aus");
-    define(STR_SEARCH_1_1, "Start-Haltestelle");
-    define(STR_SEARCH_1_2, "Ziel-Haltestelle");
-    define(STR_SEARCH_2, "Anzahl der Resultate");
-    define(STR_SEARCH_3, "Datum");
-    define(STR_SEARCH_4, "Uhrzeit");
-    define(STR_SEARCH_3_1, "Abfahrt");
-    define(STR_SEARCH_3_2, "Ankunft");
-    define(STR_SEARCH_5, "Auswahl Verkehrsmittel");
-    define(STR_SEARCH_6, "S-Bahn");
-    define(STR_SEARCH_7, "U-Bahn");
-    define(STR_SEARCH_8, "Straßen-/Stadtbahn");
-    define(STR_SEARCH_9, "Bus");
-    define(STR_SEARCH_10, "Fähre");
-    define(STR_SEARCH_11, "Schnellzug");
-    define(STR_SEARCH_12, "Regionalzug");
-    define(STR_SEARCH_13, STR_START_3);
+    define("STR_SEARCH_1", "Wähle deine Haltestellen aus");
+    define("STR_SEARCH_1_1", "Start-Haltestelle");
+    define("STR_SEARCH_1_2", "Ziel-Haltestelle");
+    define("STR_SEARCH_2", "Anzahl der Resultate");
+    define("STR_SEARCH_3", "Datum");
+    define("STR_SEARCH_4", "Uhrzeit");
+    define("STR_SEARCH_3_1", "Abfahrt");
+    define("STR_SEARCH_3_2", "Ankunft");
+    define("STR_SEARCH_5", "Auswahl Verkehrsmittel");
+    define("STR_SEARCH_6", "S-Bahn");
+    define("STR_SEARCH_7", "U-Bahn");
+    define("STR_SEARCH_8", "Straßen-/Stadtbahn");
+    define("STR_SEARCH_9", "Bus");
+    define("STR_SEARCH_10", "Fähre");
+    define("STR_SEARCH_11", "Schnellzug");
+    define("STR_SEARCH_12", "Regionalzug");
+    define("STR_SEARCH_13", STR_START_3);
     // SHOW
-    define(STR_SHOW_1, "Reisen am");
-    define(STR_SHOW_2, "Abfahrt");
-    define(STR_SHOW_3, "Ankunft");
-    define(STR_SHOW_4, "Reisedauer");
-    define(STR_SHOW_5, "Von");
-    define(STR_SHOW_6, "Nach");
-    define(STR_SHOW_7, "Preisliste");
-    define(STR_SHOW_15, "Hinweise");
-    define(STR_SHOW_21, "Niederflurbus mit Rampe");
-    define(STR_SHOW_22, "Gleiswechsel");
-    define(STR_SHOW_23, "GVH-Garantiefall");
-    define(STR_SHOW_24, "behindertengerechtes Fahrzeug");
-    define(STR_SHOW_25, "Niederflurfahrzeug");
-    define(STR_SHOW_26, "Rollstuhlzugang");
+    define("STR_SHOW_1", "Reisen am");
+    define("STR_SHOW_2", "Abfahrt");
+    define("STR_SHOW_3", "Ankunft");
+    define("STR_SHOW_4", "Reisedauer");
+    define("STR_SHOW_5", "Von");
+    define("STR_SHOW_6", "Nach");
+    define("STR_SHOW_7", "Preisliste");
+    define("STR_SHOW_15", "Hinweise");
+    define("STR_SHOW_16", "Sitzenbleiben");
+    define("STR_SHOW_21", "Niederflurbus mit Rampe");
+    define("STR_SHOW_22", "Gleiswechsel");
+    define("STR_SHOW_23", "GVH-Garantiefall");
+    define("STR_SHOW_24", "behindertengerechtes Fahrzeug");
+    define("STR_SHOW_25", "Niederflurfahrzeug");
+    define("STR_SHOW_26", "Rollstuhlzugang");
 } else {
     // START
-    define(STR_START_1, "Please enter the name of the desired stop");
-    define(STR_START_21, "Enter stopname (origin)");
-    define(STR_START_22, "Enter stopname (destination)");
-    define(STR_START_3, "Send");
+    define("STR_START_1", "Please enter the name of the desired stop");
+    define("STR_START_21", "Enter stopname (origin)");
+    define("STR_START_22", "Enter stopname (destination)");
+    define("STR_START_3", "Send");
     // SEARCH
-    define(STR_SEARCH_1, "Choose your stations");
-    define(STR_SEARCH_1_1, "origin station");
-    define(STR_SEARCH_1_2, "destination station");
-    define(STR_SEARCH_2, "Number of results");
-    define(STR_SEARCH_3, "Date");
-    define(STR_SEARCH_4, "Time");
-    define(STR_SEARCH_3_1, "Arrival");
-    define(STR_SEARCH_3_2, "Departure");
-    define(STR_SEARCH_5, "Select MOT");
-    define(STR_SEARCH_6, "suburban");
-    define(STR_SEARCH_7, "subway");
-    define(STR_SEARCH_8, "tram");
-    define(STR_SEARCH_9, "bus");
-    define(STR_SEARCH_10, "ferry");
-    define(STR_SEARCH_11, "express");
-    define(STR_SEARCH_12, "regional");
-    define(STR_SEARCH_13, STR_START_3);
+    define("STR_SEARCH_1", "Choose your stations");
+    define("STR_SEARCH_1_1", "origin station");
+    define("STR_SEARCH_1_2", "destination station");
+    define("STR_SEARCH_2", "Number of results");
+    define("STR_SEARCH_3", "Date");
+    define("STR_SEARCH_4", "Time");
+    define("STR_SEARCH_3_1", "Arrival");
+    define("STR_SEARCH_3_2", "Departure");
+    define("STR_SEARCH_5", "Select MOT");
+    define("STR_SEARCH_6", "suburban");
+    define("STR_SEARCH_7", "subway");
+    define("STR_SEARCH_8", "tram");
+    define("STR_SEARCH_9", "bus");
+    define("STR_SEARCH_10", "ferry");
+    define("STR_SEARCH_11", "express");
+    define("STR_SEARCH_12", "regional");
+    define("STR_SEARCH_13", STR_START_3);
     // SHOW
-    define(STR_SHOW_1, "Journeys at");
-    define(STR_SHOW_2, "Dep");
-    define(STR_SHOW_3, "Arr");
-    define(STR_SHOW_4, "Duration");
-    define(STR_SHOW_5, "From");
-    define(STR_SHOW_6, "To");
-    define(STR_SHOW_7, "Price list");
-    define(STR_SHOW_15, "Remarks");
-    define(STR_SHOW_21, "low floor bus with ramp");
-    define(STR_SHOW_22, "platform change");
-    define(STR_SHOW_23, "GVH warranty case");
-    define(STR_SHOW_24, "accessible vehicle");
-    define(STR_SHOW_25, "low floor vehicle");
-    define(STR_SHOW_26, "wheel chair access");
+    define("STR_SHOW_1", "Journeys at");
+    define("STR_SHOW_2", "Dep");
+    define("STR_SHOW_3", "Arr");
+    define("STR_SHOW_4", "Duration");
+    define("STR_SHOW_5", "From");
+    define("STR_SHOW_6", "To");
+    define("STR_SHOW_7", "Price list");
+    define("STR_SHOW_15", "Remarks");
+    define("STR_SHOW_16", "stay seated");
+    define("STR_SHOW_21", "low floor bus with ramp");
+    define("STR_SHOW_22", "platform change");
+    define("STR_SHOW_23", "GVH warranty case");
+    define("STR_SHOW_24", "accessible vehicle");
+    define("STR_SHOW_25", "low floor vehicle");
+    define("STR_SHOW_26", "wheel chair access");
 }
 
 if (count($_GET) <= 1 or isset($_GET['start'])) {
@@ -942,7 +944,7 @@ arrow_right
         foreach ($j["legs"] as $leg) {
             // filter MOTs
             if ($leg["line"]["product"] == "Fussweg") {
-                $mot = '<i class="material-icons">directions_walk</i>';
+                $mot = '<i class="material-icons">directions_walk</i> '.$leg["distance"]."&nbsp;m";
             } else {
                 if (str_contains($leg["line"]['name'], "Flixbus")) {
                     $mot = $leg["line"]['name'] . " " . $leg["line"]['symbol'];
@@ -952,7 +954,9 @@ arrow_right
                     $mot = str_replace("InterCity", "", str_replace("InterCityExpress", "", $leg["line"]['name']));
                 } elseif (! is_numeric($leg["line"]['symbol'])) {
                     $mot = $leg["line"]['symbol'];
-                } else {
+                } elseif (empty($leg["line"]['name'])) {
+                    $mot = STR_SHOW_16;
+                } else{
                     $mot = $leg["line"]['name'];
                 }
             }
