@@ -2,6 +2,10 @@
 
 define(BASE_URL,"https://app.efa.de/mdv_server/app_gvh/");
 
+error_reporting(E_ALL);
+
+
+
 /**
  * Check if function str_contains exists
  */
