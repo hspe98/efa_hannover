@@ -62,8 +62,8 @@ if ($_GET['language'] == "de") {
     define("STR_SEARCH_2", "Number of results");
     define("STR_SEARCH_3", "Date");
     define("STR_SEARCH_4", "Time");
-    define("STR_SEARCH_3_1", "Arrival");
-    define("STR_SEARCH_3_2", "Departure");
+    define("STR_SEARCH_3_1", "Departure");
+    define("STR_SEARCH_3_2", "Arrival");
     define("STR_SEARCH_3_3", "slow");
     define("STR_SEARCH_3_4", "normal");
     define("STR_SEARCH_3_5", "fast");
