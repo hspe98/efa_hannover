@@ -881,6 +881,7 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
     echo '	<div class="container">';
     // Heading
     echo "<h1>" . STR_SHOW_1 . " " . date("d.m.Y H:i", strtotime($pWhen)) . "</h1>";
+    echo "<h2>". strtolower(STR_SHOW_5)." ".$_GET['from']." ". strtolower(STR_SHOW_6)." ".$_GET['to']."</h2>";
 
     ?>
     		<div class="row">
