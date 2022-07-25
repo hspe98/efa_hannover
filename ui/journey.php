@@ -16,6 +16,10 @@ if ($_GET['language'] == "de") {
     define("STR_SEARCH_4", "Uhrzeit");
     define("STR_SEARCH_3_1", "Abfahrt");
     define("STR_SEARCH_3_2", "Ankunft");
+    define("STR_SEARCH_3_3", "langsam");
+    define("STR_SEARCH_3_4", "normal");
+    define("STR_SEARCH_3_5", "schnell");
+    define("STR_SEARCH_3_6", "Gehgeschwindigkeit");
     define("STR_SEARCH_5", "Auswahl Verkehrsmittel");
     define("STR_SEARCH_6", "S-Bahn");
     define("STR_SEARCH_7", "U-Bahn");
@@ -59,6 +63,10 @@ if ($_GET['language'] == "de") {
     define("STR_SEARCH_4", "Time");
     define("STR_SEARCH_3_1", "Arrival");
     define("STR_SEARCH_3_2", "Departure");
+    define("STR_SEARCH_3_3", "slow");
+    define("STR_SEARCH_3_4", "normal");
+    define("STR_SEARCH_3_5", "fast");
+    define("STR_SEARCH_3_6", "walking speed");
     define("STR_SEARCH_5", "Select MOT");
     define("STR_SEARCH_6", "suburban");
     define("STR_SEARCH_7", "subway");
@@ -539,10 +547,26 @@ body {
 				</div>
 			</div>
 			<input type="hidden" id="ArrOrDep" name="departure">
+			<br><br>
+			<h4><?php echo STR_SEARCH_3_6; ?></h4>
+			<div class="btn-group btn-group-justified" role="group"
+				aria-label="...">
+				<div class="btn-group" role="group">
+					<button type="button" data-speed="slow" class="btn btn-default changeWalkingSpeed"><?php echo STR_SEARCH_3_3; ?></button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" data-speed="normal" class="btn btn-default changeWalkingSpeed active"><?php echo STR_SEARCH_3_4; ?></button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" data-speed="fast" class="btn btn-default changeWalkingSpeed"><?php echo STR_SEARCH_3_5; ?></button>
+				</div>
+				
+			</div>
+			<input type="hidden" id="walkingSpeed" name="walkingSpeed" value="normal">
 
 			<!-- MOT selection -->
 			<hr>
-			<h3><?php echo STR_SEARCH_5; ?></h3>
+			<h4><?php echo STR_SEARCH_5; ?></h4>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="input-group">
@@ -664,6 +688,12 @@ $('#useArr').click(function()
 	$('#ArrOrDep').attr('name', "arrival");
 });
 
+$('.changeWalkingSpeed').click(function(){
+	var x = $(this);
+	$('.changeWalkingSpeed').removeClass("active");
+	x.addClass("active");
+	$('#walkingSpeed').attr('value', x.attr("data-speed"));
+});
 
 </script>
 </body>
