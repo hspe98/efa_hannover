@@ -362,7 +362,7 @@ body {
 //     } else {
 //         exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
 //     }
-
+    // I dont know why the code above doesnt work, but it only works if the following segment is used
     $pOrigin = urldecode($_GET['from']);
     $pDestination = urldecode($_GET['to']);
     
