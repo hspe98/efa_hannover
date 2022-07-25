@@ -944,20 +944,20 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
         foreach ($j["legs"] as $leg) {
             // filter MOTs
             if ($leg["line"]["product"] == "Fussweg") {
-                $mot = '<i class="material-icons">directions_walk</i>';
+                $mot[] = '<i class="material-icons">directions_walk</i>';
             } else {
                 if (str_contains($leg["line"]['name'], "Flixbus")) {
-                    $mot = $leg["line"]['name'];
+                    $mot[] = $leg["line"]['name'];
                 } elseif (str_contains($leg["line"]['name'], "RE") or str_contains($leg["line"]['name'], "RB")) {
-                    $mot = $leg["line"]['name'];
+                    $mot[] = $leg["line"]['name'];
                 } elseif (str_contains($leg["line"]["name"], "IC")) {
-                    $mot = str_replace("InterCity", "", str_replace("InterCityExpress", "", $leg["line"]['name']));
+                    $mot[] = str_replace("InterCity", "", str_replace("InterCityExpress", "", $leg["line"]['name']));
                 } elseif (! is_numeric($leg["line"]['symbol'])) {
-                    $mot = $leg["line"]['symbol'];
+                    $mot[] = $leg["line"]['symbol'];
                 } elseif (empty($leg["line"]['name'])) {
-                    $mot = STR_SHOW_16;
+                    $mot[] = STR_SHOW_16;
                 } else{
-                    $mot = $leg["line"]['name'];
+                    $mot[] = $leg["line"]['name'];
                 }
             }
         }
