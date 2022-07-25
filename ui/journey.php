@@ -461,15 +461,16 @@ body {
         $pPretty = False;
     }
     $data = getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks = $pRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty);
-    $loc = json_decode(utf8_decode($data), 1, JSON_UNESCAPED_UNICODE);
+    
+    $loc = json_decode($data, 1, JSON_UNESCAPED_UNICODE);
     $already_got_from = '<h4>' . STR_SEARCH_1_1 . '</h4><div class="checkbox">
 		  <label>
-			<input checked type="radio" required name="from" value="' . $loc[0]["journeys"][0]["legs"][0]["origin"]["name"] . '"> ' . $_GET['from'] . '
+			<input checked type="radio" required name="from" value="' . $_GET['from'] . '"> ' . $_GET['from'] . '
 		  </label>
 		</div>';
     $already_got_to = '<h4>' . STR_SEARCH_1_2 . '</h4><div class="checkbox">
 		  <label>
-			<input checked type="radio" required name="to" value="' . end($loc[0]["journeys"][0]["legs"])["destination"]["name"] . '"> ' . $_GET['to'] . '
+			<input checked type="radio" required name="to" value="' . $_GET['to'] . '"> ' . $_GET['to'] . '
 		  </label>
 		</div>';
     if (array_key_exists("errors", $loc)) {
