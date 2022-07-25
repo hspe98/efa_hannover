@@ -937,7 +937,7 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
             $table_content .= "</td>\n";
         }
 
-        $table_content .= "\t\t\t\t<td>" . date("H:i", strtotime(end($j["legs"])["arrival"]) - strtotime($j["legs"][0]["departure"]) - 3600) . '</td>';
+        $table_content .= "\t\t\t\t<td>" . minutesToH_i(end($j["legs"])["minuteInJourney"]) . '</td>';
 
         $table_content .= "\t\t\t\t<td>" . $j["legs"][0]['origin']['name'] . '</td>';
         $table_content .= "\t\t\t\t<td>" . end($j["legs"])['destination']['name'] . '</td>';

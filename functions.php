@@ -1086,6 +1086,11 @@ function convertDownloadLink($argLink) {
     return str_replace("https://app.efa.de/mdv_server/app_gvh/FILELOAD?Filename=", $helper, $argLink);
 }
 
+function minutesToH_i($argMinutes) {
+    $hours = floor($argMinutes / 60);
+    $minutes = ($argMinutes % 60);
+    return sprintf('%02d:%02d', $hours, $minutes);
+}
 
 
 
