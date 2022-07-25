@@ -20,6 +20,7 @@ if ($_GET['language'] == "de") {
     define("STR_SEARCH_3_4", "normal");
     define("STR_SEARCH_3_5", "schnell");
     define("STR_SEARCH_3_6", "Gehgeschwindigkeit");
+    define("STR_SEARCH_3_7", "Maximale Umstiege (9: keine Begrenzung)");
     define("STR_SEARCH_5", "Auswahl Verkehrsmittel");
     define("STR_SEARCH_6", "S-Bahn");
     define("STR_SEARCH_7", "U-Bahn");
@@ -67,6 +68,7 @@ if ($_GET['language'] == "de") {
     define("STR_SEARCH_3_4", "normal");
     define("STR_SEARCH_3_5", "fast");
     define("STR_SEARCH_3_6", "walking speed");
+    define("STR_SEARCH_3_7", "maximal transfers (9: no limit)");
     define("STR_SEARCH_5", "Select MOT");
     define("STR_SEARCH_6", "suburban");
     define("STR_SEARCH_7", "subway");
@@ -531,6 +533,9 @@ body {
     ?>
 			<label> <input type="number" id="inputEmail" class="form-control"
 				value="10" name="calcNumberOfTrips" required="" autofocus="0"> <?php echo STR_SEARCH_2; ?>
+			</label> 
+			<label> <input type="number" id="inputEmail" class="form-control"
+				value="9" min="1" max="9" name="maxTransfers" required="" autofocus="0"> <?php echo STR_SEARCH_3_7; ?>
 			</label> <label> <input type="date" id="when-d" class="form-control"
 				name="whend" required="" autofocus="1"> <?php echo STR_SEARCH_3; ?>
 			</label> <label> <input type="time"
