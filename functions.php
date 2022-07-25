@@ -965,7 +965,11 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
             }
             
             // loop through each trip for legs
+            $cTimeMinute = 0;
             foreach ($trip["legs"] as $leg) {
+                $cTimeMinute += $leg["timeMinute"];
+                
+                
                 $leg_helper = array(
                     "origin" => array(
                         "type" => $leg["points"][0]["usage"],
@@ -991,6 +995,8 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
                         ),
                         "download" => BASE_URL . $leg["points"][1]["links"][0]["href"]
                     ),
+                    "minuteInJourney" => $cTimeMinute,
+                    "duration" => $leg["timeMinute"],
                     "departure" => date("c", strtotime($leg["points"][0]["dateTime"]["date"]." ".$leg["points"][0]["dateTime"]["time"])),
                     "plannedDeparture" => date("c", strtotime($leg["points"][0]["dateTime"]["rtDate"]." ".$leg["points"][0]["dateTime"]["rtTime"])),
                     "departureDelay" => intval($leg["stopSeq"][0]["ref"]["depDelay"]),
@@ -1018,6 +1024,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
                     "departurePlatform" => $leg["points"][0]["ref"]["platform"],
                     "plannedDeparturePlatform" => $leg["points"][0]["ref"]["platform"]
                 );
+                
                 // when MOT = Fussweg (walking), then we need to adjust some fields
                 if ($leg_helper["line"]["mode"] == "Fussweg") {
                     $leg_helper["departure"] = date("c", strtotime($leg_helper["arrival"] . " -" . ($leg["timeMinute"] + 1) . "minutes"));
