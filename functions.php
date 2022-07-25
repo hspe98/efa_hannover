@@ -927,7 +927,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
         print_r(json_encode($data));
     }*/
     // Check if too many point options
-    if ((count($data["origin"]["points"]) > 1) or (count($data["destination"]["points"]) > 1)) {
+    /*if ((count($data["origin"]["points"]) > 1) or (count($data["destination"]["points"]) > 1)) {
         $result = array();
         if (count($data["origin"]["points"]) > 1) {
             $result["errors"]["origin"] = array("Too many origin options"=>count($data["origin"]["points"]));
@@ -951,7 +951,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
             }
         }
         return json_encode($result, JSON_PRETTY_PRINT);
-    } else {
+    } else {*/
         // loop through each trip
         foreach ($data["trips"] as $trip) {
             // fares
@@ -1059,7 +1059,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
             unset($legs);
             unset($tickets);
         }
-    }
+    //}
     
     $result[] = array(
         "journeys" => $trips
