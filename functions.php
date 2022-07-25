@@ -1,9 +1,6 @@
 <?php
 
-define(BASE_URL,"https://app.efa.de/mdv_server/app_gvh/");
-
-error_reporting(E_ALL);
-
+define("BASE_URL","https://app.efa.de/mdv_server/app_gvh/");
 
 
 /**
@@ -1026,6 +1023,8 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
                     $leg_helper["departure"] = date("c", strtotime($leg_helper["arrival"] . " -" . ($leg["timeMinute"] + 1) . "minutes"));
                     $leg_helper["plannedDeparture"] = $leg_helper["departure"];
                     $leg_helper["direction"] = $leg_helper["destination"]["name"];
+                    // last element of leg->turnInst contains cumulative Distance = cDis
+                    $leg_helper["distance"] = end($leg["turnInst"])["cDis"];
                 }
                 // show remarks
                 if($argRemarks) {
