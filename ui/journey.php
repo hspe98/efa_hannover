@@ -947,7 +947,7 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
                 $mot = '<i class="material-icons">directions_walk</i>';
             } else {
                 if (str_contains($leg["line"]['name'], "Flixbus")) {
-                    $mot = $leg["line"]['name'] . " " . $leg["line"]['symbol'];
+                    $mot = $leg["line"]['name'];
                 } elseif (str_contains($leg["line"]['name'], "RE") or str_contains($leg["line"]['name'], "RB")) {
                     $mot = $leg["line"]['name'];
                 } elseif (str_contains($leg["line"]["name"], "IC")) {
@@ -981,7 +981,7 @@ arrow_right
                 $mot = '<i class="material-icons">directions_walk</i> '.$leg["distance"]."&nbsp;m";
             } else {
                 if (str_contains($leg["line"]['name'], "Flixbus")) {
-                    $mot = $leg["line"]['name'] . " " . $leg["line"]['symbol'];
+                    $mot = $leg["line"]['name'];
                 } elseif (str_contains($leg["line"]['name'], "RE") or str_contains($leg["line"]['name'], "RB")) {
                     $mot = $leg["line"]['name'];
                 } elseif (str_contains($leg["line"]["name"], "IC")) {
