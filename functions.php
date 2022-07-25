@@ -924,6 +924,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
     }*/
     // Check if too many point options
     if ((count($data["origin"]["points"]) > 1) or (count($data["destination"]["points"]) > 1)) {
+        $result = array();
         if (count($data["origin"]["points"]) > 1) {
             $result["errors"]["origin"] = array("Too many origin options"=>count($data["origin"]["points"]));
             
