@@ -33,6 +33,9 @@ if ($_GET['language'] == "de") {
     define("STR_SHOW_5", "Von");
     define("STR_SHOW_6", "Nach");
     define("STR_SHOW_7", "Preisliste");
+    define("STR_SHOW_8", "Zeige aktuelle Reisen");
+    define("STR_SHOW_9", "Zeige mehr Reisen");
+    
     define("STR_SHOW_15", "Hinweise");
     define("STR_SHOW_16", "Sitzenbleiben");
     define("STR_SHOW_21", "Niederflurbus mit Rampe");
@@ -73,6 +76,8 @@ if ($_GET['language'] == "de") {
     define("STR_SHOW_5", "From");
     define("STR_SHOW_6", "To");
     define("STR_SHOW_7", "Price list");
+    define("STR_SHOW_8", "Show current journeys");
+    define("STR_SHOW_9", "Show more journeys");
     define("STR_SHOW_15", "Remarks");
     define("STR_SHOW_16", "stay seated");
     define("STR_SHOW_21", "low floor bus with ramp");
@@ -877,6 +882,33 @@ Error! Set origin (from or from.latitude & from.longitude) or set help for help<
     // Heading
     echo "<h1>" . STR_SHOW_1 . " " . date("d.m.Y H:i", strtotime($pWhen)) . "</h1>";
 
+    ?>
+    		<div class="row">
+			<p class="col-md-12 col-lg-12">
+				<a class="btn btn-primary col-md-12"
+					href="<?php
+			$arg_GET = $_GET;
+			unset($arg_GET['when']);
+			unset($arg_GET['whend']);
+			unset($arg_GET['whent']);
+
+			echo $_SERVER['SCRIPT_NAME'] . "?" . http_build_query($arg_GET);
+			?>"
+					target="_blank"><?php echo STR_SHOW_8; ?></a>
+			</p>
+			<p class="col-md-12 col-lg-12">
+				<a class="btn btn-primary col-md-12"
+					href="<?php
+			$arg_GET = $_GET;
+			$arg_GET['calcNumberOfTrips'] = $arg_GET['calcNumberOfTrips'] + 5;
+
+			echo $_SERVER['SCRIPT_NAME'] . "?" . http_build_query($arg_GET);
+			?>"><?php echo STR_SHOW_9; ?></a>
+			</p>
+		</div>
+    <?php 
+
+
     $table_content .= '<table class="table table-condensed table-hover">';
 
     $table_content .= '<tr>
@@ -964,12 +996,14 @@ arrow_right
             // $change_at[] = $leg["destination"]["name"];
 
             $table_content .= "<tr>";
+            $table_content .= '<td class="text-right">'.$leg['minuteInJourney']."</td>";
             $table_content .= '<td><a target="_blank" href="' . convertDownloadLink($leg['origin']['download']) . '">' . $leg['origin']['name'] . "</a></td>";
-            $table_content .= "<td>" . date("H:i", strtotime($leg['departure'])) . "</td>";
+            $table_content .= '<td><i class="material-icons">timer</i> ' . $leg['duration'] . "&nbsp;min.</td>";
+            $table_content .= '<td><i class="material-icons">logout</i> ' . date("H:i", strtotime($leg['departure'])) . "</td>";
             $table_content .= "<td>" . $leg['departurePlatform'] . "</td>";
             $table_content .= "<td>" . $mot . "</td>";
             $table_content .= "<td>" . $leg['arrivalPlatform'] . "</td>";
-            $table_content .= "<td>" . date("H:i", strtotime($leg['arrival'])) . "</td>";
+            $table_content .= '<td><i class="material-icons">login</i> ' . date("H:i", strtotime($leg['arrival'])) . "</td>";
             $table_content .= '<td><a target="_blank" href="' . convertDownloadLink($leg['destination']['download']) . '">' . $leg['destination']['name'] . "</a></td>";
             $table_content .= "</tr>";
 
