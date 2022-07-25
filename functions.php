@@ -916,7 +916,6 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
     $query .= "&language=" . $argLanguage;
     // test url
     echo "https://app.efa.de/mdv_server/app_gvh/XML_TRIP_REQUEST2?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8&outputFormat=json&" . $query;
-    $query= "";
     $data = getData("XML_TRIP_REQUEST2", $outputFormat = "json", $query);
     $data = json_decode(utf8_encode($data), 1, JSON_UNESCAPED_UNICODE);
 
