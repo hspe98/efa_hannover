@@ -919,7 +919,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
     }
     $query .= "&language=" . $argLanguage;
     // test url
-    echo "https://app.efa.de/mdv_server/app_gvh/XML_TRIP_REQUEST2?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8&outputFormat=json&" . $query;
+    // echo "https://app.efa.de/mdv_server/app_gvh/XML_TRIP_REQUEST2?session=0&outputEncoding=UTF-8&inputEncoding=UTF-8&outputFormat=json&" . $query;
     $data = getData("XML_TRIP_REQUEST2", $outputFormat = "json", $query);
     $data = json_decode(utf8_encode($data), 1, JSON_UNESCAPED_UNICODE);
 
@@ -927,7 +927,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
         print_r(json_encode($data));
     }*/
     // Check if too many point options
-    /*if ((count($data["origin"]["points"]) > 1) or (count($data["destination"]["points"]) > 1)) {
+    if ((count($data["origin"]["points"]) > 1) or (count($data["destination"]["points"]) > 1)) {
         $result = array();
         if (count($data["origin"]["points"]) > 1) {
             $result["errors"]["origin"] = array("Too many origin options"=>count($data["origin"]["points"]));
@@ -951,7 +951,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
             }
         }
         return json_encode($result, JSON_PRETTY_PRINT);
-    } else {*/
+    } else {
         // loop through each trip
         foreach ($data["trips"] as $trip) {
             // fares
@@ -1059,7 +1059,7 @@ function getJourney($argOrigin, $argDestination, $argCalcNumberOfTrips = 5, $arg
             unset($legs);
             unset($tickets);
         }
-    //}
+    }
     
     $result[] = array(
         "journeys" => $trips
