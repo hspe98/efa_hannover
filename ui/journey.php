@@ -349,7 +349,7 @@ body {
 </head>
 <body>
 	<div class="container">
-		<form class="form-signin" method="GET" action="">
+		<form class="form-signin" method="GET" action="#">
 			<h2 class="form-signin-heading"><?php echo STR_SEARCH_1; ?></h2>
 <?php
 
