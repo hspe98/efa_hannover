@@ -545,10 +545,10 @@ body {
 			<div class="btn-group btn-group-justified" role="group"
 				aria-label="...">
 				<div class="btn-group" role="group">
-					<button type="button" id="useDep" class="btn btn-default active"><?php echo STR_SEARCH_3_1; ?></button>
+					<button type="button" id="useDep" data-deporarr="departure" class="btn btn-default changeDepOrArr active"><?php echo STR_SEARCH_3_1; ?></button>
 				</div>
 				<div class="btn-group" role="group">
-					<button type="button" id="useArr" class="btn btn-default"><?php echo STR_SEARCH_3_2; ?></button>
+					<button type="button" id="useArr" data-deporarr="arrival" class="btn btn-default changeDepOrArr"><?php echo STR_SEARCH_3_2; ?></button>
 				</div>
 			</div>
 			<input type="hidden" id="ArrOrDep" name="departure">
@@ -675,23 +675,13 @@ $(document).ready(function() {
 	
 });
 
-$('#useDep').click(function()
-{
+$('.changeDepOrArr').click(function(){
 	var x = $(this);
-	var y = $('#useArr');
+	$('.changeDepOrArr').removeClass("active");
 	x.addClass("active");
-	y.removeClass("active");
-	$('#ArrOrDep').attr('name', "departure");
+	$('#ArrOrDep').attr('name', x.attr("data-deporarr"));
 });
 
-$('#useArr').click(function()
-{
-	var x = $(this);
-	var y = $('#useDep');
-	x.addClass("active");
-	y.removeClass("active");
-	$('#ArrOrDep').attr('name', "arrival");
-});
 
 $('.changeWalkingSpeed').click(function(){
 	var x = $(this);

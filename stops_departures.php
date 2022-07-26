@@ -14,12 +14,16 @@ if (isset($_GET['when'])) {
 } else {
     $pWhen = "now";
 }
+if (isset($_GET['deporarr']) and (($_GET['deporarr']=="dep") or ($_GET['deporarr']=="arr"))) {
+    $pDepOrArr = $_GET['deporarr'];
+} else {
+    $pDepOrArr = "dep";
+}
 if (isset($_GET['results'])) {
     $pResults = $_GET['results'];
 } else {
     $pResults = 10;
 }
-
 if (isset($_GET['suburban'])) {
     $pSuburban = filter_var($_GET['suburban'], FILTER_VALIDATE_BOOLEAN);
 } else {
@@ -78,5 +82,5 @@ if (isset($_GET['pretty'])) {
     $pPretty = False;
 }
 
-echo getStopsDeparturesById($argId=$pId, $argWhen = $pWhen, $argResults = $pResults, $argDirection=$pDirection, $argDuration=$pDuration, $argRemarks=$pRemarks, $argLinesOfStops=True, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argPretty=$pPretty);
+echo getStopsDeparturesById($argId=$pId, $argWhen = $pWhen, $argDepOrArr = $pDepOrArr, $argResults = $pResults, $argDirection=$pDirection, $argDuration=$pDuration, $argRemarks=$pRemarks, $argLinesOfStops=True, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argPretty=$pPretty);
 

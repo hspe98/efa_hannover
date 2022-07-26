@@ -552,7 +552,7 @@ function translateEFAarr_depDateTimeSecToLocalTime($efa_dt) {
  * @param boolean $argPretty pretty-print json?
  * @return string
  */
-function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argDirection = "",$argDuration = False,  $argRemarks = True, $argLinesOfStops = True, $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argPretty = True)
+function getStopsDeparturesById($argId, $argWhen = True, $argDepOrArr = "dep", $argResults = 10, $argDirection = "",$argDuration = False,  $argRemarks = True, $argLinesOfStops = True, $argSuburban = True, $argSubway = True, $argTram = True, $argBus = True, $argFerry = True, $argExpress = True, $argRegional = True, $argPretty = True)
 {
     // build query
     $query = "locationServerActive=1&mergeDep=1&coordOutputFormat=WGS84[DD.dddddddd]";
@@ -590,6 +590,8 @@ function getStopsDeparturesById($argId, $argWhen = True, $argResults = 10, $argD
     if (! $argRegional) {
         $query .= "&excludedMeans=0";
     }
+    $query .= "&itdTripDateTimeDepArr=".$argDepOrArr;
+    
     // get data
     $data = getData("XML_DM_REQUEST", "json", $query);
     $data = json_decode(utf8_encode($data), 1);

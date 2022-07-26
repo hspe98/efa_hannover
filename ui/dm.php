@@ -12,6 +12,8 @@ if ($_GET['language'] == "de") {
     define("STR_SEARCH_2", "Anzahl der Resultate");
     define("STR_SEARCH_3", "Datum");
     define("STR_SEARCH_4", "Uhrzeit");
+    define("STR_SEARCH_4_1", "Abfahrt");
+    define("STR_SEARCH_4_2", "Ankunft");
     define("STR_SEARCH_5", "Auswahl Verkehrsmittel");
     define("STR_SEARCH_6", "S-Bahn");
     define("STR_SEARCH_7", "U-Bahn");
@@ -50,6 +52,8 @@ if ($_GET['language'] == "de") {
     define("STR_SEARCH_2", "Number of results");
     define("STR_SEARCH_3", "Date");
     define("STR_SEARCH_4", "Time");
+    define("STR_SEARCH_4_1", "Departure");
+    define("STR_SEARCH_4_2", "Arrival");
     define("STR_SEARCH_5", "Select MOT");
     define("STR_SEARCH_6", "suburban");
     define("STR_SEARCH_7", "subway");
@@ -407,6 +411,17 @@ body {
 				pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" id="when-t"
 				class="form-control" name="whent" required="" autofocus="2"> <?php echo STR_SEARCH_4; ?>
 			</label>
+			<div class="btn-group btn-group-justified" role="group"
+				aria-label="...">
+				<div class="btn-group" role="group">
+					<button type="button" id="useDep" data-deporarr="dep" class="btn btn-default changeDepOrArr active"><?php echo STR_SEARCH_4_1; ?></button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" id="useArr" data-deporarr="arr" class="btn btn-default changeDepOrArr"><?php echo STR_SEARCH_4_2; ?></button>
+				</div>
+			</div>
+			<input type="hidden" id="ArrOrDep" name="deporarr" value="dep">
+			<br><br>
 			<!-- MOT selection -->
 			<hr>
 			<h3><?php echo STR_SEARCH_5; ?></h3>
@@ -512,6 +527,14 @@ $(document).ready(function() {
 	$('#when-t').val(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }));
 	
 });
+
+$('.changeDepOrArr').click(function(){
+	var x = $(this);
+	$('.changeDepOrArr').removeClass("active");
+	x.addClass("active");
+	$('#ArrOrDep').attr('value', x.attr("data-deporarr"));
+});
+
 </script>
 </body>
 </html>
@@ -612,6 +635,11 @@ $(document).ready(function() {
 		} else {
 			$pWhen = "now";
 		}
+		if (isset($_GET['deporarr']) and (($_GET['deporarr']=="dep") or ($_GET['deporarr']=="arr"))) {
+		    $pDepOrArr = $_GET['deporarr'];
+		} else {
+		    $pDepOrArr = "dep";
+		}
 		$args_for_links_in_table .= "&when=" . $pWhen;
 		if (isset($_GET['results'])) {
 			$pResults = $_GET['results'];
@@ -685,7 +713,7 @@ $(document).ready(function() {
 			$pPretty = False;
 		}
 
-		$deps = json_decode(utf8_encode(getStopsDeparturesById($argId = $pId, $argWhen = $pWhen, $argResults = $pResults, $argDirection = $pDirection, $argDuration = $pDuration, $argRemarks = $pRemarks, $argLinesOfStops = True, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argPretty = $pPretty)), 1, JSON_UNESCAPED_UNICODE);
+		$deps = json_decode(utf8_encode(getStopsDeparturesById($argId = $pId, $argWhen = $pWhen, $argDepOrArr = $pDepOrArr, $argResults = $pResults, $argDirection = $pDirection, $argDuration = $pDuration, $argRemarks = $pRemarks, $argLinesOfStops = True, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argPretty = $pPretty)), 1, JSON_UNESCAPED_UNICODE);
 
 		// $loc = json_decode(utf8_encode(getLocation($argQuery=$pQuery, $argNumResults=$pResults, $argLanguage=$pLang, $argGetPOI=$pPOI, $argGetStreets = $pStreets, $argGetStops = $pStops, $argPretty=$pPretty)),1,JSON_UNESCAPED_UNICODE);
 		echo '	<div class="container">';
