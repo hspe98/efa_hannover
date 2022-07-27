@@ -1,5 +1,9 @@
 <?php
 
+if ($_SERVER['REQUEST_SCHEME'] == "http") {
+    header("Location: https://"+$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+}
+
 # ## Language dictionary ###
 if ($_GET['language'] == "de") {
     // START
@@ -220,7 +224,7 @@ body {
 		<form class="form-signin" method="GET" action="#">
 			<h2 class="form-signin-heading text-center"><?php echo STR_START_1; ?></h2>
 			<div class="row">
-    			<a id="useGPSOrigin" class="useGPS btn btn-secondary col-md-6"><?php echo STR_START_20; ?></a>
+    			<a data-place="From" id="useGPSOrigin" class="useGPS btn btn-secondary col-md-6"><?php echo STR_START_20; ?></a>
     			<a data-place="From" class="findMe btn btn-secondary col-md-6"><i class="material-icons">my_location</i></a>
 			</div>
 			<input type="text" id="inputFrom" class="form-control"
@@ -233,7 +237,7 @@ body {
 				placeholder="<?php echo STR_START_21_2; ?>" name="from_longitude" required
 				disabled><br>
 			<div class="row">
-    			<a id="useGPSDestination" class="useGPS btn btn-secondary col-md-6"><?php echo STR_START_20; ?></a>
+    			<a data-place="To" id="useGPSDestination" class="useGPS btn btn-secondary col-md-6"><?php echo STR_START_20; ?></a>
     			<a data-place="To" class="findMe btn btn-secondary col-md-6"><i class="material-icons">my_location</i></a>
 			</div>
 			<input type="text" id="inputTo"
@@ -263,32 +267,23 @@ body {
 		</div>
 	</div>
 	<script>
-	$('#useGPSOrigin').on('click', function(){
-		console.log("click");
-		var t = $(this);
-		if ($('#inputFrom').attr('disabled') == "disabled") {
-			$('#inputFrom').removeAttr('disabled');
-			$('#inputFromLatitude').attr('disabled', true);
-			$('#inputFromLongitude').attr('disabled', true);
+	function switchGPS(argPlace) {
+		if ($('#input'+argPlace).attr('disabled') == "disabled") {
+			$('#input'+argPlace).removeAttr('disabled');
+			$('#input'+argPlace+'Latitude').attr('disabled', true);
+			$('#input'+argPlace+'Longitude').attr('disabled', true);
 		} else {
-			$('#inputFrom').attr('disabled', true);
-			$('#inputFromLatitude').removeAttr('disabled');
-			$('#inputFromLongitude').removeAttr('disabled');
+			$('#input'+argPlace).attr('disabled', true);
+			$('#input'+argPlace+'Latitude').removeAttr('disabled');
+			$('#input'+argPlace+'Longitude').removeAttr('disabled');
 		}
+	}
+	
+	$('.useGPS').on('click', function(){
+		var x = $(this).attr('data-place');
+		switchGPS(x);
 	});
-	$('#useGPSDestination').on('click', function(){
-		console.log("click");
-		var t = $(this);
-		if ($('#inputTo').attr('disabled') == "disabled") {
-			$('#inputTo').removeAttr('disabled');
-			$('#inputToLatitude').attr('disabled', true);
-			$('#inputToLongitude').attr('disabled', true);
-		} else {
-			$('#inputTo').attr('disabled', true);
-			$('#inputToLatitude').removeAttr('disabled');
-			$('#inputToLongitude').removeAttr('disabled');
-		}
-	});
+
 	$('#inputFromLatitude').on('change', function(){
 		var content = $(this).val();
 		if(content.indexOf(",") != -1) {
@@ -311,6 +306,7 @@ body {
 			alert("For security reasons the geolocation function of your browser is disabled on http:// pages.\n\nPlease use https://\n\nAus Sicherheitsgründen ist die GPS-Funktion deines Browsers auf http://-Seiten deaktiviert.\n\nBitte nutze https://");
 		}
 		var x = $(this).attr('data-place');
+		switchGPS(x);
 		console.log('#input'+x+'Latitude');
 		var opts = {
 		enableHighAccuracy: true,
@@ -455,8 +451,8 @@ body {
         $pOrigin = urldecode($_GET['from']);
     } elseif (isset($_GET['from_latitude']) and isset($_GET['from_longitude'])) {
         $pOrigin = array(
-            $_GET['from_latitude'],
-            $_GET['from_longitude']
+            urldecode($_GET['from_latitude']),
+                urldecode($_GET['from_longitude'])
         );
     } else {
         $error_text = "
@@ -469,16 +465,12 @@ Error! Set origin (from or from_latitude & from_longitude) or set help for help<
         $pDestination = urldecode($_GET['to']);
     } elseif (isset($_GET['to_latitude']) and isset($_GET['to_longitude'])) {
         $pDestination = array(
-            $_GET['to_latitude'],
-            $_GET['to_longitude']
+            urldecode($_GET['to_latitude']),
+            urldecode($_GET['to_longitude'])
         );
-        $pTypeDestination = "coords";
     } else {
         exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
     }
-    // I dont know why the code above doesnt work, but it only works if the following segment is used
-//     $pOrigin = urldecode($_GET['from']);
-//     $pDestination = urldecode($_GET['to']);
     
 
     if (isset($_GET['departure'])) {
@@ -568,7 +560,7 @@ Error! Set origin (from or from_latitude & from_longitude) or set help for help<
         $pPretty = False;
     }
     $data = getJourney($argOrigin = $pOrigin, $argDestination = $pDestination, $argCalcNumberOfTrips = $pCalcNumberOfTrips, $argRemarks = $pRemarks, $argWhen = $pWhen, $argDepOrArrTime = $pDepOrArrTime, $argMaxTransfers = $pMaxTransfers, $argWalkingSpeed = $pWalkingSpeed, $argSuburban = $pSuburban, $argSubway = $pSubway, $argTram = $pTram, $argBus = $pBus, $argFerry = $pFerry, $argExpress = $pExpress, $argRegional = $pRegional, $argLanguage = $pLanguage, $argPretty = $pPretty);
-    
+    echo $data;
     $loc = json_decode($data, 1, JSON_UNESCAPED_UNICODE);
     $already_got_from = '<h4>' . STR_SEARCH_1_1 . '</h4><div class="checkbox">
 		  <label>
@@ -582,14 +574,14 @@ Error! Set origin (from or from_latitude & from_longitude) or set help for help<
 		</div>';
     $already_got_from_gps = '<h4>' . STR_SEARCH_1_1 . '</h4><div class="checkbox">
 		  <label>
-			<input checked type="radio" required value="' . $_GET['from_longitude'].':'.$_GET['from_latitude'] . ':WGS84:"> GPS (' . $_GET['from_latitude'].', '.$_GET['from_longitude']. ')
+			<input checked type="radio" required value="' . $_GET['from_longitude'].':'.$_GET['from_latitude'] . ':WGS84:"> <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=' . $_GET['from_latitude'].','.$_GET['from_longitude']. '">GPS (' . $_GET['from_latitude'].', '.$_GET['from_longitude']. ')</a>
 		  </label>
           <input type="hidden" name="from_latitude" value="' . $_GET['from_latitude'].'">
           <input type="hidden" name="from_longitude" value="' . $_GET['from_longitude'].'">
 		</div>';
     $already_got_to_gps = '<h4>' . STR_SEARCH_1_2 . '</h4><div class="checkbox">
 		  <label>
-			<input checked type="radio" required value="' . $_GET['to_longitude'].':'.$_GET['to_latitude'] . ':WGS84:">  GPS (' . $_GET['to_latitude'].', '.$_GET['to_longitude']. ')
+			<input checked type="radio" required value="' . $_GET['to_longitude'].':'.$_GET['to_latitude'] . ':WGS84:">  <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=' . $_GET['to_latitude'].','.$_GET['to_longitude']. '">GPS (' . $_GET['to_latitude'].', '.$_GET['to_longitude']. ')</a>
 		  </label>
           <input type="hidden" name="to_latitude" value="' . $_GET['to_latitude'].'">
           <input type="hidden" name="to_longitude" value="' . $_GET['to_longitude'].'">
