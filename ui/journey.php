@@ -309,10 +309,14 @@ body {
 	$('.findMe').on('click', function(){
 		var x = $(this).attr('data-place');
 		console.log('#input'+x+'Latitude');
+		var opts = {
+		enableHighAccuracy: true,
+		timeout: 15000
+		};
 		navigator.geolocation.getCurrentPosition(function(data){
 			$('#input'+x+'Latitude').val(data.coords.latitude);
 			$('#input'+x+'Longitude').val(data.coords.longitude);
-		});
+		}, opts);
 	});
 
 	
