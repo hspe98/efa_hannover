@@ -164,7 +164,8 @@ if (count($_GET) <= 1 or isset($_GET['start'])) {
 	src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
 	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
 	crossorigin="anonymous" type="text/javascript"></script>
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <style type="text/css">
 /* stylelint-disable selector-no-qualifying-type, property-no-vendor-prefix */
 body {
@@ -218,7 +219,10 @@ body {
 	<div class="container">
 		<form class="form-signin" method="GET" action="#">
 			<h2 class="form-signin-heading text-center"><?php echo STR_START_1; ?></h2>
-			<a id="useGPSOrigin" class="useGPS btn btn-secondary"><?php echo STR_START_20; ?></a><br>
+			<div class="row">
+    			<a id="useGPSOrigin" class="useGPS btn btn-secondary col-md-6"><?php echo STR_START_20; ?></a>
+    			<a data-place="From" class="findMe btn btn-secondary col-md-6"><i class="material-icons">my_location</i></a>
+			</div>
 			<input type="text" id="inputFrom" class="form-control"
 				placeholder="<?php echo STR_START_21; ?>" name="from" required
 				autofocus><br>
@@ -228,7 +232,10 @@ body {
 			<input type="text" id="inputFromLongitude" class="form-control"
 				placeholder="<?php echo STR_START_21_2; ?>" name="from_longitude" required
 				disabled><br>
-			<a id="useGPSDestination" class="useGPS btn btn-secondary"><?php echo STR_START_20; ?></a>
+			<div class="row">
+    			<a id="useGPSDestination" class="useGPS btn btn-secondary col-md-6"><?php echo STR_START_20; ?></a>
+    			<a data-place="To" class="findMe btn btn-secondary col-md-6"><i class="material-icons">my_location</i></a>
+			</div>
 			<input type="text" id="inputTo"
 				class="form-control" placeholder="<?php echo STR_START_22; ?>"
 				name="to" required autofocus><br>
@@ -298,6 +305,19 @@ body {
 			$('#inputToLongitude').val(content.split(",")[1].trim());
 		}
 	});
+	
+	$('.findMe').on('click', function(){
+		var x = $(this).attr('data-place');
+		console.log('#input'+x+'Latitude');
+		navigator.geolocation.getCurrentPosition(function(data){
+			$('#input'+x+'Latitude').val(data.coords.latitude);
+			$('#input'+x+'Longitude').val(data.coords.longitude);
+		});
+	});
+
+	
+
+    	
 	
 	</script>
 </body>
