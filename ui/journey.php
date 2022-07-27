@@ -355,33 +355,33 @@ body {
 
     require '../functions.php';
 
-//     if (isset($_GET['from'])) {
-//         $pOrigin = urldecode($_GET['from']);
-//     } elseif (isset($_GET['from.latitude']) and isset($_GET['from.longitude'])) {
-//         $pOrigin = array(
-//             $_GET['from.latitude'],
-//             $_GET['from.longitude']
-//         );
-//     } else {
-//         $error_text = "
-// Error! Set origin (from or from.latitude & from.longitude) or set help for help<br>
+    if (isset($_GET['from'])) {
+        $pOrigin = urldecode($_GET['from']);
+    } elseif (isset($_GET['from_latitude']) and isset($_GET['from_longitude'])) {
+        $pOrigin = array(
+            $_GET['from_latitude'],
+            $_GET['from_longitude']
+        );
+    } else {
+        $error_text = "
+Error! Set origin (from or from_latitude & from_longitude) or set help for help<br>
         
-// ";
-//         exit($error_text);
-//     }
-//     if (isset($_GET['to'])) {
-//         $pDestination = urldecode($_GET['to']);
-//     } elseif (isset($_GET['to.latitude']) and isset($_GET['to.longitude'])) {
-//         $pDestination = array(
-//             $_GET['to.latitude'],
-//             $_GET['to.longitude']
-//         );
-//     } else {
-//         exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
-//     }
+";
+        exit($error_text);
+    }
+    if (isset($_GET['to'])) {
+        $pDestination = urldecode($_GET['to']);
+    } elseif (isset($_GET['to_latitude']) and isset($_GET['to_longitude'])) {
+        $pDestination = array(
+            $_GET['to_latitude'],
+            $_GET['to_longitude']
+        );
+    } else {
+        exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
+    }
     // I dont know why the code above doesnt work, but it only works if the following segment is used
-    $pOrigin = urldecode($_GET['from']);
-    $pDestination = urldecode($_GET['to']);
+//     $pOrigin = urldecode($_GET['from']);
+//     $pDestination = urldecode($_GET['to']);
     
 
     if (isset($_GET['departure'])) {
@@ -788,27 +788,27 @@ li.highlight-line {
 
     if (isset($_GET['from'])) {
         $pOrigin = urldecode($_GET['from']);
-    } elseif (isset($_GET['from.latitude']) and isset($_GET['from.longitude'])) {
+    } elseif (isset($_GET['from_latitude']) and isset($_GET['from_longitude'])) {
         $pOrigin = array(
-            $_GET['from.latitude'],
-            $_GET['from.longitude']
+            $_GET['from_latitude'],
+            $_GET['from_longitude']
         );
     } else {
         $error_text = "
-Error! Set origin (from or from.latitude & from.longitude) or set help for help<br>
+Error! Set origin (from or from_latitude & from_longitude) or set help for help<br>
         
 ";
-        //exit($error_text);
+        exit($error_text);
     }
     if (isset($_GET['to'])) {
         $pDestination = urldecode($_GET['to']);
-    } elseif (isset($_GET['to.latitude']) and isset($_GET['to.longitude'])) {
+    } elseif (isset($_GET['to_latitude']) and isset($_GET['to_longitude'])) {
         $pDestination = array(
-            $_GET['to.latitude'],
-            $_GET['to.longitude']
+            $_GET['to_latitude'],
+            $_GET['to_longitude']
         );
     } else {
-        //exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
+        exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
     }
 
     if (isset($_GET['departure'])) {
