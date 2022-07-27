@@ -4,8 +4,13 @@
 if ($_GET['language'] == "de") {
     // START
     define("STR_START_1", "Bitte Name des gewünschten Haltes eingeben");
+    define("STR_START_20", "Zu GPS wechseln");
     define("STR_START_21", "Starthalt eingeben");
+    define("STR_START_21_1", "Breitengrad eingeben");
+    define("STR_START_21_2", "Längengrad eingeben");
     define("STR_START_22", "Zielhalt eingeben");
+    define("STR_START_22_1", "Breitengrad eingeben");
+    define("STR_START_22_2", "Längengrad eingeben");
     define("STR_START_3", "Absenden");
     // SEARCH
     define("STR_SEARCH_1", "Wähle deine Haltestellen aus");
@@ -52,8 +57,13 @@ if ($_GET['language'] == "de") {
 } else {
     // START
     define("STR_START_1", "Please enter the name of the desired stop");
+    define("STR_START_20", "Switch to GPS");
     define("STR_START_21", "Enter stopname (origin)");
+    define("STR_START_21_1", "Enter latitude (origin)");
+    define("STR_START_21_2", "Enter longitude (origin)");
     define("STR_START_22", "Enter stopname (destination)");
+    define("STR_START_22_1", "Enter latitude (destination)");
+    define("STR_START_22_2", "Enter longitude (destination)");
     define("STR_START_3", "Send");
     // SEARCH
     define("STR_SEARCH_1", "Choose your stations");
@@ -206,31 +216,90 @@ body {
 </head>
 <body>
 	<div class="container">
-		<form class="form-signin" method="GET" action="">
+		<form class="form-signin" method="GET" action="#">
 			<h2 class="form-signin-heading text-center"><?php echo STR_START_1; ?></h2>
-			<br> <input type="text" id="inputEmail" class="form-control"
+			<a id="useGPSOrigin" class="useGPS btn btn-secondary"><?php echo STR_START_20; ?></a><br>
+			<input type="text" id="inputFrom" class="form-control"
 				placeholder="<?php echo STR_START_21; ?>" name="from" required
-				autofocus><br> <input type="text" id="inputEmail"
+				autofocus><br>
+			<input type="text" id="inputFromLatitude" class="form-control"
+				placeholder="<?php echo STR_START_21_1; ?>" name="from_latitude" required
+				disabled><br>
+			<input type="text" id="inputFromLongitude" class="form-control"
+				placeholder="<?php echo STR_START_21_2; ?>" name="from_longitude" required
+				disabled><br>
+			<a id="useGPSDestination" class="useGPS btn btn-secondary"><?php echo STR_START_20; ?></a>
+			<input type="text" id="inputTo"
 				class="form-control" placeholder="<?php echo STR_START_22; ?>"
-				name="to" required autofocus><br> <input type="hidden" name="search">
-			<input type="hidden" name="language"
-				value="<?php echo $_GET["language"]; ?>">
+				name="to" required autofocus><br>
+			<input type="text" id="inputToLatitude" class="form-control"
+				placeholder="<?php echo STR_START_22_1; ?>" name="to_latitude" required
+				disabled><br>
+			<input type="text" id="inputToLongitude" class="form-control"
+				placeholder="<?php echo STR_START_22_2; ?>" name="to_longitude" required
+				disabled><br>
+			<input type="hidden" name="search">
+			<input type="hidden" name="language" value="<?php echo $_GET["language"]; ?>">
 			<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo STR_START_3; ?></button>
-			<br> <br>
-			<h4>language/Sprache</h4>
-			<div class="row">
-				<p class="col-sm-12 col-md-6 col-lg-4">
-					<a class="btn btn-default col-md-12"
-						href="<?php echo $_SERVER['SCRIPT_NAME']."?language=en"; ?>">English</a>
-				</p>
-				<p class="col-sm-12 col-md-6 col-lg-4">
-					<a class="btn btn-default col-md-12"
-						href="<?php echo $_SERVER['SCRIPT_NAME']."?language=de"; ?>">Deutsch</a>
-				</p>
-			</div>
-		</form>
-
+		</form>		
+		<br><br>
+		<h4>language/Sprache</h4>
+		<div class="row">
+			<p class="col-sm-12 col-md-6 col-lg-4">
+				<a class="btn btn-default col-md-12"
+					href="<?php echo $_SERVER['SCRIPT_NAME']."?language=en"; ?>">English</a>
+			</p>
+			<p class="col-sm-12 col-md-6 col-lg-4">
+				<a class="btn btn-default col-md-12"
+					href="<?php echo $_SERVER['SCRIPT_NAME']."?language=de"; ?>">Deutsch</a>
+			</p>
+		</div>
 	</div>
+	<script>
+	$('#useGPSOrigin').on('click', function(){
+		console.log("click");
+		var t = $(this);
+		if ($('#inputFrom').attr('disabled') == "disabled") {
+			$('#inputFrom').removeAttr('disabled');
+			$('#inputFromLatitude').attr('disabled', true);
+			$('#inputFromLongitude').attr('disabled', true);
+		} else {
+			$('#inputFrom').attr('disabled', true);
+			$('#inputFromLatitude').removeAttr('disabled');
+			$('#inputFromLongitude').removeAttr('disabled');
+		}
+	});
+	$('#useGPSDestination').on('click', function(){
+		console.log("click");
+		var t = $(this);
+		if ($('#inputTo').attr('disabled') == "disabled") {
+			$('#inputTo').removeAttr('disabled');
+			$('#inputToLatitude').attr('disabled', true);
+			$('#inputToLongitude').attr('disabled', true);
+		} else {
+			$('#inputTo').attr('disabled', true);
+			$('#inputToLatitude').removeAttr('disabled');
+			$('#inputToLongitude').removeAttr('disabled');
+		}
+	});
+	$('#inputFromLatitude').on('change', function(){
+		var content = $(this).val();
+		if(content.indexOf(",") != -1) {
+			console.log("found . ");
+			$('#inputFromLatitude').val(content.split(",")[0].trim());
+			$('#inputFromLongitude').val(content.split(",")[1].trim());
+		}
+	});
+	$('#inputToLatitude').on('change', function(){
+		var content = $(this).val();
+		if(content.indexOf(",") != -1) {
+			console.log("found . ");
+			$('#inputToLatitude').val(content.split(",")[0].trim());
+			$('#inputToLongitude').val(content.split(",")[1].trim());
+		}
+	});
+	
+	</script>
 </body>
 </html>
 
@@ -376,6 +445,7 @@ Error! Set origin (from or from_latitude & from_longitude) or set help for help<
             $_GET['to_latitude'],
             $_GET['to_longitude']
         );
+        $pTypeDestination = "coords";
     } else {
         exit("Error! Set destination (to or to.latitude & to.longitude) or set help for help");
     }
@@ -483,6 +553,21 @@ Error! Set origin (from or from_latitude & from_longitude) or set help for help<
 			<input checked type="radio" required name="to" value="' . $_GET['to'] . '"> ' . $_GET['to'] . '
 		  </label>
 		</div>';
+    $already_got_from_gps = '<h4>' . STR_SEARCH_1_1 . '</h4><div class="checkbox">
+		  <label>
+			<input checked type="radio" required value="' . $_GET['from_longitude'].':'.$_GET['from_latitude'] . ':WGS84:"> GPS (' . $_GET['from_latitude'].', '.$_GET['from_longitude']. ')
+		  </label>
+          <input type="hidden" name="from_latitude" value="' . $_GET['from_latitude'].'">
+          <input type="hidden" name="from_longitude" value="' . $_GET['from_longitude'].'">
+		</div>';
+    $already_got_to_gps = '<h4>' . STR_SEARCH_1_2 . '</h4><div class="checkbox">
+		  <label>
+			<input checked type="radio" required value="' . $_GET['to_longitude'].':'.$_GET['to_latitude'] . ':WGS84:">  GPS (' . $_GET['to_latitude'].', '.$_GET['to_longitude']. ')
+		  </label>
+          <input type="hidden" name="to_latitude" value="' . $_GET['to_latitude'].'">
+          <input type="hidden" name="to_longitude" value="' . $_GET['to_longitude'].'">
+		</div>';
+    
     if (array_key_exists("errors", $loc)) {
         if (array_key_exists("origin", $loc["options"])) {
             $origin_options = $loc["options"]["origin"];
@@ -502,8 +587,10 @@ Error! Set origin (from or from_latitude & from_longitude) or set help for help<
 		  </label>
 		</div>';
             }
-        } else {
+        } elseif (isset($_GET['from'])) {
             echo $already_got_from;
+        } else {
+            echo $already_got_from_gps;
         }
         if (array_key_exists("destination", $loc["options"])) {
             $destination_options = $loc["options"]["destination"];
@@ -523,12 +610,22 @@ Error! Set origin (from or from_latitude & from_longitude) or set help for help<
 		  </label>
 		</div>';
             }
-        } else {
+        }  elseif (isset($_GET['to'])) {
             echo $already_got_to;
+        } else {
+            echo $already_got_to_gps;
         }
     } else {
-        echo $already_got_from;
-        echo $already_got_to;
+        if (isset($_GET['from'])) {
+            echo $already_got_from;
+        } else {
+            echo $already_got_from_gps;
+        }
+        if (isset($_GET['to'])) {
+            echo $already_got_to;
+        } else {
+            echo $already_got_to_gps;
+        }
     }
     ?>
 			<label> <input type="number" id="inputEmail" class="form-control"
