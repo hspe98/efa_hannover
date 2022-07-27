@@ -316,7 +316,7 @@ body {
 		navigator.geolocation.getCurrentPosition(function(data){
 			$('#input'+x+'Latitude').val(data.coords.latitude);
 			$('#input'+x+'Longitude').val(data.coords.longitude);
-		}, options=opts);
+		}, function(data){console.log(data)}, opts);
 	});
 
 	
