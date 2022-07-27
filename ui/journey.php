@@ -307,6 +307,9 @@ body {
 	});
 	
 	$('.findMe').on('click', function(){
+		if (window.location.protocol == "http:") {
+			alert("For security reasons the geolocation function of your browser is disabled on http:// pages.\n\nPlease use https://\n\nAus Sicherheitsgründen ist die GPS-Funktion deines Browsers auf http://-Seiten deaktiviert.\n\nBitte nutze https://");
+		}
 		var x = $(this).attr('data-place');
 		console.log('#input'+x+'Latitude');
 		var opts = {
